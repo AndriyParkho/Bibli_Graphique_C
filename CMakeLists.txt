@@ -75,6 +75,7 @@ include_directories(${HEADER_PATHS})
 set(LIB_EI_SOURCES
      ${SRC}/ei_widget.c
      ${SRC}/ei_application.c
+		${SRC}/ei_application.c
 )
 
 add_library(ei STATIC			${LIB_EI_SOURCES})
