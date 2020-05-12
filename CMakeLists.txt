@@ -81,12 +81,12 @@ include_directories(${HEADER_PATHS})
 
 # target minimal
 
-add_executable(minimal 			${TESTS_SRC}/minimal.c src/ei.c)
+add_executable(minimal 			${TESTS_SRC}/minimal.c)
 target_link_libraries(minimal		${PLATFORM_LIB_FLAGS})
 
 # target frame
 
-add_executable(frame			${TESTS_SRC}/frame.c src/ei.c)
+add_executable(frame			${TESTS_SRC}/frame.c)
 target_link_libraries(frame		ei ${PLATFORM_LIB_FLAGS})
 
 # target button
