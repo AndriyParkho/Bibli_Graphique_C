@@ -11,7 +11,7 @@ void ei_app_free(void) {
 }
 
 void ei_app_run(void) {
-        getchar()
+        getchar();
 }
 
 void ei_app_invalidate_rect(ei_rect_t* rect) {
