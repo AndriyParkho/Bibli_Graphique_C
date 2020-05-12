@@ -70,7 +70,7 @@ endif(${APPLE})
 include_directories(${HEADER_PATHS})
 
 
- target ei (libei)
+# target ei (libei)
 
 set(LIB_EI_SOURCES
      ${SRC}/ei_widget.c
