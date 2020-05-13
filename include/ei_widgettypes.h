@@ -2,10 +2,8 @@
 // Created by Enora on 13/05/2020.
 //
 
-#ifndef PROJETC_IG_EI_WIDGETTYPES_H
-#define PROJETC_IG_EI_WIDGETTYPES_H
-
-#endif //PROJETC_IG_EI_WIDGETTYPES_H
+#ifndef EI_WIDGETTYPES_H
+#define EI_WIDGETTYPES_H
 
 #include "SDL_keycode.h"
 #include "ei_types.h"
@@ -25,3 +23,5 @@
      ei_rect_t*          img_rect;
      ei_anchor_t*        img_anchor;
  } ei_frame_t;
+
+#endif //PROJETC_IG_EI_WIDGETTYPES_H
