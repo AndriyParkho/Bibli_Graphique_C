@@ -24,4 +24,4 @@
      ei_surface_t*       img;
      ei_rect_t*          img_rect;
      ei_anchor_t*        img_anchor;
- };
+ } ei_frame_t;
