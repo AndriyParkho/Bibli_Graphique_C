@@ -1,10 +1,10 @@
 /*
  *  Fichier où il y aura toutes les fonctions des différents widgets
  */
+#include "ei_draw.h"
 
 void frame_draw(ei_widget_t* widget){
-        ei_frame_t* frame = (ei_frame_t*)widget;
-
+        ei_draw_polygon(main_window, points, transp_blue, NULL);
 }
 
 
