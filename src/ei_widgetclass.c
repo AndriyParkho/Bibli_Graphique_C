@@ -89,9 +89,7 @@ typedef struct ei_widgetclass_t {
  *
  * @return			The string representing the name of the class.
  */
-static inline char*	ei_widgetclass_stringname	(ei_widgetclass_name_t name){
-
-}
+static inline char*	ei_widgetclass_stringname	(ei_widgetclass_name_t name);
 
 /**
  * @brief	Registers a class to the program so that widgets of this class can be created.
@@ -139,7 +137,7 @@ void			ei_button_register_class 	(void){
  *		\ref ei_toplevel_configure.
  */
 void			ei_toplevel_register_class 	(void){
-        
+
 }
 
 
