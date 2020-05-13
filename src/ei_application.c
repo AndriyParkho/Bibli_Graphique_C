@@ -1,4 +1,5 @@
 #include "../include/ei_application.h"
+#include <stdio.h>
 
 void ei_app_create(ei_size_t main_window_size, ei_bool_t fullscreen) {
         hw_init();
@@ -6,7 +7,6 @@ void ei_app_create(ei_size_t main_window_size, ei_bool_t fullscreen) {
 }
 
 void ei_app_free(void) {
-
 }
 
 void ei_app_run(void) {
