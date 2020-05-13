@@ -81,7 +81,7 @@ typedef struct ei_widget_t {
  *
  * @return			The newly created widget, or NULL if there was an error.
  */
-struct ei_widget_t*		ei_widget_create		(ei_widgetclass_name_t	class_name,
+ei_widget_t*		ei_widget_create		(ei_widgetclass_name_t	class_name,
                                                              struct ei_widget_t*		parent,
                                                              void*			user_data,
                                                              ei_widget_destructor_t destructor){
@@ -94,7 +94,7 @@ struct ei_widget_t*		ei_widget_create		(ei_widgetclass_name_t	class_name,
  *
  * @param	widget		The widget that is to be destroyed.
  */
-void			ei_widget_destroy		(struct ei_widget_t*		widget){
+void			ei_widget_destroy		( ei_widget_t*		widget){
 
 }
 
@@ -107,7 +107,7 @@ void			ei_widget_destroy		(struct ei_widget_t*		widget){
  * @return			The top-most widget at this location, or NULL if there is no widget
  *				at this location (except for the root widget).
  */
-struct ei_widget_t*		ei_widget_pick			(ei_point_t*		where){
+ei_widget_t*		ei_widget_pick			(ei_point_t*		where){
 
 }
 
@@ -153,7 +153,7 @@ struct ei_widget_t*		ei_widget_pick			(ei_point_t*		where){
  *				when the size of the widget is bigger than the size of the image.
  *				Defaults to \ref ei_anc_center.
  */
-void			ei_frame_configure		(struct ei_widget_t*		widget,
+void			ei_frame_configure		(ei_widget_t*		widget,
                                                                ei_size_t*		requested_size,
                                                                const ei_color_t*	color,
                                                                int*			border_width,
@@ -189,7 +189,7 @@ static const int	k_default_button_corner_radius	= 10;	///< The default corner ra
  * @param	user_param	A programmer supplied parameter that will be passed to the callback
  *				when called. Defaults to NULL.
  */
-void			ei_button_configure		(struct ei_widget_t*		widget,
+void			ei_button_configure		(ei_widget_t*		widget,
                                                                 ei_size_t*		requested_size,
                                                                 const ei_color_t*	color,
                                                                 int*			border_width,
@@ -229,7 +229,7 @@ void			ei_button_configure		(struct ei_widget_t*		widget,
  *				If *min_size is NULL, this requires the toplevel to be configured to
  *				its default size.
  */
-void			ei_toplevel_configure		(struct ei_widget_t*		widget,
+void			ei_toplevel_configure		( ei_widget_t*		widget,
                                                                   ei_size_t*		requested_size,
                                                                   ei_color_t*		color,
                                                                   int*			border_width,
