@@ -129,6 +129,7 @@ void			ei_frame_register_class 	(void){
         frame.drawfunc = &frame_draw;
         frame.setdefaultsfunc = &frame_setdefaultsfunc;
         frame.geomnotifyfunc = &frame_geomnotifyfunc;
+        ei_widgetclass_register(&frame);
 }
 
 /**
