@@ -24,4 +24,5 @@
      ei_anchor_t*        img_anchor;
  } ei_frame_t;
 
+
 #endif //PROJETC_IG_EI_WIDGETTYPES_H
