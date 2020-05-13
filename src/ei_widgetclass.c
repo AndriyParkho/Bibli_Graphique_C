@@ -90,7 +90,7 @@ typedef struct ei_widgetclass_t {
  * @return			The string representing the name of the class.
  */
 static inline char*	ei_widgetclass_stringname	(ei_widgetclass_name_t name){
-
+    return (char*)name;
 }
 
 /**
@@ -144,8 +144,9 @@ void			ei_toplevel_register_class 	(void){
 
 
 /* Inline function definitions. */
-
+/*
 static inline char*	ei_widgetclass_stringname	(ei_widgetclass_name_t name)
 {
         return (char*)name;
 }
+*/
