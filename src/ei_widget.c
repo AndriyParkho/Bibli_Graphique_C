@@ -28,8 +28,7 @@ struct ei_widget_t;
  */
 typedef ei_bool_t	(*ei_callback_t)	(struct ei_widget_t*	widget,
                                                   struct ei_event_t*	event,
-                                                  void*			user_param){
-}
+                                                  void*			user_param);
 
 /**
  * @brief	The type of functions that are called just before a widget is being destroyed (i.e. the
@@ -38,9 +37,7 @@ typedef ei_bool_t	(*ei_callback_t)	(struct ei_widget_t*	widget,
  *
  * @param	widget		The widget that is going to be destroyed.
  */
-typedef void		(*ei_widget_destructor_t)(struct ei_widget_t* widget){
-
-}
+typedef void		(*ei_widget_destructor_t)(struct ei_widget_t* widget);
 
 
 /**
