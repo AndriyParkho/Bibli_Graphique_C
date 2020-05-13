@@ -5,6 +5,7 @@
 
 #include "hw_interface.h"
 #include "ei_draw.h"
+#include <string.h>
 // #include "ei_widget_frame.h"
 
 
@@ -122,7 +123,7 @@ ei_widgetclass_t*	ei_widgetclass_from_name	(ei_widgetclass_name_t name){
  */
 void			ei_frame_register_class 	(void){
         ei_widgetclass_t frame;
-        frame.name = "frame";
+        strcpy(frame.name, "frame");
         frame.allocfunc = &frame_allocfunc;
         frame.releasefunc = &frame_releasefunc;
         frame.drawfunc = &frame_draw;
