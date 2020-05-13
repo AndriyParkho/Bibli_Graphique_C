@@ -1,6 +1,7 @@
 /*
  *  Fichier où il y aura toutes les fonctions des différents widgets
  */
+#include "ei_draw.h"
 
 /**
  * \brief	A function that draws widgets of a class.
@@ -13,21 +14,21 @@
  *				(expressed in the surface reference frame).
  */
 void frame_draw(ei_widget_t* widget){
-        ei_frame_t* frame = (ei_frame_t*)widget;
+        ei_draw_polygon(main_window, points, transp_blue, NULL);
 }
 
 
-void* frame_allocfunc(){
+void ei_frame_allocfunc(){
         return(calloc(sizeof(ei_frame_t)));
 }
 
 
-void frame_releasefunc(ei_frame_t* frame){
+void ei_frame_releasefunc(ei_frame_t* frame){
         free(frame);
 }
 
 
-void frame_setdefaultsfunc(ei_widget_t* widget){
+void ei_frame_setdefaultsfunc(ei_widget_t* widget){
         ei_frame_t* frame = (ei_frame_t*)widget;
 }
 
