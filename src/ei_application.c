@@ -1,16 +1,20 @@
 #include "../include/ei_application.h"
 #include <stdio.h>
+#include "ei_event.h"
 
 void ei_app_create(ei_size_t main_window_size, ei_bool_t fullscreen) {
-        hw_init();
-        hw_create_window(main_window_size, fullscreen);
+    hw_init();
+    hw_create_window(main_window_size, fullscreen);
 }
 
 void ei_app_free(void) {
 }
 
 void ei_app_run(void) {
-    getchar();
+    ei_event_t	event;
+    event.type = ei_ev_none;
+    while (event.type != ei_ev_keydown)
+        hw_event_wait_next(&event);
 }
 
 void ei_app_invalidate_rect(ei_rect_t* rect) {
