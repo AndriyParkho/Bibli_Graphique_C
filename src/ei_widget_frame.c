@@ -3,7 +3,7 @@
  */
 #include "ei_draw.h"
 
-void frame_draw(ei_widget_t* widget){
+void frame_drawfunc(ei_widget_t* widget){
         ei_draw_polygon(main_window, points, transp_blue, NULL);
 }
 

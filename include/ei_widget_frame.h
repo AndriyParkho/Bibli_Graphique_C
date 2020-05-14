@@ -49,6 +49,6 @@ void frame_setdefaultsfunc(ei_widget_t* widget);
  *
  * @param	widget		The widget instance to notify of a geometry change.
  */
-void ei_frame_geomnotifyfunc(ei_widget_t* widget)
+void frame_geomnotifyfunc(ei_widget_t* widget);
 
 #endif //EI_WIDGET_FRAME_H
