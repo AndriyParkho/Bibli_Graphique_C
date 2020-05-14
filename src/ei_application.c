@@ -5,6 +5,7 @@
 #include <ei_widgetclass_parcours.h>
 #include "ei_widgetclass.h"
 
+
 ei_surface_t static root_widget;
 
 void ei_app_create(ei_size_t main_window_size, ei_bool_t fullscreen) {
