@@ -6,7 +6,6 @@
 #include <string.h>
 #include <ei_widgetclass.h>
 
-ei_widgetclass_t *class_tete = NULL;
 
 /*
  * Fonction qui ajoute une nouvelle widgetclass à la liste chainée des widgetclass
