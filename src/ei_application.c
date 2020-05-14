@@ -3,7 +3,7 @@
 #include <ei_widgettypes.h>
 #include <stdlib.h>
 #include <ei_widgetclass_parcours.h>
-#include "ei_widgetclass.c"
+#include "ei_widgetclass.h"
 
 ei_surface_t static root_widget;
 
