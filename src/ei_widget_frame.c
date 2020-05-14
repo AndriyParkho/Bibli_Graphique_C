@@ -5,7 +5,7 @@
 #include <stdlib.h>
 
 void frame_drawfunc(ei_widget_t* widget, ei_surface_t draw_surface, ei_surface_t pick_surface, ei_rect_t* clipper){
-        ei_fill(draw_surface, widget.pick_color, clipper)
+        ei_fill(draw_surface, widget.pick_color, clipper);
 }
 
 
