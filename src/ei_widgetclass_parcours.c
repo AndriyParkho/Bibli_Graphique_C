@@ -32,10 +32,10 @@ ei_widgetclass_t* trouve_class(ei_widgetclass_t **list, ei_widgetclass_name_t na
                 return NULL;
         }
         ei_widgetclass_t *class_courante = *list;
-        bool class_trouve = (strcmp(ei_widgetclass_stringname(name), ei_widgetclass_stringname(class_courante->name)) == 0);
+        bool class_trouve = (strcmp((char*)name, (char*)class_courante->name) == 0);
         while(!class_trouve && class_courante->next != NULL){
                 class_courante = class_courante->next;
-                class_trouve = (strcmp(ei_widgetclass_stringname(name), ei_widgetclass_stringname(class_courante->name)) == 0);
+                class_trouve = (strcmp((char*)name, (char*)class_courante->name) == 0);
         }
         if (class_trouve){
                 return class_courante;
