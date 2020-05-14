@@ -144,7 +144,7 @@ void			ei_frame_configure		(ei_widget_t*		widget,
     ei_frame_t* frame = (ei_frame_t*)widget;
     //frame->widget->wclass = NULL; normalement dans ei_widget_create
     //frame->widget.pick_id = NULL; normalement dans ei_widget_create
-    frame->widget.pick_color = color;
+    if (color) frame->widget.pick_color = color;
     //frame->widget->user_date = NULL; normalement dans ei_widget_create
     //frame->widget.destructor = NULL; normalement dans ei_widget_create
 
@@ -156,19 +156,18 @@ void			ei_frame_configure		(ei_widget_t*		widget,
     //pour pouvoir rajouter ce widget au champ "next_sibling" de son previous sibling
 
     //frame->widget->geom_params = NULL; j'ai pas compris mais je suppose dans widget_create
-    frame->widget.requested_size = *requested_size;
+    if (requested_size) frame->widget.requested_size = *requested_size;
     //frame->widget.screen_location = NULL; pas compris mais sûrement widget_create
     //frame->widget->content_rect = &(frame->widget.screen_location);
-
-    frame->border_width = *border_width;
-    frame->relief = *relief;
-    strcpy(frame->text,*text);
-    frame->text_font = *text_font;
-    frame->text_color = *text_color;
-    frame->text_anchor = *text_anchor;
-    frame->img = *img;
-    frame->img_rect = *img_rect;
-    frame->img_anchor = *img_anchor;
+    if (border_width) frame->border_width = *border_width;
+    if(relief) frame->relief = *relief;
+    if (text) strcpy(frame->text,*text);
+    if (text_font) frame->text_font = *text_font;
+    if (text_color) frame->text_color = *text_color;
+    if (text_anchor) frame->text_anchor = *text_anchor;
+    if (img) frame->img = *img;
+    if (img_rect) frame->img_rect = *img_rect;
+    if (img_anchor) frame->img_anchor = *img_anchor;
 }
 
 /**
