@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <ei_widgettypes.h>
 #include <stdlib.h>
+#include <ei_widgetclass_parcours.h>
+#include "ei_widgetclass.c"
 
 ei_surface_t static root_widget;
 
@@ -33,6 +35,7 @@ void ei_app_quit_request(void) {
 
 ei_widget_t* ei_app_root_widget(void) {
         ei_widget_t *frame_root_widget = malloc(sizeof(ei_widget_t));
+        frame_root_widget->wclass = trouve_class(&class_tete, "frame");
         frame_root_widget->parent = NULL;
         frame_root_widget->children_head = NULL;
         frame_root_widget->children_tail = NULL;
