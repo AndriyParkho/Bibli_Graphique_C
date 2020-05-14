@@ -13,10 +13,11 @@ void ei_app_create(ei_size_t main_window_size, ei_bool_t fullscreen) {
 }
 
 void ei_app_free(void) {
+        hw_quit();
 }
 
 void ei_app_run(void) {
-        ei_widget_t *widget;
+        ei_widget_t *widget; //jsp
         hw_surface_lock(root_widget);
         widget->wclass->drawfunc(widget, root_widget, root_widget, NULL);
         hw_surface_unlock(root_widget);

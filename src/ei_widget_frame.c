@@ -1,18 +1,17 @@
 /*
  *  Fichier où il y aura toutes les fonctions des différents widgets
  */
-#include "ei_draw.h"
+#include "../include/ei_draw.h"
 #include <stdlib.h>
 
 void frame_drawfunc(ei_widget_t* widget, ei_surface_t draw_surface, ei_surface_t pick_surface, ei_rect_t* clipper){
-        ei_draw_polygon(draw_surface, first_point, widget.pick_color, NULL);
+        ei_fill(draw_surface, widget.pick_color, clipper)
 }
 
 
 void ei_frame_allocfunc(){
         return(calloc(sizeof(ei_frame_t)));
 }
-
 
 void ei_frame_releasefunc(ei_frame_t* frame){
         free(frame);
