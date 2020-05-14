@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <ei_widgettypes.h>
 
-ei_surface_t root_widget;
+ei_surface_t static root_widget;
 
 void ei_app_create(ei_size_t main_window_size, ei_bool_t fullscreen) {
         hw_init();
@@ -34,5 +34,5 @@ ei_widget_t* ei_app_root_widget(void) {
 }
 
 ei_surface_t ei_app_root_surface(void) {
-        return NULL;
+        return root_widget;
 }
