@@ -22,6 +22,7 @@ void insere_class_queue(ei_widgetclass_t **list, ei_widgetclass_t* widgetclass){
         }
 }
 
+
 /*
  * Fonction qui retourne la widgetclass dont on connaît le nom et dont on a besoin
  */
@@ -42,3 +43,4 @@ ei_widgetclass_t* trouve_class(ei_widgetclass_t **list, ei_widgetclass_name_t na
         }
         return NULL;
 }
+

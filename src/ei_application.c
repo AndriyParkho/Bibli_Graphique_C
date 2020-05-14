@@ -10,6 +10,7 @@ ei_surface_t static root_widget;
 void ei_app_create(ei_size_t main_window_size, ei_bool_t fullscreen) {
         hw_init();
         root_widget = hw_create_window(main_window_size, fullscreen);
+        ei_frame_register_class();
 }
 
 void ei_app_free(void) {
@@ -18,9 +19,9 @@ void ei_app_free(void) {
 
 void ei_app_run(void) {
         ei_widget_t *widget; // = ei_app_root_widget(); //jsp
-        hw_surface_lock(root_widget);
+        /*hw_surface_lock(root_widget);
         widget->wclass->drawfunc(widget, root_widget, root_widget, NULL);
-        hw_surface_unlock(root_widget);
+        hw_surface_unlock(root_widget);*/
         hw_surface_update_rects(root_widget, NULL);
 
         getchar();
