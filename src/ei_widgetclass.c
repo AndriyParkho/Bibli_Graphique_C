@@ -8,6 +8,7 @@
 #include <string.h>
 #include "ei_widget_frame.h"
 #include "../include/ei_widgetclass_parcours.h"
+#include <stdlib.h>
 
 
 /**
