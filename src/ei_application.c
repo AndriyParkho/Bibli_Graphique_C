@@ -13,7 +13,13 @@ void ei_app_free(void) {
 }
 
 void ei_app_run(void) {
-    getchar();
+        ei_widget_t *widget;
+        hw_surface_lock(root_widget);
+        widget->wclass->drawfunc(widget, root_widget, root_widget, NULL);
+        hw_surface_unlock(root_widget);
+        hw_surface_update_rects(root_widget, NULL);
+
+        getchar();
 }
 
 void ei_app_invalidate_rect(ei_rect_t* rect) {
