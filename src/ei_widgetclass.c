@@ -122,15 +122,15 @@ ei_widgetclass_t*	ei_widgetclass_from_name	(ei_widgetclass_name_t name){
  *		\ref ei_frame_configure.
  */
 void			ei_frame_register_class 	(void){
-        ei_widgetclass_t frame;
-        strcpy(frame.name, "frame");
-        frame.allocfunc = &frame_allocfunc;
-        frame.releasefunc = &frame_releasefunc;
-        frame.drawfunc = &frame_drawfunc;
-        frame.setdefaultsfunc = &frame_setdefaultsfunc;
-        frame.geomnotifyfunc = &frame_geomnotifyfunc;
-        frame.next = NULL;
-        ei_widgetclass_register(&frame);
+        ei_widgetclass_t *frame = malloc(sizeof(ei_widgetclass_t));
+        strcpy(frame->name, "frame");
+        frame->allocfunc = &frame_allocfunc;
+        frame->releasefunc = &frame_releasefunc;
+        frame->drawfunc = &frame_drawfunc;
+        frame->setdefaultsfunc = &frame_setdefaultsfunc;
+        frame->geomnotifyfunc = &frame_geomnotifyfunc;
+        frame->next = NULL;
+        ei_widgetclass_register(frame);
 }
 
 /**
