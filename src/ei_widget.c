@@ -4,6 +4,8 @@ Fonction pour implémenter les widget
 
 #include "ei_draw.h"
 #include "ei_widgetclass.h"
+#include "ei_widgettypes.h"
+#include <string.h>
 
 
 struct ei_geometry_param_t;
@@ -165,7 +167,34 @@ void			ei_frame_configure		(ei_widget_t*		widget,
                                                                ei_surface_t*		img,
                                                                ei_rect_t**		img_rect,
                                                                ei_anchor_t*		img_anchor){
+    ei_frame_t* frame = (ei_frame_t*)widget;
+    //frame->widget->wclass = NULL; normalement dans ei_widget_create
+    //frame->widget.pick_id = NULL; normalement dans ei_widget_create
+    (*frame).widget.pick_color = color;
+    //frame->widget->user_date = NULL; normalement dans ei_widget_create
+    //frame->widget.destructor = NULL; normalement dans ei_widget_create
 
+    //frame->widget->parent = NULL; normalement dans ei_widget_create
+    (*frame).widget->children_head = NULL;
+    (*frame).widget->children_tail = NULL;
+    (*frame).widget->next_sibling = NULL;
+    //Ici il faudra sûrement vérifier qui est le widget avant lui dans la hiérachie (son sibling d'avant)
+    //pour pouvoir rajouter ce widget au champ "next_sibling" de son previous sibling
+
+    //frame->widget->geom_params = NULL; j'ai pas compris mais je suppose dans widget_create
+    (*frame).widget.requested_size = requested_size;
+    //frame->widget.screen_location = NULL; pas compris mais sûrement widget_create
+    //frame->widget->content_rect = &(frame->widget.screen_location);
+
+    (*frame).border_width = *border_width;
+    (*frame).relief = *relief;
+    strcpy((*frame).text,*text);
+    (*frame).text_font = *text_font;
+    (*frame).text_color = *text_color;
+    (*frame).text_anchor = *text_anchor;
+    (*frame).img = *img;
+    (*frame).img_rect = *img_rect;
+    (*frame).img_anchor = *img_anchor;
 }
 
 
