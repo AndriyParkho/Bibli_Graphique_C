@@ -9,7 +9,6 @@
 #include "ei_widget_frame.h"
 
 
-
 /**
  * \brief	A name of a class of widget.
  */
@@ -80,7 +79,7 @@ typedef struct ei_widgetclass_t {
 } ei_widgetclass_t;
 
 
-
+ei_widgetclass_t *class_tete = NULL;
 
 
 /**
@@ -129,6 +128,7 @@ void			ei_frame_register_class 	(void){
         frame.drawfunc = &frame_drawfunc;
         frame.setdefaultsfunc = &frame_setdefaultsfunc;
         frame.geomnotifyfunc = &frame_geomnotifyfunc;
+        frame.next = NULL;
         ei_widgetclass_register(&frame);
 }
 
