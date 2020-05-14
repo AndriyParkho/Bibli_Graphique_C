@@ -141,9 +141,5 @@ void			ei_toplevel_register_class 	(void);
 
 /* Inline function definitions. */
 
-static inline char*	ei_widgetclass_stringname	(ei_widgetclass_name_t name)
-{
-	return (char*)name;
-}
 
 #endif
