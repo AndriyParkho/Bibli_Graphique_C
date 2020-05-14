@@ -17,7 +17,7 @@ void ei_app_free(void) {
 }
 
 void ei_app_run(void) {
-        ei_widget_t *widget; //jsp
+        ei_widget_t *widget = ei_app_root_widget(); //jsp
         hw_surface_lock(root_widget);
         widget->wclass->drawfunc(widget, root_widget, root_widget, NULL);
         hw_surface_unlock(root_widget);
