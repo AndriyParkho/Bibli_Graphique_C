@@ -7,6 +7,7 @@
 
 #include "SDL_keycode.h"
 #include "ei_types.h"
+#include "ei_widget.h"
 
 /**
  * @brief	The frame type.

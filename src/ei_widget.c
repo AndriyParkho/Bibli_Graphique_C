@@ -42,32 +42,6 @@ typedef ei_bool_t	(*ei_callback_t)	(struct ei_widget_t*	widget,
 typedef void		(*ei_widget_destructor_t)(struct ei_widget_t* widget);
 
 
-/**
- * \brief	Fields common to all types of widget. Every widget classes specializes this base
- *		class by adding its own fields.
- */
-typedef struct ei_widget_t {
-        ei_widgetclass_t*	wclass;		///< The class of widget of this widget. Avoid the field name "class" which is a keyword in C++.
-        uint32_t		pick_id;	///< Id of this widget in the picking offscreen.
-        ei_color_t*		pick_color;	///< pick_id encoded as a color.
-        void*			user_data;	///< Pointer provided by the programmer for private use. May be NULL.
-        ei_widget_destructor_t	destructor;	///< Pointer to the programmer's function to call before destroying this widget structure. May be NULL.
-
-        /* Widget Hierachy Management */
-        struct ei_widget_t*	parent;		///< Pointer to the parent of this widget.
-        struct ei_widget_t*	children_head;	///< Pointer to the first child of this widget.	Children are chained with the "next_sibling" field.
-        struct ei_widget_t*	children_tail;	///< Pointer to the last child of this widget.
-        struct ei_widget_t*	next_sibling;	///< Pointer to the next child of this widget's parent widget.
-
-        /* Geometry Management */
-        struct ei_geometry_param_t*
-                geom_params;	///< Pointer to the geometry management parameters for this widget. If NULL, the widget is not currently managed and thus, is not mapped on the screen.
-        ei_size_t		requested_size;	///< Size requested by the widget (big enough for its label, for example), or by the programmer. This can be different than its screen size defined by the placer.
-        ei_rect_t		screen_location;///< Position and size of the widget expressed in the root window reference.
-        ei_rect_t*		content_rect;	///< Where to place children, when this widget is used as a container. By defaults, points to the screen_location.
-} ei_widget_t;
-
-
 
 /**
  * @brief	Creates a new instance of a widget of some particular class, as a descendant of
@@ -174,11 +148,15 @@ void			ei_frame_configure		(ei_widget_t*		widget,
     //frame->widget->user_date = NULL; normalement dans ei_widget_create
     //frame->widget.destructor = NULL; normalement dans ei_widget_create
 
+    //frame->widget->parent = NULL; normalement dans ei_widget_create
+    //(*frame).widget.children_head = NULL;
+    //(*frame).widget.children_tail = NULL;
+    //(*frame).widget.next_sibling = NULL;
     //Ici il faudra sûrement vérifier qui est le widget avant lui dans la hiérachie (son sibling d'avant)
     //pour pouvoir rajouter ce widget au champ "next_sibling" de son previous sibling
 
     //frame->widget->geom_params = NULL; j'ai pas compris mais je suppose dans widget_create
-    frame->widget.requested_size = requested_size;
+    frame->widget.requested_size = *requested_size;
     //frame->widget.screen_location = NULL; pas compris mais sûrement widget_create
     //frame->widget->content_rect = &(frame->widget.screen_location);
 
@@ -192,11 +170,6 @@ void			ei_frame_configure		(ei_widget_t*		widget,
     frame->img_rect = *img_rect;
     frame->img_anchor = *img_anchor;
 }
-
-
-
-static const int	k_default_button_border_width	= 4;	///< The default border width of button widgets.
-static const int	k_default_button_corner_radius	= 10;	///< The default corner radius of button widgets.
 
 /**
  * @brief	Configures the attributes of widgets of the class "button".
