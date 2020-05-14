@@ -1,6 +1,9 @@
 #ifndef EI_WIDGET_FRAME_H
 #define EI_WIDGET_FRAME_H
 
+#include "ei_widget.h"
+#include "ei_widgettypes.h"
+
 /**
  * \brief	A function that draws frame.
  *
