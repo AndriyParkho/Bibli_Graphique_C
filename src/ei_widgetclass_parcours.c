@@ -46,3 +46,6 @@ ei_widgetclass_t* trouve_class(ei_widgetclass_t **list, ei_widgetclass_name_t na
         return NULL;
 }
 
+void ei_parcours_profondeur_widget(ei_widget_t* root) {
+
+}
