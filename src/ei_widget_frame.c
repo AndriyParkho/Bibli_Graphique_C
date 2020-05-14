@@ -3,8 +3,8 @@
  */
 #include "ei_draw.h"
 
-void frame_drawfunc(ei_widget_t* widget){
-        ei_draw_polygon(main_window, points, transp_blue, NULL);
+void frame_drawfunc(ei_widget_t* widget, ei_surface_t draw_surface, ei_surface_t pick_surface, ei_rect_t* clipper){
+        ei_draw_polygon(draw_surface, first_point, widget.pick_color, NULL);
 }
 
 
