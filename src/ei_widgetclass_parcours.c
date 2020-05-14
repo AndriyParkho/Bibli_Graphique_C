@@ -4,6 +4,7 @@
 
 #include <stdbool.h>
 #include <string.h>
+#include <ei_widgetclass.h>
 
 /*
  * Fonction qui ajoute une nouvelle widgetclass à la liste chainée des widgetclass
