@@ -27,6 +27,9 @@ void ei_app_quit_request(void) {
 ei_widget_t* ei_app_root_widget(void) {
         ei_widget_t *frame_root_widget;
         frame_root_widget->parent = NULL;
+        frame_root_widget->children_head = NULL;
+        frame_root_widget->children_tail = NULL;
+        frame_root_widget->next_sibling = NULL;
         frame_root_widget->requested_size = hw_surface_get_size(root_widget);
         frame_root_widget->screen_location = hw_surface_get_rect(root_widget);
         frame_root_widget->content_rect = &(frame_root_widget->screen_location);
