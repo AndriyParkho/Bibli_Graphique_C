@@ -1,5 +1,6 @@
 #include "../include/ei_application.h"
 #include <stdio.h>
+#include <ei_widgettypes.h>
 
 ei_surface_t root_widget;
 
@@ -24,7 +25,12 @@ void ei_app_quit_request(void) {
 }
 
 ei_widget_t* ei_app_root_widget(void) {
-        return NULL;
+        ei_frame_t *frame_root_widget;
+        frame_root_widget->widget.parent = NULL;
+        frame_root_widget->widget.requested_size = hw_surface_get_size(root_widget);
+        frame_root_widget->widget.screen_location = hw_surface_get_rect(root_widget);
+        frame_root_widget->widget.content_rect = &(frame_root_widget->widget.screen_location);
+        return (ei_widget_t*)frame_root_widget;
 }
 
 ei_surface_t ei_app_root_surface(void) {
