@@ -1,9 +1,9 @@
-#include "../include/ei_application.h"
 #include <stdio.h>
 #include <ei_widgettypes.h>
 #include <stdlib.h>
 #include <ei_widgetclass_parcours.h>
-#include "ei_widgetclass.h"
+#include <ei_widgetclass.h>
+#include <ei_widget_frame.h>
 
 
 ei_surface_t static root_widget;
@@ -20,9 +20,9 @@ void ei_app_free(void) {
 
 void ei_app_run(void) {
         ei_widget_t *widget; // = ei_app_root_widget(); //jsp
-        /*hw_surface_lock(root_widget);
+        hw_surface_lock(root_widget);
         widget->wclass->drawfunc(widget, root_widget, root_widget, NULL);
-        hw_surface_unlock(root_widget);*/
+        hw_surface_unlock(root_widget);
         hw_surface_update_rects(root_widget, NULL);
 
         getchar();
