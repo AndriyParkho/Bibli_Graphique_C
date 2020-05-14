@@ -11,20 +11,20 @@ void frame_drawfunc(ei_widget_t* widget, ei_surface_t draw_surface, ei_surface_t
 }
 
 
-void* ei_frame_allocfunc(){
+void* frame_allocfunc(){
         return(calloc(1, sizeof(ei_frame_t)));
 }
 
-void ei_frame_releasefunc(ei_frame_t* frame){
+void frame_releasefunc(ei_frame_t* frame){
         free(frame);
 }
 
 
-void ei_frame_setdefaultsfunc(ei_widget_t* widget){
+void frame_setdefaultsfunc(ei_widget_t* widget){
         ei_frame_t* frame = (ei_frame_t*)widget;
 }
 
 
-void ei_frame_geomnotifyfunc(ei_widget_t* widget){
+void frame_geomnotifyfunc(ei_widget_t* widget){
         ei_frame_t* frame = (ei_frame_t*)widget;
 }
