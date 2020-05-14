@@ -7,7 +7,7 @@
 #include "ei_draw.h"
 #include <string.h>
 #include <ei_widget_frame.h>
-#include "../include/ei_widgetclass_parcours.h"
+#include <ei_widgetclass_parcours.h>
 #include <stdlib.h>
 
 
@@ -67,9 +67,6 @@ typedef void	(*ei_widgetclass_setdefaultsfunc_t)	(struct ei_widget_t*	widget);
  * @param	widget		The widget instance to notify of a geometry change.
  */
 typedef void	(*ei_widgetclass_geomnotifyfunc_t)	(struct ei_widget_t*	widget);
-
-
-ei_widgetclass_t *class_tete = NULL;
 
 
 /**
