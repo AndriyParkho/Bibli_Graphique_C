@@ -71,12 +71,11 @@ include_directories(${HEADER_PATHS})
 
 
 # target ei (libei)
-
 set(LIB_EI_SOURCES
      ${SRC}/ei_widget.c
      ${SRC}/ei_application.c
 		${SRC}/ei_geometrymanager.c
-		${SRC}/ei_widgetclass.c include/ei_widget_frame.h)
+		${SRC}/ei_widgetclass.c)
 
 add_library(ei STATIC			${LIB_EI_SOURCES})
 
