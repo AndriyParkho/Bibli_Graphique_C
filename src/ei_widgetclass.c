@@ -7,6 +7,7 @@
 #include "ei_draw.h"
 #include <string.h>
 #include "ei_widget_frame.h"
+#include "../include/ei_widgetclass_parcours.h"
 
 
 /**
@@ -100,7 +101,7 @@ static inline char*	ei_widgetclass_stringname	(ei_widgetclass_name_t name){
  * @param	widgetclass	The structure describing the class.
  */
 void			ei_widgetclass_register		(ei_widgetclass_t* widgetclass){
-
+        insere_class_queue(&class_tete, widgetclass);
 }
 
 
