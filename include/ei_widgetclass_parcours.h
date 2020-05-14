@@ -2,6 +2,8 @@
 // Created by andriy on 14/05/2020.
 //
 
+#include "ei_widgetclass.h"
+
 #ifndef EI_WIDGETCLASS_PARCOURS_H
 #define EI_WIDGETCLASS_PARCOURS_H
 
