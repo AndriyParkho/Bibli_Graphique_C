@@ -1,6 +1,7 @@
 #include "../include/ei_application.h"
 #include <stdio.h>
 #include <ei_widgettypes.h>
+#include <stdlib.h>
 
 ei_surface_t static root_widget;
 
@@ -31,7 +32,7 @@ void ei_app_quit_request(void) {
 }
 
 ei_widget_t* ei_app_root_widget(void) {
-        ei_widget_t *frame_root_widget;
+        ei_widget_t *frame_root_widget = malloc(sizeof(ei_widget_t));
         frame_root_widget->parent = NULL;
         frame_root_widget->children_head = NULL;
         frame_root_widget->children_tail = NULL;
