@@ -158,9 +158,10 @@ void			ei_frame_configure		(ei_widget_t*		widget,
                                                                ei_rect_t**		img_rect,
                                                                ei_anchor_t*		img_anchor){
     ei_frame_t* frame = (ei_frame_t*)widget;
+    frame->widget.wclass->setdefaultsfunc(frame);
     //frame->widget->wclass = NULL; normalement dans ei_widget_create
     //frame->widget.pick_id = NULL; normalement dans ei_widget_create
-    if (color) frame->widget.pick_color = color;
+    //pick_color à faire dans widget_create;
     //frame->widget->user_date = NULL; normalement dans ei_widget_create
     //frame->widget.destructor = NULL; normalement dans ei_widget_create
 
@@ -175,6 +176,7 @@ void			ei_frame_configure		(ei_widget_t*		widget,
     if (requested_size) frame->widget.requested_size = *requested_size;
     //frame->widget.screen_location = NULL; pas compris mais sûrement widget_create
     //frame->widget->content_rect = &(frame->widget.screen_location);
+    if (color) frame->color = *color;
     if (border_width) frame->border_width = *border_width;
     if(relief) frame->relief = *relief;
     if (text) strcpy(frame->text,*text);
