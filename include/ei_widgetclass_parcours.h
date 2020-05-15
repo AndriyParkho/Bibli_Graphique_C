@@ -2,11 +2,12 @@
 // Created by andriy on 14/05/2020.
 //
 
-#include "ei_widgetclass.h"
-#include "ei_widget.h"
-
 #ifndef EI_WIDGETCLASS_PARCOURS_H
 #define EI_WIDGETCLASS_PARCOURS_H
+
+
+#include "ei_widgetclass.h"
+#include "ei_widget.h"
 
 extern ei_widgetclass_t *class_tet;
 

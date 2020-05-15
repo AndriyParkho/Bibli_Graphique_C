@@ -3,6 +3,9 @@
 
 #include "ei_widget.h"
 #include "ei_widgettypes.h"
+#include <stdlib.h>
+#include "ei_draw.h"
+#include "ei_types.h"
 
 /**
  * \brief	A function that draws frame.
@@ -14,7 +17,7 @@
  * @param	clipper		If not NULL, the drawing is restricted within this rectangle
  *				(expressed in the surface reference frame).
  */
-void frame_drawfunc(ei_widget_t widget, ei_surface_t draw_surface, ei_surface_t pick_surface, ei_rect_t* clipper);
+void frame_drawfunc(ei_widget_t *widget, ei_surface_t draw_surface, ei_surface_t pick_surface, ei_rect_t* clipper);
 
 /**
  * \brief	A function that allocates a block of memory that is big enough to store the
