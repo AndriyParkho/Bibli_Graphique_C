@@ -7,7 +7,7 @@
 #include "ei_widgetclass.h"
 #include "ei_widget.h"
 
-ei_widgetclass_t *class_tet = NULL;
+ei_widgetclass_t *class_tete = NULL;
 
 
 /*
