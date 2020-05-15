@@ -11,11 +11,14 @@
  *				(expressed in the surface reference frame).
  */
 void frame_drawfunc(ei_widget_t *widget, ei_surface_t draw_surface, ei_surface_t pick_surface, ei_rect_t* clipper){
+        // declaration of the widget as a frame
+        ei_frame_t* frame = (ei_frame_t*)widget;
+
         // lock the surface for drawing
         hw_surface_lock(draw_surface);
 
         // fill the surface with the specified color
-        ei_fill(draw_surface, widget->color, clipper);
+        ei_fill(draw_surface, &(frame->color), clipper);
 
         // unlock the surface and update the screen
         hw_surface_unlock(draw_surface);
