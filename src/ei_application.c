@@ -3,7 +3,6 @@
 #include <stdlib.h>
 #include "ei_widgetclass_parcours.h"
 #include "ei_widgetclass.h"
-#include "ei_widget_frame.h"
 
 
 ei_surface_t static root_widget;
@@ -19,13 +18,8 @@ void ei_app_free(void) {
 }
 
 void ei_app_run(void) {
-        ei_widget_t *widget; // = ei_app_root_widget(); //jsp
-        hw_surface_lock(root_widget);
+        ei_widget_t *widget; // Parcourir liste chainée des widgets
         widget->wclass->drawfunc(widget, root_widget, root_widget, NULL);
-        //frame_drawfunc(&widget, root_widget, root_widget, NULL); // TEST
-        hw_surface_unlock(root_widget);
-        hw_surface_update_rects(root_widget, NULL);
-
         getchar();
 }
 
