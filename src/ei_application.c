@@ -22,7 +22,7 @@ void ei_app_run(void) {
         ei_widget_t widget; // = ei_app_root_widget(); //jsp
         hw_surface_lock(root_widget);
         //widget->wclass->drawfunc(widget, root_widget, root_widget, NULL);
-        //frame_drawfunc(widget, root_widget, root_widget, NULL); // TEST
+        frame_drawfunc(widget, root_widget, root_widget, NULL); // TEST
         hw_surface_unlock(root_widget);
         hw_surface_update_rects(root_widget, NULL);
 
