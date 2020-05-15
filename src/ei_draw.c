@@ -88,8 +88,9 @@ void ei_fill (ei_surface_t surface, const ei_color_t* color, const ei_rect_t* cl
         // PAS PRIS EN COMPTE
         uint32_t *pixel_ptr;
         int i;
+        ei_size_t surface_size = hw_surface_get_size(surface);
         pixel_ptr = (uint32_t *) hw_surface_get_buffer(surface);
-        for (i = 0; i < hw_surface_get_size(surface); i++)
+        for (i = 0; i < surface_size.height * surface_size.width; i++)
                 *pixel_ptr++ = color;
 }
 
