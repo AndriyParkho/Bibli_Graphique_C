@@ -40,10 +40,12 @@ ei_widget_t* ei_app_root_widget(void) {
         frame_root_widget = (ei_widget_t*)frame_widgetclass->allocfunc();;
         frame_root_widget->wclass = frame_widgetclass;
         frame_root_widget->wclass->setdefaultsfunc(frame_root_widget);
+        /* Widget Hierachy Management */
         frame_root_widget->parent = NULL;
         frame_root_widget->children_head = NULL;
         frame_root_widget->children_tail = NULL;
         frame_root_widget->next_sibling = NULL;
+        /* Geometry Management */
         frame_root_widget->requested_size = hw_surface_get_size(root_widget);
         frame_root_widget->screen_location = hw_surface_get_rect(root_widget);
         frame_root_widget->content_rect = &(frame_root_widget->screen_location);
