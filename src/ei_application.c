@@ -6,6 +6,7 @@
 
 
 ei_surface_t static root_widget;
+static ei_widget_t* frame_root_widget = NULL;
 
 void ei_app_create(ei_size_t main_window_size, ei_bool_t fullscreen) {
         hw_init();
@@ -32,8 +33,13 @@ void ei_app_quit_request(void) {
 }
 
 ei_widget_t* ei_app_root_widget(void) {
-        ei_widget_t *frame_root_widget = malloc(sizeof(ei_widget_t));
-        frame_root_widget->wclass = trouve_class(&class_tete, "frame");
+        if (frame_root_widget){
+                return frame_root_widget;
+        }
+        ei_widgetclass_t *frame_widgetclass = trouve_class(&class_tete, "frame");
+        frame_root_widget = (ei_widget_t*)frame_widgetclass->allocfunc();;
+        frame_root_widget->wclass = frame_widgetclass;
+        frame_root_widget->wclass->setdefaultsfunc(frame_root_widget);
         frame_root_widget->parent = NULL;
         frame_root_widget->children_head = NULL;
         frame_root_widget->children_tail = NULL;

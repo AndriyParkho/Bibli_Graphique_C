@@ -62,9 +62,10 @@ ei_widget_t*		ei_widget_create		(ei_widgetclass_name_t	class_name,
                                                              struct ei_widget_t*		parent,
                                                              void*			user_data,
                                                              ei_widget_destructor_t destructor){
-        ei_widget_t *new_widget = malloc(sizeof(ei_widget_t));
-        new_widget->wclass = trouve_class(&class_tete, class_name);
-        // Je sais pas si le champ pick-id s'initialise ici
+        ei_widgetclass_t *widgetclass = trouve_class(&class_tete, class_name);
+        ei_widget_t *new_widget = (ei_widget_t*)widgetclass->allocfunc();
+        new_widget->wclass = widgetclass;
+        new_widget->wclass->setdefaultsfunc(new_widget);
         new_widget->user_data = user_data;
         new_widget->destructor = destructor;
 
