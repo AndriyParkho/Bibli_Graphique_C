@@ -1,5 +1,6 @@
 #include "ei_widget_frame.h"
 #include <string.h>
+#include <stdbool.h>
 #include "ei_application.h"
 
 /**
@@ -12,19 +13,20 @@
  * @param	clipper		If not NULL, the drawing is restricted within this rectangle
  *				(expressed in the surface reference frame).
  */
-void frame_drawfunc(ei_widget_t *widget, ei_surface_t draw_surface, ei_surface_t pick_surface, ei_rect_t* clipper){
+void frame_drawfunc(ei_widget_t *widget){
         // declaration of the widget as a frame
         ei_frame_t* frame = (ei_frame_t*)widget;
 
         // lock the surface for drawing
+        ei_surface_t draw_surface = hw_surface_create(ei_app_root_surface(), widget->requested_size, true);
         hw_surface_lock(draw_surface);
 
         // fill the surface with the specified color
-        ei_fill(&frame->widget.screen_location, &frame->color, clipper);
+        ei_fill(draw_surface, &(frame->color), &(widget->screen_location));
 
         // unlock the surface and update the screen
         hw_surface_unlock(draw_surface);
-        hw_surface_update_rects(draw_surface, NULL);
+        hw_surface_update_rects(ei_app_root_surface(), NULL);
 }
 
 /**

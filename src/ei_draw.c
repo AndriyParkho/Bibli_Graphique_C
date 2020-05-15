@@ -84,11 +84,14 @@ void			ei_draw_text		(ei_surface_t		surface,
  * @param	clipper		If not NULL, the drawing is restricted within this rectangle.
  */
 void ei_fill (ei_surface_t surface, const ei_color_t* color, const ei_rect_t* clipper) {
-        // clipper sert à déterminer s'il faut tronquer dans les limites du parent
-        // PAS PRIS EN COMPTE
+        // clipper si non NULL sert à déterminer quel rectangle remplir
         uint32_t *pixel_ptr;
         int i;
         ei_size_t surface_size = hw_surface_get_size(surface);
+        if (clipper) {
+                hw_surface_set_origin(surface, clipper->top_left);
+                surface_size = clipper->size;
+        }
         pixel_ptr = (uint32_t *) hw_surface_get_buffer(surface);
         for (i = 0; i < surface_size.height * surface_size.width; i++)
                 *pixel_ptr = color->red;
