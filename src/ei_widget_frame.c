@@ -1,4 +1,6 @@
 #include "ei_widget_frame.h"
+#include <string.h>
+#include "ei_application.h"
 
 /**
  * \brief	A function that draws frame.
@@ -54,7 +56,20 @@ void frame_releasefunc(ei_frame_t* frame){
  * @param	widget		A pointer to the widget instance to initialize.
  */
 void frame_setdefaultsfunc(ei_widget_t* widget){
-        ei_frame_t* frame = (ei_frame_t*)widget;
+    ei_frame_t* frame = (ei_frame_t*)widget;
+    ei_color_t			white			= { 0xff, 0xff, 0xff, 0xff };
+    ei_color_t          black           = {0x00,0x00,0x00,0xff};
+
+    frame->color = ei_default_background_color;
+    frame->border_width = 0;
+    frame->relief = ei_relief_none;
+    frame->text = NULL;
+    frame->text_font = ei_default_font;
+    frame->text_color = ei_font_default_color;
+    frame->text_anchor = ei_anc_center;
+    frame->img = NULL;
+    frame->img_rect = NULL;
+    frame->img_anchor = ei_anc_center;
 }
 
 /**
