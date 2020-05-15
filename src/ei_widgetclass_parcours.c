@@ -53,3 +53,17 @@ void ei_parcours_profondeur_widget(ei_widget_t* root) {
     if (root->children_head) ei_parcours_profondeur_widget(root->children_head);
     if (root->next_sibling) ei_parcours_profondeur_widget(root->next_sibling);
 }
+
+/*
+ * Fonction qui ajoute un widget enfant à un widget parent
+ */
+void add_widget_child(struct ei_widget_t* parent, struct ei_widget_t* child){
+        // Si le parent n'a pas d'enfant à la base on place child comme head et tail
+        if(parent->children_head == NULL){
+                parent->children_head = child;
+                parent->children_tail = child;
+        } else{
+                parent->children_tail->next_sibling = child;
+                parent->children_tail = child;
+        }
+}
