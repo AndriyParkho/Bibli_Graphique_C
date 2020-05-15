@@ -7,7 +7,7 @@ Fonction pour implémenter les widget
 #include "ei_widgettypes.h"
 #include <string.h>
 #include "ei_widgetclass_parcours.h"
-
+#include <stdlib.h>
 
 struct ei_geometry_param_t;
 struct ei_event_t;
