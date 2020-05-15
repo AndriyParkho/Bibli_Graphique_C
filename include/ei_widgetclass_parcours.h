@@ -3,6 +3,7 @@
 //
 
 #include "ei_widgetclass.h"
+#include "ei_widget.h"
 
 #ifndef EI_WIDGETCLASS_PARCOURS_H
 #define EI_WIDGETCLASS_PARCOURS_H
