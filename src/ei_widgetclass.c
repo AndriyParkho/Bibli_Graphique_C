@@ -6,8 +6,8 @@
 #include "hw_interface.h"
 #include "ei_draw.h"
 #include <string.h>
-#include <ei_widget_frame.h>
-#include <ei_widgetclass_parcours.h>
+#include "ei_widget_frame.h"
+#include "ei_widgetclass_parcours.h"
 #include <stdlib.h>
 
 
