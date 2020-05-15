@@ -19,8 +19,7 @@ void ei_app_free(void) {
 }
 
 void ei_app_run(void) {
-        ei_widget_t *widget; // Parcourir liste chainée des widgets
-        widget->wclass->drawfunc(widget, root_widget, root_widget, NULL);
+        ei_parcours_profondeur_widget(frame_root_widget, root_widget);
         getchar();
 }
 
