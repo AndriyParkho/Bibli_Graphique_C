@@ -70,7 +70,7 @@ ei_widget_t*		ei_widget_create		(ei_widgetclass_name_t	class_name,
 
         /* Widget Hierachy Management */
         new_widget->parent = parent;
-        // add_widget_child(parent, new_widget)
+        add_widget_child(parent, new_widget);
         new_widget->children_head = NULL;
         new_widget->children_tail = NULL;
         new_widget->next_sibling = NULL;

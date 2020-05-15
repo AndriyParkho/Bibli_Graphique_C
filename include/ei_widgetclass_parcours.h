@@ -24,4 +24,9 @@ ei_widgetclass_t* trouve_class(ei_widgetclass_t **list, ei_widgetclass_name_t na
 
 void ei_parcours_profondeur_widget(ei_widget_t* root);
 
+/*
+ * Fonction qui ajoute un widget enfant à un widget parent
+ */
+void add_widget_child(struct ei_widget_t* parent, struct ei_widget_t* child);
+
 #endif //EI_WIDGETCLASS_PARCOURS_H
