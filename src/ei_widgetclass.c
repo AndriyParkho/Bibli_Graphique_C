@@ -87,7 +87,7 @@ static inline char*	ei_widgetclass_stringname	(ei_widgetclass_name_t name){
  * @param	widgetclass	The structure describing the class.
  */
 void			ei_widgetclass_register		(ei_widgetclass_t* widgetclass){
-        insere_class_queue(&class_tete, widgetclass);
+        insere_class_queue(&class_tet, widgetclass);
 }
 
 

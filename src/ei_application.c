@@ -38,7 +38,7 @@ void ei_app_quit_request(void) {
 
 ei_widget_t* ei_app_root_widget(void) {
         ei_widget_t *frame_root_widget = malloc(sizeof(ei_widget_t));
-        frame_root_widget->wclass = trouve_class(&class_tete, "frame");
+        frame_root_widget->wclass = trouve_class(&class_tet, "frame");
         frame_root_widget->parent = NULL;
         frame_root_widget->children_head = NULL;
         frame_root_widget->children_tail = NULL;

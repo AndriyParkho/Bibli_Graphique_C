@@ -7,6 +7,8 @@
 #include "ei_widgetclass.h"
 #include "ei_widget.h"
 
+ei_widgetclass_t *class_tet = NULL;
+
 
 /*
  * Fonction qui ajoute une nouvelle widgetclass à la liste chainée des widgetclass
