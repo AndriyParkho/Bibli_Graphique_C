@@ -50,8 +50,8 @@ ei_widgetclass_t* trouve_class(ei_widgetclass_t **list, ei_widgetclass_name_t na
 
 void ei_parcours_profondeur_widget(ei_widget_t* root, ei_surface_t root_widget) {
     root->wclass->drawfunc(root, root_widget, root_widget, NULL);
-    if (root->children_head) ei_parcours_profondeur_widget(root->children_head);
-    if (root->next_sibling) ei_parcours_profondeur_widget(root->next_sibling);
+    if (root->children_head) ei_parcours_profondeur_widget(root->children_head, &root->screen_location);
+    if (root->next_sibling) ei_parcours_profondeur_widget(root->next_sibling, &root->screen_location);
 }
 
 /*
