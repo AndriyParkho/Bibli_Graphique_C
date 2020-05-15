@@ -6,6 +6,7 @@ Fonction pour implémenter les widget
 #include "ei_widgetclass.h"
 #include "ei_widgettypes.h"
 #include <string.h>
+#include "ei_widgetclass_parcours.h"
 
 
 struct ei_geometry_param_t;
@@ -61,7 +62,20 @@ ei_widget_t*		ei_widget_create		(ei_widgetclass_name_t	class_name,
                                                              struct ei_widget_t*		parent,
                                                              void*			user_data,
                                                              ei_widget_destructor_t destructor){
-
+        ei_widget_t *new_widget = malloc(sizeof(ei_widget_t));
+        new_widget->wclass = trouve_class(&class_tete, "frame");
+        // Je sais pas si le champ pick-id s'initialise ici
+        new_widget->user_data = user_data;
+        new_widget->destructor = destructor;
+        /* Widget Hierachy Management */
+        new_widget->parent = parent;
+        // add_child(parent, new_widget)
+        new_widget->children_head = NULL;
+        new_widget->children_tail = NULL;
+        new_widget->next_sibling = NULL;
+        /* Geometry Management */
+        // jsp comment les initialiser ou s'il faut le faire
+        return new_widget;
 }
 
 /**
