@@ -49,5 +49,7 @@ ei_widgetclass_t* trouve_class(ei_widgetclass_t **list, ei_widgetclass_name_t na
 }
 
 void ei_parcours_profondeur_widget(ei_widget_t* root) {
-
+    //root->wclass->drawfunc(root, ); // Remplir ici les paramètres qu'il faut
+    if (root->children_head) ei_parcours_profondeur_widget(root->children_head);
+    if (root->next_sibling) ei_parcours_profondeur_widget(root->next_sibling);
 }
