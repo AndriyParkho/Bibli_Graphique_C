@@ -4,7 +4,8 @@
 
 #include <stdbool.h>
 #include <string.h>
-#include <ei_widgetclass.h>
+#include "ei_widgetclass.h"
+#include "ei_widget.h"
 
 
 /*
