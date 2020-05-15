@@ -5,6 +5,7 @@
 #ifndef EI_WIDGETCLASS_PARCOURS_H
 #define EI_WIDGETCLASS_PARCOURS_H
 
+
 extern ei_widgetclass_t *class_tete;
 
 #include "ei_widgetclass.h"
