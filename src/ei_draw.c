@@ -83,10 +83,15 @@ void			ei_draw_text		(ei_surface_t		surface,
  *				caller want it painted black (opaque).
  * @param	clipper		If not NULL, the drawing is restricted within this rectangle.
  */
-void			ei_fill			(ei_surface_t		surface,
-                                    const ei_color_t*	color,
-                                    const ei_rect_t*	clipper);
-
+void ei_fill (ei_surface_t surface, const ei_color_t* color, const ei_rect_t* clipper) {
+        // clipper sert à déterminer s'il faut tronquer dans les limites du parent
+        // PAS PRIS EN COMPTE
+        uint32_t *pixel_ptr;
+        int i;
+        pixel_ptr = (uint32_t *) hw_surface_get_buffer(surface);
+        for (i = 0; i < hw_surface_get_size(surface); i++)
+                *pixel_ptr++ = color;
+}
 
 /**
  * \brief	Copies a surface, or a subpart, to another one.
