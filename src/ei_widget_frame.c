@@ -15,7 +15,7 @@ void frame_drawfunc(ei_widget_t *widget, ei_surface_t draw_surface, ei_surface_t
         hw_surface_lock(draw_surface);
 
         // fill the surface with the specified color
-        ei_fill(pick_surface, 0xffff0000, clipper);
+        ei_fill(draw_surface, 0xffff0000, clipper); // couleur test
 
         // unlock the surface and update the screen
         hw_surface_unlock(draw_surface);
