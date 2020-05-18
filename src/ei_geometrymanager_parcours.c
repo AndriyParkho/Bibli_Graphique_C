@@ -7,8 +7,12 @@
 ei_geometrymanager_t *geometrymanager_tete = NULL;
 
 
-/*
- * Fonction qui ajoute une nouveau geometrymanager à la liste chainée des geometrymanager
+/**
+ * \brief Fonction qui ajoute un nouveau geometrymanager à la liste chainée des geometrymanager passée en
+ * paramètre
+ *
+ * @param list          un pointeur sur la liste chaînée des geometrymanager
+ * @param geomanager    un pointeur sur le geometrymanager que l'on veut ajouter à la liste
  */
 void inserer_geometrymanager_queue(ei_geometrymanager_t **list, ei_geometrymanager_t* geomanager){
         // Si la liste est vide on ajoute en tête la nouvelle geomanagere...
@@ -24,8 +28,14 @@ void inserer_geometrymanager_queue(ei_geometrymanager_t **list, ei_geometrymanag
 }
 
 
-/*
- * Fonction qui retourne le geometrymanager dont on connaît le nom et dont on a besoin
+/**
+ * \brief Fonction qui retourne le geometrymanager dont on connaît le nom passé en paramètre, renvoie NULL si
+ *        on ne le trouve pas
+ *
+ * @param list  Pointeur sur la liste chaînée que l'on veut consulter
+ * @param name  Le nom du geometrymanager que l'on recherche
+ *
+ * @return Une structure qui décrit le geometrymanager recherché
  */
 ei_geometrymanager_t* trouve_geomanager(ei_geometrymanager_t **list, ei_geometrymanager_name_t name){
         // Si la liste est vide on renvoie NULL...

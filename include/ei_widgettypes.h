@@ -1,6 +1,9 @@
-//
-// Created by Enora on 13/05/2020.
-//
+/**
+ *  @file	ei_widgettypes.h
+ *  @brief	Les différents types de widgetclass
+ *
+ *  \author Created by Equipe 5 on 13.05.2020.
+ */
 
 #ifndef EI_WIDGETTYPES_H
 #define EI_WIDGETTYPES_H

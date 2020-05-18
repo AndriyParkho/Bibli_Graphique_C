@@ -7,8 +7,12 @@
 ei_widgetclass_t *class_tete = NULL;
 
 
-/*
- * Fonction qui ajoute une nouvelle widgetclass à la liste chainée des widgetclass
+/**
+ * \brief Fonction qui ajoute une nouvelle widgetclass à la liste chainée des widgetclass passée en
+ * paramètre
+ *
+ * @param list           un pointeur sur la liste chaînée des geometrymanager
+ * @param widgetclass    un pointeur sur la widgetclass que l'on veut ajouter à la liste
  */
 void insere_class_queue(ei_widgetclass_t **list, ei_widgetclass_t* widgetclass){
         // Si la liste est vide on ajoute en tête la nouvelle classe...
@@ -24,10 +28,15 @@ void insere_class_queue(ei_widgetclass_t **list, ei_widgetclass_t* widgetclass){
 }
 
 
-/*
- * Fonction qui retourne la widgetclass dont on connaît le nom et dont on a besoin
+/**
+ * \brief Fonction qui retourne la widgetclass dont on connaît le nom passé en paramètre, renvoie NULL si
+ *        on ne le trouve pas
+ *
+ * @param list  Pointeur sur la liste chaînée que l'on veut consulter
+ * @param name  Le nom de la widgetclass que l'on recherche
+ *
+ * @return Une structure qui décrit la widgetclass recherchée
  */
-
 ei_widgetclass_t* trouve_class(ei_widgetclass_t **list, ei_widgetclass_name_t name){
         // Si la liste est vide on renvoie NULL...
         if (*list == NULL){
@@ -45,14 +54,24 @@ ei_widgetclass_t* trouve_class(ei_widgetclass_t **list, ei_widgetclass_name_t na
         return NULL;
 }
 
+/**
+ * \brief Fonction qui permet de parcourir l'arbre de hierarchie des widget en profondeur, et de les dessiner,
+ *        depuis la racine passée en paramètre
+ *
+ * @param root          Le widget racine de l'arbre de hiérarchie de widget que l'on souhaite dessiner
+ * @param root_widget   La surface sur laquelle on souhaite dessiner les widgets
+ */
 void ei_parcours_profondeur_widget(ei_widget_t* root, ei_surface_t root_widget) {
     root->wclass->drawfunc(root, root_widget, root_widget, NULL);
     if (root->children_head) ei_parcours_profondeur_widget(root->children_head, &root->screen_location);
     if (root->next_sibling) ei_parcours_profondeur_widget(root->next_sibling, &root->screen_location);
 }
 
-/*
- * Fonction qui ajoute un widget enfant à un widget parent
+/**
+ * \brief Fonction permettant d'ajouter un widget enfant à un widget parent
+ *
+ * @param parent    Widget parent
+ * @param child     Widget enfant
  */
 void add_widget_child(struct ei_widget_t* parent, struct ei_widget_t* child){
         // Si le parent n'a pas d'enfant à la base on place child comme head et tail

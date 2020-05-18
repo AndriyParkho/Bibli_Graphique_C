@@ -1,3 +1,10 @@
+/**
+ *  @file	ei_widget_frame.h
+ *  @brief	Gère les différentes fonctions qui sont liées aux widgets de type frame
+ *
+ *  \author Created by Equipe 5 on 12.05.2020.
+ */
+
 #ifndef EI_WIDGET_FRAME_H
 #define EI_WIDGET_FRAME_H
 

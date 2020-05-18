@@ -1,6 +1,9 @@
-//
-// Created by andriy on 14/05/2020.
-//
+/**
+ *  @file	ei_widgetclass_parcours.h
+ *  @brief	Gère les différentes fonctions qui permettent de traiter et parcourir les listes de widgetclass
+ *
+ *  \author Created by Equipe 5 on 14.05.2020.
+ */
 
 #ifndef EI_WIDGETCLASS_PARCOURS_H
 #define EI_WIDGETCLASS_PARCOURS_H

@@ -1,6 +1,9 @@
-//
-// Created by Enora on 18/05/2020.
-//
+/**
+ *  @file	ei_geometrytypes.h
+ *  @brief	Les différentes structures de geometrymanager_param
+ *
+ *  \author Created by Equipe 5 on 18.05.2020.
+ */
 
 #ifndef PROJETC_IG_EI_GEOMETRYTYPES_H
 #define PROJETC_IG_EI_GEOMETRYTYPES_H
