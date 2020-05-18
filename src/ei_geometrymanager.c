@@ -4,6 +4,7 @@
 
 #include "ei_types.h"
 #include "ei_widget.h"
+#include "ei_geometry_register.h"
 
 
 /**
@@ -60,7 +61,7 @@ typedef struct ei_geometry_param_t {
  * @param	geometrymanager		The structure describing the geometry manager.
  */
 void			ei_geometrymanager_register	(ei_geometrymanager_t* geometrymanager){
-
+        inserer_geometrymanager_queue(&geometrymanager_tete, geometrymanager);
 }
 
 
