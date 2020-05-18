@@ -10,7 +10,17 @@
 #include "ei_geometrymanager.h"
 
 typedef struct {
-    ei_geometrymanager_t geomanager;
-} ei_placeur_t;
+    ei_geometrymanager_t* geomanager;
+
+    ei_anchor_t anchor;
+    int         x;
+    int         y;
+    int         width;
+    int         height;
+    float       rel_x;
+    float       rel_y;
+    float       rel_width;
+    float       rel_height;
+} ei_placer_param_t;
 
 #endif //PROJETC_IG_EI_GEOMETRYTYPES_H
