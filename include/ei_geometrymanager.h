@@ -10,7 +10,6 @@
 
 #ifndef EI_GEOMETRYMANAGER_H
 #define EI_GEOMETRYMANAGER_H
-
 #include "ei_types.h"
 #include "ei_widget.h"
 
