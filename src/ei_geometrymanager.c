@@ -5,7 +5,7 @@
 #include "ei_geometrymanager.h"
 #include "ei_types.h"
 #include "ei_widget.h"
-#include "ei_geometry_register.h"
+#include "ei_geometrymanager_parcours.h"
 
 struct ei_geometrymanager_t;
 struct ei_geometry_param_t;
@@ -88,7 +88,12 @@ void			ei_geometrymanager_unmap	(ei_widget_t*		widget){
  *		once before the \ref ei_place function can be called.
  */
 void 			ei_register_placer_manager 	(void){
-
+        ei_geometrymanager_t *placer = malloc(sizeof(ei_geometrymanager_t));
+        strcpy(placer->name, "placer");
+        placer->runfunc = &placer_runfunc;
+        placer->releasefunc = &placer_releasefunc;
+        placer->next = NULL;
+        ei_geometrymanager_register(placer);
 }
 
 

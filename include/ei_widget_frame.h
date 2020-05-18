@@ -6,6 +6,9 @@
 #include <stdlib.h>
 #include "ei_draw.h"
 #include "ei_types.h"
+#include <string.h>
+#include <stdbool.h>
+#include "ei_application.h"
 
 /**
  * \brief	A function that draws frame.

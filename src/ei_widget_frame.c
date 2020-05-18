@@ -1,7 +1,5 @@
 #include "ei_widget_frame.h"
-#include <string.h>
-#include <stdbool.h>
-#include "ei_application.h"
+
 
 /**
  * \brief	A function that draws frame.

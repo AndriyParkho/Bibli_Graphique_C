@@ -2,21 +2,10 @@
 // Created by andriy on 18/05/2020.
 //
 
-#include "ei_geometry_register.h"
+#include "ei_geometrymanager_parcours.h"
 
 ei_geometrymanager_t *geometrymanager_tete = NULL;
 
-/*
- * Fonction qui créer le geometrymanager placeur
- */
-void    ei_placeur_register_manager     (void){
-        ei_geometrymanager_t *placeur = malloc(sizeof(ei_geometrymanager_t));
-        strcpy(placeur->name, "placeur");
-        placeur->runfunc = &placeur_runfunc;
-        placeur->releasefunc = &placeur_releasefunc;
-        placeur->next = NULL;
-        ei_geometrymanager_register(placeur);
-}
 
 /*
  * Fonction qui ajoute une nouveau geometrymanager à la liste chainée des geometrymanager
