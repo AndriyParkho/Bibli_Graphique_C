@@ -143,7 +143,7 @@ void			ei_place			(ei_widget_t*		widget,
                                                              float*			rel_y,
                                                              float*			rel_width,
                                                              float*			rel_height){
-    ei_geometrymanager_t* geometrymanager = trouve_geomanager(&geometrymanager_tete, "placer");
+    ei_geometrymanager_t* geometrymanager = ei_geometrymanager_from_name("placer");
     ei_placer_param_t* placer;
     if (widget->geom_params->manager) {
         if (strcmp(widget->geom_params->manager->name, "placer") != 0) {
