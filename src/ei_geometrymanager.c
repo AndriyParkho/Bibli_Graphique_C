@@ -82,7 +82,17 @@ ei_geometrymanager_t*	ei_geometrymanager_from_name	(ei_geometrymanager_name_t na
  * @param	widget		The widget to unmap from the screen.
  */
 void			ei_geometrymanager_unmap	(ei_widget_t*		widget){
+    //the ei_geometrymanager_releasefunc_t of the geometry manager in charge of this widget is called,
+    widget->geom_params->manager->releasefunc(widget);
 
+    //the geom_param field of the widget is freed
+    free(widget->geom_params);
+
+    //the current screen_location of the widget is invalided (which will trigger a redraw)
+    //Là je sais pas trop comment on peut faire
+
+    //the screen_location of the widget is reset to 0
+    widget->screen_location = (ei_rect_t){0,0}; //supposition, c'était pas très clair
 }
 
 
