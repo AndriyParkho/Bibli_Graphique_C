@@ -78,6 +78,7 @@ ei_widget_t*		ei_widget_create		(ei_widgetclass_name_t	class_name,
         new_widget->next_sibling = NULL;
 
         /* Geometry Management */
+        new_widget->geom_params = NULL;
         // jsp comment les initialiser ou s'il faut le faire
         return new_widget;
 }
