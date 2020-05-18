@@ -5,7 +5,7 @@
 #ifndef EI_GEOMETRY_REGISTER_H
 #define EI_GEOMETRY_REGISTER_H
 
-#inlcude "ei_geometrymanager.h"
+#include "ei_geometrymanager.h"
 
 extern ei_geometrymanager_t *geometrymanager_tete;
 
