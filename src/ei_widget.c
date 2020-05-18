@@ -164,8 +164,9 @@ void			ei_frame_configure		(ei_widget_t*		widget,
     ei_frame_t* frame = (ei_frame_t*)widget;
 
     if (requested_size) frame->widget.requested_size = *requested_size;
-    //frame->widget.screen_location = NULL; pas compris mais sûrement widget_create
-    //frame->widget->content_rect = &(frame->widget.screen_location);
+    //ei_rect_t screen_location = {(0,0),requested_size};
+    //frame->widget.screen_location = screen_location;
+    //frame->widget.content_rect = &(frame->widget.screen_location);
     if (color) frame->color = *color;
     if (border_width) frame->border_width = *border_width;
     if(relief) frame->relief = *relief;
