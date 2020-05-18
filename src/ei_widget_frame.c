@@ -18,14 +18,14 @@ void frame_drawfunc(ei_widget_t *widget){
         ei_frame_t* frame = (ei_frame_t*)widget;
 
         // lock the surface for drawing
-        ei_surface_t draw_surface = hw_surface_create(ei_app_root_surface(), widget->requested_size, true);
-        hw_surface_lock(draw_surface);
+        ei_surface_t draw_surface = hw_surface_create(ei_app_root_surface(), widget->requested_size, EI_TRUE);
+        hw_surface_lock(ei_app_root_surface());
 
         // fill the surface with the specified color
-        ei_fill(draw_surface, &(frame->color), &(widget->screen_location));
+        ei_fill(ei_app_root_surface(), &(frame->color), &(widget->screen_location));
 
         // unlock the surface and update the screen
-        hw_surface_unlock(draw_surface);
+        hw_surface_unlock(ei_app_root_surface());
         hw_surface_update_rects(ei_app_root_surface(), NULL);
 }
 
