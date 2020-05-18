@@ -5,11 +5,12 @@
 #ifndef EI_WIDGETCLASS_PARCOURS_H
 #define EI_WIDGETCLASS_PARCOURS_H
 
-
-extern ei_widgetclass_t *class_tete;
-
+#include <stdbool.h>
+#include <string.h>
 #include "ei_widgetclass.h"
 #include "ei_widget.h"
+
+extern ei_widgetclass_t *class_tete;
 
 /*
  * Fonction qui ajoute une nouvelle widgetclass à la liste chainée des widgetclass

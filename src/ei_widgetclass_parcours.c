@@ -2,10 +2,7 @@
  * Fonctions parcourant la liste chainée des widgetclass
  */
 
-#include <stdbool.h>
-#include <string.h>
-#include "ei_widgetclass.h"
-#include "ei_widget.h"
+#include "ei_widgetclass_parcours.h"
 
 ei_widgetclass_t *class_tete = NULL;
 
