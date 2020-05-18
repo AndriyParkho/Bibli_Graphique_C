@@ -6,6 +6,7 @@
 #include "ei_types.h"
 #include "ei_widget.h"
 #include "ei_geometrymanager_parcours.h"
+#include "ei_geometrymanager_placer.h"
 
 struct ei_geometrymanager_t;
 struct ei_geometry_param_t;
