@@ -4,6 +4,7 @@
 #include "ei_draw.h"
 #include "ei_event.h"
 #include "hw_interface.h"
+#include <stdio.h>
 
 int main(int argc, char** argv)
 {
@@ -44,15 +45,13 @@ int main(int argc, char** argv)
 
 	// fill in white
 	pixel_ptr = (uint32_t *)hw_surface_get_buffer(main_window);
-	for (i = 0; i < main_window_size.width * main_window_size.height; i++)
+	for (i = 0; i < main_window_size.width * main_window_size.height; i++) {
 		//*pixel_ptr++ = 0xffffffff;
-                *pixel_ptr = 0x000000ff;
-	        printf("%u", *pixel_ptr);
-                *pixel_ptr = (*pixel_ptr << 8) + 0x000000ff;
-                *pixel_ptr = (*pixel_ptr << 8) + 0x000000ff;
-                *pixel_ptr = (*pixel_ptr << 8) + 0x000000ff;
-                printf("%u", *pixel_ptr);
-                pixel_ptr++;
+                *pixel_ptr = 0xff;
+                *pixel_ptr = (*pixel_ptr << 8) + 0xff;
+                *pixel_ptr = (*pixel_ptr << 8) + 0xff;
+                *pixel_ptr = (*pixel_ptr << 8) + 0xff;
+                pixel_ptr++;}
 
 	// draw the polygon
 	ei_draw_polygon(main_window, points, transp_blue, NULL);
