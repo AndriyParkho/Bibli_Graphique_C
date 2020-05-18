@@ -2,9 +2,13 @@
 // Created by andriy on 12/05/2020.
 //
 
+#include "ei_geometrymanager.h"
 #include "ei_types.h"
 #include "ei_widget.h"
 #include "ei_geometry_register.h"
+
+struct ei_geometrymanager_t;
+struct ei_geometry_param_t;
 
 
 /**
@@ -29,28 +33,6 @@ typedef void	(*ei_geometrymanager_runfunc_t)		(struct ei_widget_t*	widget);
  * @param	widget		The widget instance that must be forgotten by the geometry manager.
  */
 typedef void	(*ei_geometrymanager_releasefunc_t)	(struct ei_widget_t*	widget);
-
-/**
- * \brief	The structure that stores information about a geometry manager.
- */
-typedef struct ei_geometrymanager_t {
-        ei_geometrymanager_name_t		name;
-        ei_geometrymanager_runfunc_t		runfunc;
-        ei_geometrymanager_releasefunc_t	releasefunc;
-        struct ei_geometrymanager_t*		next;
-} ei_geometrymanager_t;
-
-/**
- * \brief 	A structure that stores information about the geometry manager managing a widget,
- *		and the widget's geometry management parameters. This a the generic type. Each
- *		geometry manager adds field after "manager".
- */
-typedef struct ei_geometry_param_t {
-        ei_geometrymanager_t*			manager;	/**< Points to the geometry manager's structure 	*/
-} ei_geometry_param_t;
-
-
-
 
 
 
