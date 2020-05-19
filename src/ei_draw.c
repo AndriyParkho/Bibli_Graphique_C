@@ -22,7 +22,7 @@ uint32_t		ei_map_rgba		(ei_surface_t surface, const ei_color_t* color){
         int* ig;
         int* ib;
         int* ia;
-        uint32_t pixel_val;
+        uint32_t pixel_val = 0;
         hw_surface_get_channel_indices(surface, ir, ig, ib, ia);
 
         if (*ir == 0 || *ir == 1){ // De la forme ARGB ou RGBA
