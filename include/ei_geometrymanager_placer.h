@@ -29,8 +29,4 @@ void placer_runfunc(ei_widget_t* widget);
  */
 void placer_releasefunc(ei_widget_t* widget);
 
-/**
- * \brief Fonction permettant de rajouter un geometrymanager de type placer dans la liste des geometrymanager
- */
-void    ei_placer_register     ();
 #endif

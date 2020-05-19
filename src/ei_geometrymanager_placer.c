@@ -29,15 +29,3 @@ void placer_runfunc(ei_widget_t* widget){
 void placer_releasefunc(ei_widget_t* widget){
 
 }
-
-/**
- * \brief Fonction permettant de rajouter un geometrymanager de type placer dans la liste des geometrymanager
- */
-void ei_placer_register() {
-    ei_geometrymanager_t *placer = (ei_geometrymanager_t *)malloc(sizeof(ei_geometrymanager_t*));
-    strcpy(placer->name, "placer");
-    placer->runfunc = &placer_runfunc;
-    placer->releasefunc = &placer_releasefunc;
-    placer->next = NULL;
-    ei_geometrymanager_register(placer);
-}
