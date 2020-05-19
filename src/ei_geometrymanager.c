@@ -155,7 +155,7 @@ void			ei_place			(ei_widget_t*		widget,
                                                              float*			rel_height){
         ei_geometrymanager_t* geometrymanager = ei_geometrymanager_from_name("placer");
         ei_placer_param_t* placer;
-        if (widget->geom_params->manager) {
+        if (widget->geom_params) {
         if (strcmp(widget->geom_params->manager->name, "placer") != 0) {
             widget->geom_params->manager->releasefunc(widget);
             placer->geomanager = geometrymanager;
