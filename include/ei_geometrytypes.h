@@ -5,8 +5,8 @@
  *  \author Created by Equipe 5 on 18.05.2020.
  */
 
-#ifndef PROJETC_IG_EI_GEOMETRYTYPES_H
-#define PROJETC_IG_EI_GEOMETRYTYPES_H
+#ifndef EI_GEOMETRYTYPES_H
+#define EI_GEOMETRYTYPES_H
 
 #include "SDL_keycode.h"
 #include "ei_types.h"
@@ -27,4 +27,4 @@ typedef struct {
     float       rel_height;
 } ei_placer_param_t;
 
-#endif //PROJETC_IG_EI_GEOMETRYTYPES_H
+#endif
