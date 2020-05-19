@@ -158,15 +158,17 @@ void			ei_place			(ei_widget_t*		widget,
         if (widget->geom_params) {
                 if (strcmp(widget->geom_params->manager->name, "placer") != 0) {
                     widget->geom_params->manager->releasefunc(widget);
-                    placer->geomanager = geometrymanager;
+                    placer = malloc(sizeof(ei_placer_param_t));
+                    placer->manager = geometrymanager;
                     widget->geom_params = (ei_geometry_param_t *)placer;
                 }
                 else
                     placer = (ei_placer_param_t *)widget->geom_params;
                 }
         else {
-            placer->geomanager = geometrymanager;
-            widget->geom_params = (ei_geometry_param_t *)placer;
+                placer = malloc(sizeof(ei_placer_param_t));
+                placer->manager = geometrymanager;
+                widget->geom_params = (ei_geometry_param_t *)placer;
         }
 
         if (anchor) placer->anchor = *anchor;
@@ -180,22 +182,22 @@ void			ei_place			(ei_widget_t*		widget,
 
         if (width) placer->width = *width;
         else if (rel_width) {
-        placer->width = 0;
-        placer->rel_width = *rel_width;
+                placer->width = 0;
+                placer->rel_width = *rel_width;
         }
         else {
-        placer->width = widget->requested_size.width;
-        placer->rel_width = (float)0.0;
+                placer->width = widget->requested_size.width;
+                placer->rel_width = (float)0.0;
         }
 
         if (height) placer->height = *height;
         else if (rel_height) {
-        placer->height = 0;
-        placer->rel_height = *rel_height;
+                placer->height = 0;
+                placer->rel_height = *rel_height;
         }
         else {
-        placer->height = widget->requested_size.height;
-        placer->rel_height = (float)0.0;
+                placer->height = widget->requested_size.height;
+                placer->rel_height = (float)0.0;
         }
 
         if (rel_x) placer->rel_x = *rel_x;
