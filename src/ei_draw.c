@@ -4,6 +4,7 @@
 
 #include "ei_draw.h"
 #include <stdio.h>
+#include <math.h>
 
 /**
  * \brief	Converts the three red, green and blue component of a color in a 32 bits integer
@@ -25,7 +26,7 @@ uint32_t		ei_map_rgba		(ei_surface_t surface, const ei_color_t* color){
         uint32_t pixel_val = 0;
         hw_surface_get_channel_indices(surface, ir, ig, ib, ia);
 
-        if (*ir == 0 || *ir == 1){ // De la forme ARGB ou RGBA
+        /*if (*ir == 0 || *ir == 1){ // De la forme ARGB ou RGBA
                 pixel_val = color->blue;
                 pixel_val = (color->green << 8) + pixel_val;
                 pixel_val = (color->red << 16) + pixel_val;
@@ -39,7 +40,12 @@ uint32_t		ei_map_rgba		(ei_surface_t surface, const ei_color_t* color){
                 pixel_val = (color->alpha << 24) + pixel_val;
         } else { // De la forme XXXA
                 pixel_val = color->alpha + (pixel_val << 8);
-        }
+        }*/
+        if(*ia == -1)
+                pixel_val = (color->red << (int)pow(2, *ir)) + (color->green << (int)pow(2, *ig)) + (color->blue << (int)pow(2, *ib));
+        else
+                pixel_val = (color->red << (int)pow(2, *ir)) + (color->green << (int)pow(2, *ig))
+                            + (color->blue << (int)pow(2, *ib)) + (color->alpha << (int)pow(2, *ia));
         return pixel_val;
 }
 
