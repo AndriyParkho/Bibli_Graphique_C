@@ -114,7 +114,7 @@ void			ei_frame_register_class 	(void){
         frame->releasefunc = (ei_widgetclass_releasefunc_t) &frame_releasefunc;
         frame->drawfunc = (ei_widgetclass_drawfunc_t) &frame_drawfunc;
         frame->setdefaultsfunc = &frame_setdefaultsfunc;
-        frame->geomnotifyfunc = &frame_geomnotifyfunc;
+        frame->geomnotifyfunc = NULL; // En attandant de comprendre à quoi sert &frame_geomnotifyfunc;
         frame->next = NULL;
         ei_widgetclass_register(frame);
 }
