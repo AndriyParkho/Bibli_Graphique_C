@@ -37,7 +37,7 @@ ei_widget_t* ei_app_root_widget(void) {
         if (frame_root_widget){
                 return frame_root_widget;
         }
-        ei_widgetclass_t *frame_widgetclass = trouve_class(&class_tete, "frame");
+        ei_widgetclass_t *frame_widgetclass = ei_widgetclass_from_name("frame");
         frame_root_widget = (ei_widget_t*)frame_widgetclass->allocfunc();;
         frame_root_widget->wclass = frame_widgetclass;
         frame_root_widget->wclass->setdefaultsfunc(frame_root_widget);

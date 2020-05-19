@@ -63,7 +63,7 @@ ei_widget_t*		ei_widget_create		(ei_widgetclass_name_t	class_name,
                                                              struct ei_widget_t*		parent,
                                                              void*			user_data,
                                                              ei_widget_destructor_t destructor){
-        ei_widgetclass_t *widgetclass = trouve_class(&class_tete, class_name);
+        ei_widgetclass_t *widgetclass =  ei_widgetclass_from_name(class_name);
         ei_widget_t *new_widget = (ei_widget_t*)widgetclass->allocfunc();
         new_widget->wclass = widgetclass;
         new_widget->wclass->setdefaultsfunc(new_widget);
@@ -179,7 +179,7 @@ void			ei_frame_configure		(ei_widget_t*		widget,
     if (img_anchor) frame->img_anchor = *img_anchor;
 
     if (img && !requested_size) frame->widget.requested_size = (*img_rect)->size;
-    if (text && !requested_size) hw_text_compute_size(text, text_font, frame->widget.requested_size.width, frame->widget.requested_size.height);
+    if (text && !requested_size) hw_text_compute_size(*text, text_font, &frame->widget.requested_size.width, &frame->widget.requested_size.height);
 }
 
 /**
