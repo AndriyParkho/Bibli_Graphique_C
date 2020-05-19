@@ -8,6 +8,7 @@
 #define EI_GEOMETRY_REGISTER_H
 
 #include "ei_geometrymanager.h"
+#include <stdbool.h>
 
 /**
  * \brief Variable globale geometrymanager_tete qui pointe sur la liste des différents geometrymanager
