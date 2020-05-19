@@ -67,6 +67,7 @@ ei_widget_t*		ei_widget_create		(ei_widgetclass_name_t	class_name,
         ei_widget_t *new_widget = (ei_widget_t*)widgetclass->allocfunc();
         new_widget->wclass = widgetclass;
         new_widget->wclass->setdefaultsfunc(new_widget);
+        new_widget->pick_color = NULL;
         new_widget->user_data = user_data;
         new_widget->destructor = destructor;
 
@@ -79,7 +80,9 @@ ei_widget_t*		ei_widget_create		(ei_widgetclass_name_t	class_name,
 
         /* Geometry Management */
         new_widget->geom_params = NULL;
-        // jsp comment les initialiser ou s'il faut le faire
+        new_widget->requested_size = parent->requested_size;            // Je sais pas
+        new_widget->screen_location = *(parent->content_rect);          // si ces champs sont
+        new_widget->content_rect = &(new_widget->screen_location);      //  bien initialisés
         return new_widget;
 }
 
@@ -166,7 +169,6 @@ void			ei_frame_configure		(ei_widget_t*		widget,
     if (requested_size) frame->widget.requested_size = *requested_size;
     //ei_rect_t screen_location = {(0,0),requested_size};
     //frame->widget.screen_location = screen_location;
-    //frame->widget.content_rect = &(frame->widget.screen_location);
     if (color) frame->color = *color;
     if (border_width) frame->border_width = *border_width;
     if(relief) frame->relief = *relief;
