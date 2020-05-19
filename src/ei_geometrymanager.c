@@ -165,8 +165,8 @@ void			ei_place			(ei_widget_t*		widget,
             placer = (ei_placer_param_t *)widget->geom_params;
     }
     else {
-        placer->geomanager = geometrymanager;
-        widget->geom_params = (ei_geometry_param_t *)placer;
+            placer->geomanager = geometrymanager;
+            widget->geom_params = (ei_geometry_param_t *)placer;
     }
 
     if (anchor) placer->anchor = *anchor;

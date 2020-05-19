@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "ei_widgettypes.h"
 #include <stdlib.h>
+#include <ei_geometrytypes.h>
 #include "ei_widgetclass_parcours.h"
 #include "ei_widgetclass.h"
 
@@ -11,6 +12,7 @@ static ei_widget_t* frame_root_widget = NULL;
 void ei_app_create(ei_size_t main_window_size, ei_bool_t fullscreen) {
         hw_init();
         root_widget = hw_create_window(main_window_size, fullscreen);
+        ei_register_placer_manager();
         ei_frame_register_class();
 }
 
