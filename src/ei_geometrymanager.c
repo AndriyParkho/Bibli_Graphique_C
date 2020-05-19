@@ -153,9 +153,9 @@ void			ei_place			(ei_widget_t*		widget,
                                                              float*			rel_y,
                                                              float*			rel_width,
                                                              float*			rel_height){
-    ei_geometrymanager_t* geometrymanager = ei_geometrymanager_from_name("placer");
-    ei_placer_param_t* placer;
-    if (widget->geom_params->manager) {
+        ei_geometrymanager_t* geometrymanager = ei_geometrymanager_from_name("placer");
+        ei_placer_param_t* placer;
+        if (widget->geom_params->manager) {
         if (strcmp(widget->geom_params->manager->name, "placer") != 0) {
             widget->geom_params->manager->releasefunc(widget);
             placer->geomanager = geometrymanager;
@@ -163,45 +163,49 @@ void			ei_place			(ei_widget_t*		widget,
         }
         else
             placer = (ei_placer_param_t *)widget->geom_params;
-    }
-    else {
+        }
+        else {
             placer->geomanager = geometrymanager;
             widget->geom_params = (ei_geometry_param_t *)placer;
-    }
+        }
 
-    if (anchor) placer->anchor = *anchor;
-    else placer->anchor = ei_anc_northwest;
+        if (anchor) placer->anchor = *anchor;
+        else placer->anchor = ei_anc_northwest;
 
-    if (x) placer->x = *x;
-    else placer->x = 0;
+        if (x) placer->x = *x;
+        else placer->x = 0;
 
-    if (y) placer->y = *y;
-    else placer->y = 0;
+        if (y) placer->y = *y;
+        else placer->y = 0;
 
-    if (width) placer->width = *width;
-    else if (rel_width) {
+        if (width) placer->width = *width;
+        else if (rel_width) {
         placer->width = 0;
         placer->rel_width = *rel_width;
-    }
-    else {
+        }
+        else {
         placer->width = widget->requested_size.width;
         placer->rel_width = (float)0.0;
-    }
+        }
 
-    if (height) placer->height = *height;
-    else if (rel_height) {
+        if (height) placer->height = *height;
+        else if (rel_height) {
         placer->height = 0;
         placer->rel_height = *rel_height;
-    }
-    else {
+        }
+        else {
         placer->height = widget->requested_size.height;
         placer->rel_height = (float)0.0;
-    }
+        }
 
-    if (rel_x) placer->rel_x = *rel_x;
-    else placer->rel_x = (float)0.0;
+        if (rel_x) placer->rel_x = *rel_x;
+        else placer->rel_x = (float)0.0;
 
-    if (rel_y) placer->rel_y = *rel_y;
-    else placer->rel_y = (float)0.0;
+        if (rel_y) placer->rel_y = *rel_y;
+        else placer->rel_y = (float)0.0;
+
+        // Appel de la runfunc à conditionner à la
+        // modification de la géometrie ?
+        //widget->geom_params->manager->runfunc(widget);
 }
 
