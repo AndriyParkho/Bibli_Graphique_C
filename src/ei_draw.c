@@ -18,10 +18,29 @@
  *				alpha channel.
  */
 uint32_t		ei_map_rgba		(ei_surface_t surface, const ei_color_t* color){
-        int* ir, ig, ib, ia;
+        int* ir;
+        int* ig;
+        int* ib;
+        int* ia;
         uint32_t pixel_val;
         hw_surface_get_channel_indices(surface, ir, ig, ib, ia);
 
+        if (*ir == 0 || *ir == 1){ // De la forme ARGB ou RGBA
+                pixel_val = color->blue;
+                pixel_val = (color->green << 8) + pixel_val;
+                pixel_val = (color->red << 16) + pixel_val;
+        } else { // De la forme ABGR ou BGRA
+                pixel_val = color->red;
+                pixel_val = (color->green << 8) + pixel_val;
+                pixel_val = (color->blue << 16) + pixel_val;
+        }
+
+        if (*ir + *ig + *ib == 6) { // De la forme AXXX
+                pixel_val = (color->alpha << 24) + pixel_val;
+        } else { // De la forme XXXA
+                pixel_val = color->alpha + (pixel_val << 8);
+        }
+        return pixel_val;
 }
 
 
@@ -100,11 +119,8 @@ void ei_fill (ei_surface_t surface, const ei_color_t* color, const ei_rect_t* cl
         }
         pixel_ptr = (uint32_t *) hw_surface_get_buffer(surface);
         for (i = 0; i < surface_size.height * surface_size.width; i++) {
-                *pixel_ptr = color->red;
-                *pixel_ptr = (*pixel_ptr << 8) + color->green;
-                *pixel_ptr = (*pixel_ptr << 8) + color->blue;
-                *pixel_ptr = (*pixel_ptr << 8) + color->alpha;
-                printf("%u \n", *pixel_ptr);
+                *pixel_ptr = ei_map_rgba(surface, color);
+                //printf("%u \n", *pixel_ptr);
                 pixel_ptr++;
         }
 }
