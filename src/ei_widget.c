@@ -63,7 +63,7 @@ ei_widget_t*		ei_widget_create		(ei_widgetclass_name_t	class_name,
                                                              struct ei_widget_t*		parent,
                                                              void*			user_data,
                                                              ei_widget_destructor_t destructor){
-        ei_widgetclass_t *widgetclass = trouve_class(&class_tete, class_name);
+        ei_widgetclass_t *widgetclass =  ei_widgetclass_from_name(class_name);
         ei_widget_t *new_widget = (ei_widget_t*)widgetclass->allocfunc();
         new_widget->wclass = widgetclass;
         new_widget->wclass->setdefaultsfunc(new_widget);
