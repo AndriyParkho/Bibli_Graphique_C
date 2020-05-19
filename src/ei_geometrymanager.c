@@ -206,6 +206,6 @@ void			ei_place			(ei_widget_t*		widget,
 
         // Appel de la runfunc à conditionner à la
         // modification de la géometrie ?
-        //widget->geom_params->manager->runfunc(widget);
+        widget->geom_params->manager->runfunc(widget);
 }
 
