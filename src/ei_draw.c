@@ -17,7 +17,12 @@
  *				of the color is ignored in the case of surfaces that don't have an
  *				alpha channel.
  */
-uint32_t		ei_map_rgba		(ei_surface_t surface, const ei_color_t* color);
+uint32_t		ei_map_rgba		(ei_surface_t surface, const ei_color_t* color){
+        int* ir, ig, ib, ia;
+        uint32_t pixel_val;
+        hw_surface_get_channel_indices(surface, ir, ig, ib, ia);
+
+}
 
 
 
@@ -99,6 +104,7 @@ void ei_fill (ei_surface_t surface, const ei_color_t* color, const ei_rect_t* cl
                 *pixel_ptr = (*pixel_ptr << 8) + color->green;
                 *pixel_ptr = (*pixel_ptr << 8) + color->blue;
                 *pixel_ptr = (*pixel_ptr << 8) + color->alpha;
+                printf("%u \n", *pixel_ptr);
                 pixel_ptr++;
         }
 }
