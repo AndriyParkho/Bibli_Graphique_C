@@ -119,18 +119,13 @@ void ei_fill (ei_surface_t surface, const ei_color_t* color, const ei_rect_t* cl
         // clipper si non NULL sert à déterminer quel rectangle remplir
         int i;
         ei_size_t surface_size = hw_surface_get_size(surface);
-        printf("%i \t %i \t %i \t %i \n", clipper->size.height, clipper->size.width, clipper->top_left.x, clipper->top_left.y);
 
         uint32_t *pixel_ptr = (uint32_t *) hw_surface_get_buffer(surface);
         ei_size_t root_size = hw_surface_get_size(ei_app_root_surface());
         if (clipper) {
-                //printf("avant : %d \n", hw_surface_get_buffer(surface));
-                //hw_surface_set_origin(surface, clipper->top_left);
-                //printf("après : %d \n", hw_surface_get_buffer(surface));
                 surface_size = clipper->size;
         }
         pixel_ptr = pixel_ptr + root_size.width*clipper->top_left.y + clipper->top_left.x;
-        // printf("Adresse : %d - Valeur : %d\n",pixel_ptr, *pixel_ptr);
         for (i = 0; i < surface_size.height * surface_size.width; i++) {
                 if (i%surface_size.width == 0 && i!=0) {
                         for (int j=0; j<(root_size.width-surface_size.width); j++) {
@@ -138,7 +133,6 @@ void ei_fill (ei_surface_t surface, const ei_color_t* color, const ei_rect_t* cl
                         }
                 }
                 *pixel_ptr = ei_map_rgba(surface, color);
-                //printf("Adresse : %d - Valeur : %d\n",pixel_ptr, *pixel_ptr);
                 pixel_ptr++;
         }
 }
