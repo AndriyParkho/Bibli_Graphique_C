@@ -15,7 +15,7 @@
  * @param	widget		The widget instance for which to compute geometry.
  */
 void placer_runfunc(ei_widget_t* widget){
-        ei_placer_param_t *placer = (ei_placer_param_t*) widget->geom_params->manager;
+        ei_placer_param_t *placer = (ei_placer_param_t*) widget->geom_params;
         ei_rect_t screen_location;
         screen_location.size = widget->requested_size;
         screen_location.top_left.x = placer->x;

@@ -119,14 +119,15 @@ void ei_fill (ei_surface_t surface, const ei_color_t* color, const ei_rect_t* cl
         uint32_t *pixel_ptr;
         int i;
         ei_size_t surface_size = hw_surface_get_size(surface);
+        printf("%i \t %i \t %i \t %i \n", clipper->size.height, clipper->size.width, clipper->top_left.x, clipper->top_left.y);
         if (clipper) {
                 hw_surface_set_origin(surface, clipper->top_left);
                 surface_size = clipper->size;
+                // printf("%i \n", );
         }
         pixel_ptr = (uint32_t *) hw_surface_get_buffer(surface);
         for (i = 0; i < surface_size.height * surface_size.width; i++) {
                 *pixel_ptr = ei_map_rgba(surface, color);
-                //printf("%u \n", *pixel_ptr);
                 pixel_ptr++;
         }
 }
