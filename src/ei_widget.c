@@ -215,7 +215,12 @@ void			ei_button_configure		(ei_widget_t*		widget,
                                                                 ei_anchor_t*		img_anchor,
                                                                 ei_callback_t*		callback,
                                                                 void**			user_param){
-
+        ei_button_t* button = (ei_button_t*)widget;
+        ei_frame_configure((ei_widget_t *)&button->frame,requested_size,color,border_width,relief,text,text_font,text_color,
+                           text_anchor, img, img_rect, img_anchor);
+        if (corner_radius) button->corner_radius = *corner_radius;
+        if (callback) button->callback = *callback;
+        if (user_param) button->user_param = *user_param;
 }
 
 /**
