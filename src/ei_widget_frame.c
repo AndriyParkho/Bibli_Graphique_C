@@ -14,12 +14,31 @@
 void frame_drawfunc(ei_widget_t *widget){
         // declaration of the widget as a frame
         ei_frame_t* frame = (ei_frame_t*)widget;
-
+        int i, j, k;
+        ei_linked_point_t		points[4];
+        int coord_x[] = {widget->screen_location.top_left.x, widget->screen_location.top_left.x + widget->screen_location.size.height};
+        int coord_y[] = {widget->screen_location.top_left.y, widget->screen_location.top_left.y + widget->screen_location.size.width};
+        // Define the polygon vertices.
+        for (i = 0, k = 0; i < 2 && k < 4; i++) {
+                printf("1er for");
+                for (j=0; j < 2; j++){
+                        points[k].point.x	= coord_x[i];
+                        points[k].point.y	= coord_y[j];
+                        if (k < 3)
+                                points[k].next	= &(points[i+1]);
+                        else
+                                points[k].next	= NULL;
+                        k++;
+                        printf("2eme for");
+                }
+        }
         // lock the surface for drawing
         hw_surface_lock(ei_app_root_surface());
 
-        // fill the surface with the specified color
-        ei_fill(ei_app_root_surface(), &(frame->color), &(widget->screen_location));
+        // draw the polygon
+        ei_draw_polygon(ei_app_root_surface(), points, frame->color, &(widget->screen_location));
+        /*// fill the surface with the specified color
+        ei_fill(ei_app_root_surface(), &(frame->color), &(widget->screen_location));*/
 
         // unlock the surface and update the screen
         hw_surface_unlock(ei_app_root_surface());
