@@ -32,8 +32,10 @@
 
 
  /**
-  *
+  * @brief Structure du type bouton
   */
+
+ //A modifier certainement, car bcp de paramètres en commun avec frame
 typedef struct {
     ei_widget_t         widget;
 
