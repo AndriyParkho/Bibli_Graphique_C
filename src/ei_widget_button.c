@@ -3,6 +3,8 @@
  */
 
 #include "ei_widget_button.h"
+#include "ei_widgettypes.h"
+#include "ei_types.h"
 
 /**
  * \brief	A function that draws button.
@@ -26,7 +28,7 @@ void button_drawfunc(ei_widget_t *widget){
  * @return		A block of memory with all bytes set to 0.
  */
 void* button_allocfunc(){
-
+        return(calloc(1, sizeof(ei_button_t)));
 }
 
 /**
@@ -37,8 +39,8 @@ void* button_allocfunc(){
  *
  * @param	widget		The widget which resources are to be freed.
  */
-void frame_releasefunc(ei_widget_t* widget){
-
+void button_releasefunc(ei_button_t* button){
+        free(button);
 }
 
 /**
@@ -47,6 +49,14 @@ void frame_releasefunc(ei_widget_t* widget){
  * @param	widget		A pointer to the widget instance to initialize.
  */
 void button_setdefaultsfunc(ei_widget_t* widget){
+        ei_button_t* button = (ei_button_t*)widget;
+        button->frame.widgetclass->setdefaultsfunc(button->frame);
+
+        button->frame.relief = ei_relief_raised;
+        button->frame.border_width = k_default_button_border_width;
+        button->corner_radius = k_default_button_corner_radius;
+        button->callback = NULL;
+        button->user_param = NULL;
 
 }
 
