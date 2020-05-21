@@ -9,6 +9,8 @@
 #define EI_GEOMETRYMANAGER_PLACER_H
 
 #include "ei_geometrymanager.h"
+#include "ei_geometrytypes.h"
+#include <string.h>
 
 /**
  * \brief	A function that runs the geometry computation for this widget. This may trigger
