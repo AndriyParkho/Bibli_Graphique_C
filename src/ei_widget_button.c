@@ -3,8 +3,7 @@
  */
 
 #include "ei_widget_button.h"
-#include "ei_widgettypes.h"
-#include "ei_types.h"
+
 
 /**
  * \brief	A function that draws button.

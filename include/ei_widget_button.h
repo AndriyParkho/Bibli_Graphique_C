@@ -5,6 +5,9 @@
 #ifndef EI_WIDGET_BUTTON_H
 #define EI_WIDGET_BUTTON_H
 
+#include "ei_widgettypes.h"
+#include "ei_types.h"
+
 /**
  * \brief	A function that draws button.
  *
