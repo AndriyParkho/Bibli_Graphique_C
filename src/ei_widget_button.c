@@ -17,7 +17,10 @@
  *				(expressed in the surface reference frame).
  */
 void button_drawfunc(ei_widget_t *widget){
-
+        ei_frame_t* button = (ei_button_t*)widget;
+        rounded_frame(button->widget.screen_location); // Partie haute
+        rounded_frame(button->widget.screen_location); // Partie basse
+        rounded_frame(button->widget.screen_location); // Partie supérieure
 }
 
 /**

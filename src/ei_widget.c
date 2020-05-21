@@ -171,7 +171,7 @@ void			ei_frame_configure		(ei_widget_t*		widget,
     //frame->widget.screen_location = screen_location;
     if (color) frame->color = *color;
     if (border_width) frame->border_width = *border_width;
-    if(relief) frame->relief = *relief;
+    if (relief) frame->relief = *relief;
     if (text) strcpy(frame->text,*text);
     if (text_font) frame->text_font = *text_font;
     if (text_color) frame->text_color = *text_color;

@@ -1,5 +1,4 @@
 #include "ei_widget_frame.h"
-#include <stdio.h>
 
 
 /**
@@ -43,10 +42,33 @@ void frame_drawfunc(ei_widget_t *widget){
         // lock the surface for drawing
         hw_surface_lock(ei_app_root_surface());
 
-        // draw the polygon
-        ei_draw_polygon(ei_app_root_surface(), points, frame->color, &frame->widget.screen_location);
         /*// fill the surface with the specified color
         ei_fill(ei_app_root_surface(), &(frame->color), &(widget->screen_location));*/
+
+        // draw the polygon
+        if (frame->relief != ei_relief_none) {
+                ei_linked_point_t points_sup[3];
+                ei_linked_point_t points_inf[3];
+                ei_color_t dark_color = {frame->color.red - 30, frame->color.green - 30,
+                                         frame->color.blue - 30, frame->color.alpha};
+                ei_color_t light_color = {frame->color.red + 30, frame->color.green + 30,
+                                          frame->color.blue + 30, frame->color.alpha};
+                for (i = 0; i < 3; i++) {
+                        if (i < 2) points_sup[i] = points[i];
+                        else points_sup[i] = points[i + 1];
+                        points_inf[i] = points[i + 1];
+                }
+                if (frame->relief == ei_relief_raised) {
+                        ei_draw_polygon(ei_app_root_surface(), points_sup, light_color, &(widget->screen_location));
+                        ei_draw_polygon(ei_app_root_surface(), points_inf, dark_color, &(widget->screen_location));
+                } else { // cad frame->relief == ei_relief_sunken
+                        ei_draw_polygon(ei_app_root_surface(), points_sup, dark_color, &(widget->screen_location));
+                        ei_draw_polygon(ei_app_root_surface(), points_inf, light_color, &(widget->screen_location));
+                }
+                // retrecir points
+        } else {
+                ei_draw_polygon(ei_app_root_surface(), points, frame->color, &(widget->screen_location));
+        }
 
         // unlock the surface and update the screen
         hw_surface_unlock(ei_app_root_surface());
