@@ -15,13 +15,13 @@
  * @param	clipper		If not NULL, the drawing is restricted within this rectangle
  *				(expressed in the surface reference frame).
  */
- /*
+
 void button_drawfunc(ei_widget_t *widget){
         ei_frame_t* button = (ei_button_t*)widget;
         rounded_frame(button->widget.screen_location); // Partie haute
         rounded_frame(button->widget.screen_location); // Partie basse
         rounded_frame(button->widget.screen_location); // Partie supérieure
-}*/
+}
 
 /**
  * \brief	A function that allocates a block of memory that is big enough to store the
@@ -51,7 +51,7 @@ void button_releasefunc(ei_widget_t* button){
  *
  * @param	widget		A pointer to the widget instance to initialize.
  */
- /*
+
 void button_setdefaultsfunc(ei_widget_t* widget){
         ei_button_t* button = (ei_button_t*)widget;
         button->frame.widget.wclass->setdefaultsfunc((ei_widget_t)button->frame);
@@ -62,7 +62,7 @@ void button_setdefaultsfunc(ei_widget_t* widget){
         button->callback = NULL;
         button->user_param = NULL;
 
-}*/
+}
 
 /**
  * \brief 	A function that is called to notify the widget that its geometry has been modified
