@@ -1,5 +1,8 @@
-/*
- * Fonctions servant à dessiner les widgets et leurs détails
+/**
+ * @file ei_draw_annexe.c
+ * @brief Fonctions servant à dessiner les widgets et leurs détails
+ *
+ * \author Created by Equipe 5 on 21.05.2020.
  */
 
 #include "ei_draw_annexe.h"
