@@ -17,10 +17,10 @@
  */
 
 void button_drawfunc(ei_widget_t *widget){
-        ei_frame_t* button = (ei_button_t*)widget;
-        rounded_frame(button->widget.screen_location); // Partie haute
-        rounded_frame(button->widget.screen_location); // Partie basse
-        rounded_frame(button->widget.screen_location); // Partie supérieure
+        ei_button_t* button = (ei_button_t*)widget;
+        rounded_frame(button->frame.widget.screen_location, button->corner_radius,2); // Partie haute
+        rounded_frame(button->frame.widget.screen_location, button->corner_radius,1); // Partie basse
+        rounded_frame(button->frame.widget.screen_location, button->corner_radius,0); // Partie supérieure
 }
 
 /**
@@ -54,7 +54,7 @@ void button_releasefunc(ei_widget_t* button){
 
 void button_setdefaultsfunc(ei_widget_t* widget){
         ei_button_t* button = (ei_button_t*)widget;
-        button->frame.widget.wclass->setdefaultsfunc((ei_widget_t)button->frame);
+        button->frame.widget.wclass->setdefaultsfunc(&(button->frame.widget));
 
         button->frame.relief = ei_relief_raised;
         button->frame.border_width = k_default_button_border_width;

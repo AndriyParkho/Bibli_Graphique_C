@@ -8,6 +8,7 @@
 #include "ei_widgettypes.h"
 #include "ei_types.h"
 #include <stdlib.h>
+#include "ei_draw_annexe.h"
 
 /**
  * \brief	A function that draws button.
