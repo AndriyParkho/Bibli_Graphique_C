@@ -47,17 +47,52 @@ void frame_drawfunc(ei_widget_t *widget){
 
         // draw the polygon
         if (frame->relief != ei_relief_none) {
-                ei_linked_point_t points_sup[3];
-                ei_linked_point_t points_inf[3];
+                int border_width = frame->border_width;
+                int half_length = widget->screen_location.size.width / 2;
+                ei_linked_point_t points_sup[5];
+                ei_linked_point_t points_inf[5];
                 ei_color_t dark_color = {frame->color.red - 30, frame->color.green - 30,
                                          frame->color.blue - 30, frame->color.alpha};
                 ei_color_t light_color = {frame->color.red + 30, frame->color.green + 30,
                                           frame->color.blue + 30, frame->color.alpha};
-                for (i = 0; i < 3; i++) {
-                        if (i < 2) points_sup[i] = points[i];
-                        else points_sup[i] = points[i + 1];
-                        points_inf[i] = points[i + 1];
-                }
+                points_sup[0] = points[0];
+                points_sup[1] = points[1];
+                points_sup[2] = points[3];
+                points_inf[0] = points[1];
+                points_inf[1] = points[2];
+                points_inf[2] = points[3];
+                /*i = 0;
+                while (i != 5) {
+                        switch (i) {
+                                case 0 :
+                                        points_sup[i] = points[i];
+                                        points_inf[i] = points[i + 1];
+                                        break;
+                                case 1 :
+                                        points_sup[i] = points[i];
+                                        points_inf[i] = points[i + 1];
+                                        break;
+                                case 2 :
+                                        points_sup[i].point.x = points[i].point.x - half_length;
+                                        points_sup[i].point.y = points[i].point.y + half_length;
+                                        points_inf[i] = points[i + 1];
+                                        break;
+                                case 3 :
+                                        points_sup[i].point.x = points[i].point.x + half_length;
+                                        points_sup[i].point.y = points[i].point.y + half_length;
+                                        points_inf[i].point.x = points[i].point.x + half_length;
+                                        points_inf[i].point.y = points[i].point.y + half_length;
+                                        break;
+                                case 4 :
+                                        points_sup[i] = points[i - 1];
+                                        points_sup[i].point.x = points[i - 2].point.x - half_length;
+                                        points_sup[i].point.y = points[i - 2].point.y + half_length;
+                                        break;
+                        }
+                        if (i < 4) points[i].next = &points[i + 1];
+                        else points[i].next = NULL;
+                        i++;
+                }*/
                 if (frame->relief == ei_relief_raised) {
                         ei_draw_polygon(ei_app_root_surface(), points_sup, light_color, &(widget->screen_location));
                         ei_draw_polygon(ei_app_root_surface(), points_inf, dark_color, &(widget->screen_location));
@@ -65,11 +100,32 @@ void frame_drawfunc(ei_widget_t *widget){
                         ei_draw_polygon(ei_app_root_surface(), points_sup, dark_color, &(widget->screen_location));
                         ei_draw_polygon(ei_app_root_surface(), points_inf, light_color, &(widget->screen_location));
                 }
-                // retrecir points
-        } else {
-                ei_draw_polygon(ei_app_root_surface(), points, frame->color, &(widget->screen_location));
+                i = 0;
+                while (i != 4) {
+                        switch (i) {
+                                case 0 :
+                                        points[i].point.x = coord_x[0] + border_width;
+                                        points[i].point.y = coord_y[0] + border_width;
+                                        break;
+                                case 1 :
+                                        points[i].point.x = coord_x[1] - border_width;
+                                        points[i].point.y = coord_y[0] + border_width;
+                                        break;
+                                case 2 :
+                                        points[i].point.x = coord_x[1] - border_width;
+                                        points[i].point.y = coord_y[1] - border_width;
+                                        break;
+                                case 3 :
+                                        points[i].point.x = coord_x[0] + border_width;
+                                        points[i].point.y = coord_y[1] - border_width;
+                                        break;
+                        }
+                        if (i < 3) points[i].next = &points[i + 1];
+                        else points[i].next = NULL;
+                        i++;
+                }
         }
-
+        ei_draw_polygon(ei_app_root_surface(), points, frame->color, &(widget->screen_location));
         // unlock the surface and update the screen
         hw_surface_unlock(ei_app_root_surface());
         hw_surface_update_rects(ei_app_root_surface(), NULL);

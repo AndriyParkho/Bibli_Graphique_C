@@ -18,9 +18,7 @@
  * @param	clipper		If not NULL, the drawing is restricted within this rectangle
  *				(expressed in the surface reference frame).
  */
-void button_drawfunc(ei_widget_t *widget){
-
-}
+void button_drawfunc(ei_widget_t *widget);
 
 /**
  * \brief	A function that allocates a block of memory that is big enough to store the
