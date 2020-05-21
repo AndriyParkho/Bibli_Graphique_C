@@ -15,21 +15,52 @@ ei_linked_point_t * arc(ei_point_t centre, int rayon, double angle_d, double ang
 
 /**
  * \brief Fonction permettant de générer une liste de point définissant soit un cadre aux bords arrondis,
- *        sa partiehaute ou sa partie basse
+ *        sa partie haute ou sa partie basse.
  *
  * @param rect      Rectangle définissant le cadre
  * @param rayon     Le rayon des angles
  * @param partie    Paramètre définissant si on génère la totalité de la forme, la partie haute ou la partie
- *                  basse
+ *                  basse. Ce paramètre vaut :
+ *                      <ul>
+ *                          <li> 0 quand on souhaite générer la totalité de la forme
+ *                          <li> 1 quand on souhaite générer la partie haute de la forme
+ *                          <li> 2 quand on souhaite générer la partie basse de la forme
+ *                      </ul>
  *
  * @return  Une liste chainée de points définissants la forme demandée
  */
 ei_linked_point_t* rounded_frame(ei_rect_t rect, int rayon, int partie);
 
+/**
+ * \brief Fonction permettant de générer une liste de point définissant un cadre aux bords arrondis
+ *
+ * @param rect      Rectangle définissant le cadre
+ * @param rayon     Le rayon des angles
+ *
+ * @return Une liste chainée de points définissants la forme demandée
+ */
 ei_linked_point_t* rounded_frame_tot(ei_rect_t rect, int rayon);
 
+/**
+ * \brief Fonction permettant de générer une liste de point définissant la partie haute d'un cadre aux
+ *        bords arrondis
+ *
+ * @param rect      Rectangle définissant le cadre
+ * @param rayon     Le rayon des angles
+ *
+ * @return Une liste chainée de points définissants la forme demandée
+ */
 ei_linked_point_t* rounded_frame_haut(ei_rect_t rect, int rayon);
 
+/**
+ * \brief Fonction permettant de générer une liste de point définissant la partie basse d'un cadre aux
+ *        bords arrondis
+ *
+ * @param rect      Rectangle définissant le cadre
+ * @param rayon     Le rayon des angles
+ *
+ * @return Une liste chainée de points définissants la forme demandée
+ */
 ei_linked_point_t* rounded_frame_bas(ei_rect_t rect, int rayon);
 
 #endif
