@@ -16,12 +16,12 @@
  *				(expressed in the surface reference frame).
  */
 
-void button_drawfunc(ei_widget_t *widget){
+/*void button_drawfunc(ei_widget_t *widget){
         ei_button_t* button = (ei_button_t*)widget;
         rounded_frame(button->frame.widget.screen_location, button->corner_radius,2); // Partie haute
         rounded_frame(button->frame.widget.screen_location, button->corner_radius,1); // Partie basse
         rounded_frame(button->frame.widget.screen_location, button->corner_radius,0); // Partie supérieure
-}
+}*/
 
 /**
  * \brief	A function that allocates a block of memory that is big enough to store the
@@ -52,7 +52,7 @@ void button_releasefunc(ei_widget_t* button){
  * @param	widget		A pointer to the widget instance to initialize.
  */
 
-void button_setdefaultsfunc(ei_widget_t* widget){
+/*void button_setdefaultsfunc(ei_widget_t* widget){
         ei_button_t* button = (ei_button_t*)widget;
         button->frame.widget.wclass->setdefaultsfunc(&(button->frame.widget));
 
@@ -62,7 +62,7 @@ void button_setdefaultsfunc(ei_widget_t* widget){
         button->callback = NULL;
         button->user_param = NULL;
 
-}
+}*/
 
 /**
  * \brief 	A function that is called to notify the widget that its geometry has been modified

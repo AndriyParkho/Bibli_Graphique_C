@@ -1,10 +1,7 @@
-#include <stdlib.h>
-
 #include "ei_types.h"
 #include "ei_draw.h"
 #include "ei_event.h"
 #include "hw_interface.h"
-#include <stdio.h>
 
 int main(int argc, char** argv)
 {
@@ -25,8 +22,6 @@ int main(int argc, char** argv)
 	main_window_size.width	= 640;
 	main_window_size.height	= 480;
 	main_window = hw_create_window(main_window_size, EI_FALSE);
-
-
 
 	// Fill the main window in red, draw a transparent blue polygon:
 

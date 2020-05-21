@@ -9,7 +9,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <assert.h>
-
+#include <stdio.h>
 
 /*
  * Fonction qui génère une liste de points définissant un arc,paramétrée par le centre, le rayon,
@@ -22,12 +22,12 @@ ei_linked_point_t * arc(ei_point_t centre, int rayon, double angle_d, double ang
         double angle_suivant;
         for (i = 0; i < 10; i++){
                 angle_suivant = angle_d - pas*i;
-                points[i].point.x = centre.x + rayon * cos(angle_suivant);
-                points[i].point.y = centre.y - rayon * sin(angle_suivant);
+                points[i].point.x = centre.x + (int)(rayon * cos(angle_suivant));
+                points[i].point.y = centre.y - (int)(rayon * sin(angle_suivant));
                 if (i<9) points[i].next = &points[i+1];
                 else points[i].next = NULL;
         }
-        return points;
+        return &points[0];
 }
 
 /**
@@ -52,6 +52,7 @@ ei_linked_point_t* rounded_frame(ei_rect_t rect, int r, int partie) {
                 case 0 : return(rounded_frame_tot(rect,r));
                 case 1 : return(rounded_frame_haut(rect,r));
                 case 2 : return(rounded_frame_bas(rect,r));
+                default : printf("Ce cas n'arrivera jamais\n");
         }
 }
 
@@ -75,7 +76,9 @@ ei_linked_point_t* rounded_frame_tot(ei_rect_t rect, int r) {
                 dernier_point = dernier_point->next;
         }
         centre.x = centre.x + (rect.size.width - 2*r);
+        printf("%d\n", dernier_point->point.x);
         dernier_point->next = arc(centre, r, M_PI/2, 0);
+        printf("%d\n", dernier_point->point.x);
         while (dernier_point->next) {
                 dernier_point = dernier_point->next;
         }
