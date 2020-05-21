@@ -33,4 +33,19 @@ void ei_parcours_profondeur_widget(ei_widget_t* root, ei_surface_t root_widget);
  */
 void add_widget_child(struct ei_widget_t* parent, struct ei_widget_t* child);
 
+/**
+ * \brief Fonction qui permet de parcourir l'arbre de hierarchie des widget en profondeur, et libérer la mémoire qu'ils occupent,
+ *        depuis la racine passée en paramètre
+ *
+ * @param root          Le widget racine de l'arbre de hiérarchie de widget que l'on souhaite libérer
+ */
+void ei_parcours_profondeur_free_widget(ei_widget_t* root);
+
+/**
+ * \brief Fonction qui libère la mémoire allouée pour la liste chainée des widgetclass
+ *
+ * @param list           un pointeur sur la tête de la liste chainée des widget class
+ */
+void free_class(ei_widgetclass_t *list);
+
 #endif //EI_WIDGETCLASS_PARCOURS_H

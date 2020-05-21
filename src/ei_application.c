@@ -4,6 +4,7 @@
 #include <ei_geometrytypes.h>
 #include "ei_widgetclass_parcours.h"
 #include "ei_widgetclass.h"
+#include "ei_geometrymanager_parcours.h"
 
 
 ei_surface_t static root_widget;
@@ -17,6 +18,9 @@ void ei_app_create(ei_size_t main_window_size, ei_bool_t fullscreen) {
 }
 
 void ei_app_free(void) {
+        ei_parcours_profondeur_free_widget(frame_root_widget);
+        free_class(class_tete);
+        free_geometrymanager(geometrymanager_tete);
         hw_quit();
 }
 

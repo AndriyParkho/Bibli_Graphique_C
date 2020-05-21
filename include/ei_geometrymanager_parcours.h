@@ -37,4 +37,12 @@ void inserer_geometrymanager_queue(ei_geometrymanager_t **list, ei_geometrymanag
  */
 ei_geometrymanager_t* trouve_geomanager(ei_geometrymanager_t **list, ei_geometrymanager_name_t name);
 
+
+/**
+ * \brief Fonction qui libère la mémoire allouée pour la liste chainée des geometry manager
+ *
+ * @param list           un pointeur sur la tête de la liste chainée des geometry manager
+ */
+void free_geometrymanager(ei_geometrymanager_t *list);
+
 #endif

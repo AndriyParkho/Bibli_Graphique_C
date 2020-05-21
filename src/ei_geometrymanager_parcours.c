@@ -55,3 +55,21 @@ ei_geometrymanager_t* trouve_geomanager(ei_geometrymanager_t **list, ei_geometry
 }
 
 
+/**
+ * \brief Fonction qui libère la mémoire allouée pour la liste chainée des geometry manager
+ *
+ * @param list           un pointeur sur la tête de la liste chainée des geometry manager
+ */
+void free_geometrymanager(ei_geometrymanager_t *list){
+        // Si la liste est vide on ne fait rien...
+        if (list == NULL){
+                // Y a rien à faire
+        } else if(list->next == NULL)
+                free(list); // On libère la tête de liste
+        else{
+                free_geometrymanager(list->next);
+                free(list);
+        }
+}
+
+
