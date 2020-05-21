@@ -3,6 +3,7 @@
  */
 
 #include "ei_widget_button.h"
+#include <stdlib.h>
 
 
 /**
@@ -15,12 +16,13 @@
  * @param	clipper		If not NULL, the drawing is restricted within this rectangle
  *				(expressed in the surface reference frame).
  */
+ /*
 void button_drawfunc(ei_widget_t *widget){
         ei_frame_t* button = (ei_button_t*)widget;
         rounded_frame(button->widget.screen_location); // Partie haute
         rounded_frame(button->widget.screen_location); // Partie basse
         rounded_frame(button->widget.screen_location); // Partie supérieure
-}
+}*/
 
 /**
  * \brief	A function that allocates a block of memory that is big enough to store the
@@ -41,7 +43,7 @@ void* button_allocfunc(){
  *
  * @param	widget		The widget which resources are to be freed.
  */
-void button_releasefunc(ei_button_t* button){
+void button_releasefunc(ei_widget_t* button){
         free(button);
 }
 
@@ -50,9 +52,10 @@ void button_releasefunc(ei_button_t* button){
  *
  * @param	widget		A pointer to the widget instance to initialize.
  */
+ /*
 void button_setdefaultsfunc(ei_widget_t* widget){
         ei_button_t* button = (ei_button_t*)widget;
-        button->frame.widgetclass->setdefaultsfunc(button->frame);
+        button->frame.widget.wclass->setdefaultsfunc((ei_widget_t)button->frame);
 
         button->frame.relief = ei_relief_raised;
         button->frame.border_width = k_default_button_border_width;
@@ -60,7 +63,7 @@ void button_setdefaultsfunc(ei_widget_t* widget){
         button->callback = NULL;
         button->user_param = NULL;
 
-}
+}*/
 
 /**
  * \brief 	A function that is called to notify the widget that its geometry has been modified

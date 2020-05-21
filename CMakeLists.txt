@@ -81,6 +81,7 @@ set(LIB_EI_SOURCES
 		${SRC}/ei_widgetclass_parcours.c
 		${SRC}/ei_geometrymanager_parcours.c
 		${SRC}/ei_geometrymanager_placer.c
+		${SRC}/ei_widget_button.c
 		)
 
 add_library(ei STATIC			${LIB_EI_SOURCES})
