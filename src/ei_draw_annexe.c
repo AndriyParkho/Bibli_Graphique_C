@@ -17,17 +17,30 @@
  */
 ei_linked_point_t * arc(ei_point_t centre, int rayon, double angle_d, double angle_f){
         double pas = (angle_d - angle_f )/ 10;
-        ei_linked_point_t points[10];
+        ei_linked_point_t* points = (ei_linked_point_t*)malloc(sizeof(ei_linked_point_t*));
+        ei_linked_point_t* cour = (ei_linked_point_t*)malloc(sizeof(ei_linked_point_t*));
+        ei_point_t coord;
         int i;
         double angle_suivant;
-        for (i = 0; i < 10; i++){
+        points->point.x = centre.x + (int)(rayon * cos(angle_d));
+        points->point.y = centre.y - (int)(rayon * sin(angle_d));
+        cour = points;
+        for (i = 1; i < 11; i++){
                 angle_suivant = angle_d - pas*i;
-                points[i].point.x = centre.x + (int)(rayon * cos(angle_suivant));
-                points[i].point.y = centre.y - (int)(rayon * sin(angle_suivant));
-                if (i<9) points[i].next = &points[i+1];
-                else points[i].next = NULL;
+                coord.x = centre.x + (int)(rayon * cos(angle_suivant));
+                coord.y = centre.y - (int)(rayon * sin(angle_suivant));
+                cour->next = cree_element_point(coord);
+                cour = cour->next;
         }
-        return &points[0];
+        return points;
+}
+
+ei_linked_point_t* cree_element_point(ei_point_t coord) {
+        ei_linked_point_t* l_point = (ei_linked_point_t*)malloc(sizeof(ei_linked_point_t*));
+        l_point->point.x = coord.x;
+        l_point->point.y = coord.y;
+        l_point->next = NULL;
+        return l_point;
 }
 
 /**
@@ -76,9 +89,7 @@ ei_linked_point_t* rounded_frame_tot(ei_rect_t rect, int r) {
                 dernier_point = dernier_point->next;
         }
         centre.x = centre.x + (rect.size.width - 2*r);
-        printf("%d\n", dernier_point->point.x);
         dernier_point->next = arc(centre, r, M_PI/2, 0);
-        printf("%d\n", dernier_point->point.x);
         while (dernier_point->next) {
                 dernier_point = dernier_point->next;
         }

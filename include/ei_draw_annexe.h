@@ -13,6 +13,8 @@
 
 ei_linked_point_t * arc(ei_point_t centre, int rayon, double angle_d, double angle_f);
 
+ei_linked_point_t* cree_element_point(ei_point_t coord);
+
 /**
  * \brief Fonction permettant de générer une liste de point définissant soit un cadre aux bords arrondis,
  *        sa partie haute ou sa partie basse.
