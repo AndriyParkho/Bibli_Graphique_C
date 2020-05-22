@@ -38,15 +38,16 @@ int main(int argc, char** argv)
 	ei_frame_configure(ei_app_root_widget(), NULL, &root_bgcol, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 	/* Create, configure and place the frame on screen. */
+	/*
 	frame = ei_widget_create("frame", ei_app_root_widget(), NULL, NULL);
 	ei_frame_configure(frame, &frame_size, &frame_color,
 			    &frame_border_width, &frame_relief, NULL, NULL, NULL, NULL,
 			    NULL, NULL, NULL);
 	ei_place(frame, NULL, &frame_x, &frame_y, NULL, NULL, NULL, NULL, NULL, NULL );
+*/
 
 
-
-	ei_draw_polygon(ei_app_root_widget(), test, frame_color, NULL);
+	ei_draw_polygon(ei_app_root_surface(), test, frame_color, NULL);
 
 	/* Run the application's main loop. */
 	ei_app_run();
