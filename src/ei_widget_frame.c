@@ -1,4 +1,5 @@
 #include "ei_widget_frame.h"
+#include <stdlib.h>
 
 
 /**
@@ -133,7 +134,7 @@ void frame_drawfunc(ei_widget_t *widget){
  * @return		A block of memory with all bytes set to 0.
  */
 void* frame_allocfunc(){
-        return(calloc(1, sizeof(ei_frame_t)));
+        return(calloc(1, sizeof(ei_frame_t*)));
 }
 
 /**
