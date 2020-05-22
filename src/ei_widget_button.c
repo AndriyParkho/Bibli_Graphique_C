@@ -3,6 +3,7 @@
  */
 
 #include "ei_widget_button.h"
+#include "ei_application.h"
 
 
 /**
@@ -16,12 +17,33 @@
  *				(expressed in the surface reference frame).
  */
 
-/*void button_drawfunc(ei_widget_t *widget){
+void button_drawfunc(ei_widget_t *widget){
         ei_button_t* button = (ei_button_t*)widget;
-        rounded_frame(button->frame.widget.screen_location, button->corner_radius,2); // Partie haute
-        rounded_frame(button->frame.widget.screen_location, button->corner_radius,1); // Partie basse
-        rounded_frame(button->frame.widget.screen_location, button->corner_radius,0); // Partie supérieure
-}*/
+        ei_linked_point_t* points;
+        ei_color_t dark_color = {button->frame.color.red - 30, button->frame.color.green - 30,
+                                 button->frame.color.blue - 30, button->frame.color.alpha};
+        ei_color_t light_color = {button->frame.color.red + 30, button->frame.color.green + 30,
+                                  button->frame.color.blue + 30, button->frame.color.alpha};
+        ei_rect_t new_rect;
+
+        hw_surface_lock(ei_app_root_surface());
+        //Partie haute
+        points = rounded_frame(button->frame.widget.screen_location, button->corner_radius,2);
+        ei_draw_polygon(ei_app_root_surface(), points, light_color, &(widget->screen_location));
+
+        //Partie basse
+        points = rounded_frame(button->frame.widget.screen_location, button->corner_radius,1);
+        ei_draw_polygon(ei_app_root_surface(), points, dark_color, &(widget->screen_location));
+
+        //Totalité
+        new_rect = widget->screen_location;
+        new_rect.top_left.x += button->frame.border_width;
+        new_rect.top_left.y += button->frame.border_width;
+        new_rect.size.width -= 2*button->frame.border_width;
+        new_rect.size.height -= 2*button->frame.border_width;
+        points = rounded_frame(new_rect, button->corner_radius,0);
+        ei_draw_polygon(ei_app_root_surface(), points, button->frame.color, &new_rect);
+}
 
 /**
  * \brief	A function that allocates a block of memory that is big enough to store the
@@ -52,7 +74,7 @@ void button_releasefunc(ei_widget_t* button){
  * @param	widget		A pointer to the widget instance to initialize.
  */
 
-/*void button_setdefaultsfunc(ei_widget_t* widget){
+void button_setdefaultsfunc(ei_widget_t* widget){
         ei_button_t* button = (ei_button_t*)widget;
         button->frame.widget.wclass->setdefaultsfunc(&(button->frame.widget));
 
@@ -62,7 +84,7 @@ void button_releasefunc(ei_widget_t* button){
         button->callback = NULL;
         button->user_param = NULL;
 
-}*/
+}
 
 /**
  * \brief 	A function that is called to notify the widget that its geometry has been modified

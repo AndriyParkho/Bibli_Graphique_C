@@ -109,7 +109,7 @@ ei_widgetclass_t*	ei_widgetclass_from_name	(ei_widgetclass_name_t name){
  *		\ref ei_frame_configure.
  */
 void			ei_frame_register_class 	(void){
-        ei_widgetclass_t *frame = malloc(sizeof(ei_widgetclass_t));
+        ei_widgetclass_t *frame = malloc(sizeof(ei_widgetclass_t*));
         strcpy(frame->name, "frame");
         frame->allocfunc = &frame_allocfunc;
         frame->releasefunc = (ei_widgetclass_releasefunc_t) &frame_releasefunc;
@@ -125,9 +125,8 @@ void			ei_frame_register_class 	(void){
  *		once before widgets of the class "button" can be created and configured with
  *		\ref ei_button_configure.
  */
-/*
-void			ei_button_register_class 	(void){
-        ei_widgetclass_t *button = malloc(sizeof(ei_widgetclass_t));
+void			ei_button_register_class 	(){
+        ei_widgetclass_t *button = malloc(sizeof(ei_widgetclass_t*));
         strcpy(button->name, "button");
         button->allocfunc = &button_allocfunc;
         button->releasefunc = (ei_widgetclass_releasefunc_t) &button_releasefunc;
@@ -136,7 +135,7 @@ void			ei_button_register_class 	(void){
         button->geomnotifyfunc = NULL; // En attendant de comprendre à quoi sert &button_geomnotifyfunc;
         button->next = NULL;
         ei_widgetclass_register(button);
-}*/
+}
 
 /**
  * \brief	Registers the "toplevel" widget class in the program. This must be called only
