@@ -3,6 +3,7 @@
  */
 
 #include "ei_widgetclass_parcours.h"
+#include <stdlib.h>
 
 ei_widgetclass_t *class_tete = NULL;
 

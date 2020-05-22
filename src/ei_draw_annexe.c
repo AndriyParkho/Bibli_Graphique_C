@@ -11,12 +11,14 @@
 #include <assert.h>
 #include <stdio.h>
 
+
 /*
  * Fonction qui génère une liste de points définissant un arc,paramétrée par le centre, le rayon,
  * et les angles de début et fin de l’arc
  */
 ei_linked_point_t * arc(ei_point_t centre, int rayon, double angle_d, double angle_f){
-        double pas = (angle_d - angle_f )/ 10;
+        int nb_points = 10000;
+        double pas = (angle_d - angle_f )/nb_points;
         ei_linked_point_t* points = (ei_linked_point_t*)malloc(sizeof(ei_linked_point_t*));
         ei_linked_point_t* cour = (ei_linked_point_t*)malloc(sizeof(ei_linked_point_t*));
         ei_point_t coord;
@@ -25,7 +27,7 @@ ei_linked_point_t * arc(ei_point_t centre, int rayon, double angle_d, double ang
         points->point.x = centre.x + (int)(rayon * cos(angle_d));
         points->point.y = centre.y - (int)(rayon * sin(angle_d));
         cour = points;
-        for (i = 1; i < 11; i++){
+        for (i = 1; i <= nb_points ; i++){
                 angle_suivant = angle_d - pas*i;
                 coord.x = centre.x + (int)(rayon * cos(angle_suivant));
                 coord.y = centre.y - (int)(rayon * sin(angle_suivant));
@@ -94,7 +96,7 @@ ei_linked_point_t* rounded_frame_tot(ei_rect_t rect, int r) {
                 dernier_point = dernier_point->next;
         }
         centre.y = centre.y + (rect.size.height - 2*r);
-        dernier_point->next = arc(centre, r, 0, 3*M_PI/2);
+        dernier_point->next = arc(centre, r, 2*M_PI, 3*M_PI/2);
         while (dernier_point->next) {
                 dernier_point = dernier_point->next;
         }
@@ -116,6 +118,7 @@ ei_linked_point_t* rounded_frame_haut(ei_rect_t rect, int r) {
         ei_linked_point_t* points;
         ei_linked_point_t* dernier_point;
         ei_point_t centre;
+        int h = min(rect.size.width/2, rect.size.height/2);
         centre.x = rect.top_left.x + r;
         centre.y = rect.top_left.y + r;
         points = arc(centre, r, M_PI, M_PI/2);
@@ -128,8 +131,19 @@ ei_linked_point_t* rounded_frame_haut(ei_rect_t rect, int r) {
         while (dernier_point->next) {
                 dernier_point = dernier_point->next;
         }
+
+        centre.x = rect.top_left.x + rect.size.width - h;
+        centre.y = rect.top_left.y + h;
+        dernier_point->next = cree_element_point(centre);
+        dernier_point = dernier_point->next;
+
+        centre.x = rect.top_left.x + h;
+        centre.y = rect.top_left.y + rect.size.height - h;
+        dernier_point->next = cree_element_point(centre);
+        dernier_point = dernier_point->next;
+
         centre.x = rect.top_left.x + r;
-        centre.y = centre.y + (rect.size.height - 2*r);
+        centre.y = rect.top_left.y + rect.size.height - r;
         dernier_point->next = arc(centre,r,5*M_PI/4,M_PI);
         return points;
 }
@@ -147,6 +161,7 @@ ei_linked_point_t* rounded_frame_bas(ei_rect_t rect, int r) {
         ei_linked_point_t* points;
         ei_linked_point_t* dernier_point;
         ei_point_t centre;
+        int h = min(rect.size.width/2, rect.size.height/2);
         centre.x = rect.top_left.x + rect.size.width - r;
         centre.y = rect.top_left.y + r;
         points = arc(centre, r, M_PI/4, 0);
@@ -155,11 +170,23 @@ ei_linked_point_t* rounded_frame_bas(ei_rect_t rect, int r) {
                 dernier_point = dernier_point->next;
         }
         centre.y = centre.y + (rect.size.height - 2*r);
-        dernier_point->next = arc(centre, r, 0, 3*M_PI/2);
+        dernier_point->next = arc(centre, r, 2*M_PI, 3*M_PI/2);
         while (dernier_point->next) {
                 dernier_point = dernier_point->next;
         }
         centre.x = rect.top_left.x + r;
         dernier_point->next = arc(centre, r, 3*M_PI/2, 5*M_PI/4);
+        while (dernier_point->next) {
+                dernier_point = dernier_point->next;
+        }
+
+        centre.x = rect.top_left.x + h;
+        centre.y = rect.top_left.y + rect.size.height - h;
+        dernier_point->next = cree_element_point(centre);
+        dernier_point = dernier_point->next;
+
+        centre.x = rect.top_left.x + rect.size.width - h;
+        centre.y = rect.top_left.y + h;
+        dernier_point->next = cree_element_point(centre);
         return points;
 }
