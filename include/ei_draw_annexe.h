@@ -10,6 +10,10 @@
 #define EI_DRAW_ANNEXE_H
 
 #include "ei_draw.h"
+#include <stdlib.h>
+#include <math.h>
+#include <assert.h>
+#include <stdio.h>
 
 ei_linked_point_t * arc(ei_point_t centre, int rayon, double angle_d, double angle_f);
 

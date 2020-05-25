@@ -6,10 +6,7 @@
  */
 
 #include "ei_draw_annexe.h"
-#include <stdlib.h>
-#include <math.h>
-#include <assert.h>
-#include <stdio.h>
+
 
 
 /*
