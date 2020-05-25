@@ -27,11 +27,13 @@ int main(int argc, char** argv)
 	ei_relief_t	frame_relief		= ei_relief_raised;
 	int		frame_border_width	= 6;
 
+	/*
     ei_linked_point_t* test;
     ei_size_t taille = {300, 200};
     ei_point_t coord = {150,200};
     ei_rect_t rectangle = {coord, taille};
-    //test = rounded_frame(rectangle, 50, 0);
+    test = rounded_frame(rectangle, 50, 0);
+    */
 
 	/* Create the application and change the color of the background. */
 	ei_app_create(screen_size, EI_FALSE);

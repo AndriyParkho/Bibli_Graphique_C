@@ -16,8 +16,8 @@
 ei_linked_point_t * arc(ei_point_t centre, int rayon, double angle_d, double angle_f){
         int nb_points = 10000;
         double pas = (angle_d - angle_f )/nb_points;
-        ei_linked_point_t* points = (ei_linked_point_t*)malloc(sizeof(ei_linked_point_t*));
-        ei_linked_point_t* cour = (ei_linked_point_t*)malloc(sizeof(ei_linked_point_t*));
+        ei_linked_point_t* points = (ei_linked_point_t*)malloc(sizeof(ei_linked_point_t));
+        ei_linked_point_t* cour;
         ei_point_t coord;
         int i;
         double angle_suivant;
@@ -35,7 +35,7 @@ ei_linked_point_t * arc(ei_point_t centre, int rayon, double angle_d, double ang
 }
 
 ei_linked_point_t* cree_element_point(ei_point_t coord) {
-        ei_linked_point_t* l_point = (ei_linked_point_t*)malloc(sizeof(ei_linked_point_t*));
+        ei_linked_point_t* l_point = (ei_linked_point_t*)malloc(sizeof(ei_linked_point_t        ));
         l_point->point.x = coord.x;
         l_point->point.y = coord.y;
         l_point->next = NULL;
