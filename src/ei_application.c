@@ -26,7 +26,7 @@ void ei_app_free(void) {
 
 void ei_app_run(void) {
         ei_parcours_profondeur_widget(frame_root_widget, root_widget);
-        //getchar();
+        getchar();
 }
 
 void ei_app_invalidate_rect(ei_rect_t* rect) {

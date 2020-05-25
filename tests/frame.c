@@ -31,29 +31,28 @@ int main(int argc, char** argv)
     ei_size_t taille = {300, 200};
     ei_point_t coord = {150,200};
     ei_rect_t rectangle = {coord, taille};
-    test = rounded_frame(rectangle, 50, 0);
+    //test = rounded_frame(rectangle, 50, 0);
 
 	/* Create the application and change the color of the background. */
 	ei_app_create(screen_size, EI_FALSE);
 	ei_frame_configure(ei_app_root_widget(), NULL, &root_bgcol, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 	/* Create, configure and place the frame on screen. */
-	/*
 	frame = ei_widget_create("frame", ei_app_root_widget(), NULL, NULL);
 	ei_frame_configure(frame, &frame_size, &frame_color,
 			    &frame_border_width, &frame_relief, NULL, NULL, NULL, NULL,
 			    NULL, NULL, NULL);
 	ei_place(frame, NULL, &frame_x, &frame_y, NULL, NULL, NULL, NULL, NULL, NULL );
-*/
 
 	/* Run the application's main loop. */
 	ei_app_run();
-
+/*
 	hw_surface_lock(ei_app_root_surface());
 	ei_draw_polygon(ei_app_root_surface(), test, frame_color, NULL);
 	hw_surface_unlock(ei_app_root_surface());
 	hw_surface_update_rects(ei_app_root_surface(),NULL);
 	getchar();
+ */
 
 	/* We just exited from the main loop. Terminate the application (cleanup). */
 	ei_app_free();
