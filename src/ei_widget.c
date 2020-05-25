@@ -172,7 +172,10 @@ void			ei_frame_configure		(ei_widget_t*		widget,
         if (color) frame->color = *color;
         if (border_width) frame->border_width = *border_width;
         if (relief) frame->relief = *relief;
-        if (text) strcpy(frame->text,*text);
+        if (text) {
+                frame->text = malloc(sizeof(char));
+                strcpy(frame->text,*text);
+        }
         if (text_font) frame->text_font = *text_font;
         if (text_color) frame->text_color = *text_color;
         if (text_anchor) frame->text_anchor = *text_anchor;
