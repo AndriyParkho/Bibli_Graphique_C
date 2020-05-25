@@ -106,9 +106,16 @@ void			ei_draw_text		(ei_surface_t		surface,
                                      ei_color_t		color,
                                      const ei_rect_t*	clipper) {
         ei_surface_t surface_du_texte = hw_text_create_surface(text, font, color);
+        ei_rect_t* clipperText = (ei_rect_t*)malloc(sizeof(ei_rect_t));
+        clipperText->top_left = *where;
+        clipperText->size = hw_surface_get_size(surface_du_texte);
         hw_surface_lock(surface);
-        ei_fill(surface_du_texte, &color, clipper);
+        hw_surface_lock(surface_du_texte);
+        ei_copy_surface(surface, clipper, surface_du_texte, clipperText, EI_FALSE);
+        ei_fill(surface, &color, clipper);
+        hw_surface_unlock(surface_du_texte);
         hw_surface_unlock(surface);
+        hw_surface_free(surface_du_texte);
         hw_surface_update_rects(surface, NULL);
 }
 
@@ -168,4 +175,6 @@ int			ei_copy_surface		(ei_surface_t		destination,
                                        const ei_rect_t*	dst_rect,
                                        const ei_surface_t	source,
                                        const ei_rect_t*	src_rect,
-                                       const ei_bool_t	alpha);
+                                       const ei_bool_t	alpha) {
+
+}
