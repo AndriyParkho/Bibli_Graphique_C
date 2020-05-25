@@ -14,6 +14,7 @@
 #include <math.h>
 #include <assert.h>
 #include <stdio.h>
+#define min(a,b) (a<=b?a:b)
 
 ei_linked_point_t * arc(ei_point_t centre, int rayon, double angle_d, double angle_f);
 
