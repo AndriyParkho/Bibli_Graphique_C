@@ -3,7 +3,6 @@
  */
 
 #include "ei_widget_button.h"
-#include "ei_application.h"
 
 
 /**
