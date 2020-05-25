@@ -3,6 +3,7 @@
  */
 
 #include "ei_widget_button.h"
+#include "ei_widget_frame.h"
 
 
 /**
@@ -73,7 +74,7 @@ void button_releasefunc(ei_widget_t* button){
  */
 void button_setdefaultsfunc(ei_widget_t* widget){
         ei_button_t* button = (ei_button_t*)widget;
-        button->frame.widget.wclass->setdefaultsfunc(&(button->frame.widget));
+        frame_setdefaultsfunc(&(button->frame.widget));
 
         button->frame.relief = ei_relief_raised;
         button->frame.border_width = k_default_button_border_width;
