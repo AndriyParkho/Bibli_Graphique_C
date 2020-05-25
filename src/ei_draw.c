@@ -106,10 +106,10 @@ void			ei_draw_text		(ei_surface_t		surface,
                                      ei_color_t		color,
                                      const ei_rect_t*	clipper) {
         ei_surface_t surface_du_texte = hw_text_create_surface(text, font, color);
-        hw_surface_lock(surface_du_texte);
+        hw_surface_lock(surface);
         ei_fill(surface_du_texte, &color, clipper);
-        hw_surface_unlock(surface_du_texte);
-        hw_surface_update_rects(surface_du_texte, NULL);
+        hw_surface_unlock(surface);
+        hw_surface_update_rects(surface, NULL);
 }
 
 /**
