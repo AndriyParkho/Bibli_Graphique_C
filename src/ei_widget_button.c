@@ -52,7 +52,10 @@ void button_drawfunc(ei_widget_t *widget){
  * @return		A block of memory with all bytes set to 0.
  */
 void* button_allocfunc(){
-        return(calloc(1, sizeof(ei_button_t)));
+        ei_button_t *button = calloc(1, sizeof(ei_button_t));
+        button->frame.text = calloc(1, sizeof(char));
+        button->frame.img_rect = calloc(1, sizeof(ei_rect_t));
+        return (void*) button;
 }
 
 /**
