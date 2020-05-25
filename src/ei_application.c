@@ -15,6 +15,7 @@ void ei_app_create(ei_size_t main_window_size, ei_bool_t fullscreen) {
         root_widget = hw_create_window(main_window_size, fullscreen);
         ei_register_placer_manager();
         ei_frame_register_class();
+        ei_button_register_class();
 }
 
 void ei_app_free(void) {

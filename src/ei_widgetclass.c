@@ -126,7 +126,7 @@ void			ei_frame_register_class 	(void){
  *		\ref ei_button_configure.
  */
 void			ei_button_register_class 	(){
-        ei_widgetclass_t *button = malloc(sizeof(ei_widgetclass_t*));
+        ei_widgetclass_t *button = malloc(sizeof(ei_widgetclass_t));
         strcpy(button->name, "button");
         button->allocfunc = &button_allocfunc;
         button->releasefunc = (ei_widgetclass_releasefunc_t) &button_releasefunc;
