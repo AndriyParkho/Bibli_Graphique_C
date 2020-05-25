@@ -44,6 +44,7 @@ void button_drawfunc(ei_widget_t *widget){
         ei_draw_polygon(ei_app_root_surface(), points, button->frame.color, &new_rect);
         hw_surface_unlock(ei_app_root_surface());
         hw_surface_update_rects(ei_app_root_surface(), NULL);
+        //ei_draw_text(...)
 }
 
 /**
