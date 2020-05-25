@@ -163,25 +163,25 @@ void			ei_frame_configure		(ei_widget_t*		widget,
                                                                ei_surface_t*		img,
                                                                ei_rect_t**		img_rect,
                                                                ei_anchor_t*		img_anchor){
-    assert(!(text != NULL && img!=NULL));
-    ei_frame_t* frame = (ei_frame_t*)widget;
+        assert(!(text != NULL && img!=NULL));
+        ei_frame_t* frame = (ei_frame_t*)widget;
 
-    if (requested_size) frame->widget.requested_size = *requested_size;
-    //ei_rect_t screen_location = {(0,0),requested_size};
-    //frame->widget.screen_location = screen_location;
-    if (color) frame->color = *color;
-    if (border_width) frame->border_width = *border_width;
-    if (relief) frame->relief = *relief;
-    if (text) strcpy(frame->text,*text);
-    if (text_font) frame->text_font = *text_font;
-    if (text_color) frame->text_color = *text_color;
-    if (text_anchor) frame->text_anchor = *text_anchor;
-    if (img) frame->img = *img;
-    if (img_rect) frame->img_rect = *img_rect;
-    if (img_anchor) frame->img_anchor = *img_anchor;
+        if (requested_size) frame->widget.requested_size = *requested_size;
+        //ei_rect_t screen_location = {(0,0),requested_size};
+        //frame->widget.screen_location = screen_location;
+        if (color) frame->color = *color;
+        if (border_width) frame->border_width = *border_width;
+        if (relief) frame->relief = *relief;
+        if (text) strcpy(frame->text,*text);
+        if (text_font) frame->text_font = *text_font;
+        if (text_color) frame->text_color = *text_color;
+        if (text_anchor) frame->text_anchor = *text_anchor;
+        if (img) frame->img = *img;
+        if (img_rect) frame->img_rect = *img_rect;
+        if (img_anchor) frame->img_anchor = *img_anchor;
 
-    if (img && !requested_size) frame->widget.requested_size = (*img_rect)->size;
-    if (text && !requested_size) hw_text_compute_size(*text, text_font, &frame->widget.requested_size.width, &frame->widget.requested_size.height);
+        if (img && !requested_size) frame->widget.requested_size = (*img_rect)->size;
+        if (text && !requested_size) hw_text_compute_size(*text, text_font, &frame->widget.requested_size.width, &frame->widget.requested_size.height);
 }
 
 /**
