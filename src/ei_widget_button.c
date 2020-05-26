@@ -42,10 +42,10 @@ void button_drawfunc(ei_widget_t *widget){
         new_rect.size.height -= 2*button->frame.border_width;
         points = rounded_frame(new_rect, button->corner_radius,0);
         ei_draw_polygon(ei_app_root_surface(), points, button->frame.color, &new_rect);
-        hw_surface_unlock(ei_app_root_surface());
-        hw_surface_update_rects(ei_app_root_surface(), NULL);
         ei_draw_text(ei_app_root_surface(), &widget->screen_location.top_left, button->frame.text,
                      button->frame.text_font, button->frame.text_color, &widget->screen_location);
+        hw_surface_unlock(ei_app_root_surface());
+        hw_surface_update_rects(ei_app_root_surface(), NULL);
 }
 
 /**
