@@ -5,6 +5,7 @@
  * \author Created by Equipe 5 on 21.05.2020.
  */
 
+
 #include "ei_draw_annexe.h"
 
 
@@ -47,14 +48,18 @@ ei_linked_point_t * rectangle(int coord_x[], int coord_y[], int border_width){
 }
 
 /**
- * \brief Génère une liste de quatre points définissant un rectangle.
+ * \brief Génère une couleur plus sombre ou plus claire que celle donnée en entrée.
  *
- * @param       coord_x         Coordonnées en x des points
- * @param       coord_y         Coordonnées en y des points
- * @param       border_width    Epaisseur du contour à soustraire au rectangle (utile lorsqu'il y a un relief)
+ * @param       frame           Un widget frame
+ * @param       variation       Valeur correspondant à la variation de couleur souhaité
  *
- * @return Une liste chainée de quatre points définissants un rectangle
+ * @return Une couleur de type ei_color_t
  */
+ei_color_t color_variation(ei_frame_t* frame, int variation){
+        ei_color_t new_color = {frame->color.red + variation, frame->color.green + variation,
+                                frame->color.blue + variation, frame->color.alpha};
+        return new_color;
+}
 
 /*
  * Fonction qui génère une liste de points définissant un arc,paramétrée par le centre, le rayon,
