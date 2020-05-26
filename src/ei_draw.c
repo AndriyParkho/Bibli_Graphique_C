@@ -165,4 +165,79 @@ int			ei_copy_surface		(ei_surface_t		destination,
                                        const ei_rect_t*	src_rect,
                                        const ei_bool_t	alpha) {
 
+        ei_size_t destination_size = hw_surface_get_size(destination);
+        ei_size_t source_size = hw_surface_get_size(source);
+
+        ei_size_t src_rect_size;
+        ei_size_t dst_rect_size;
+
+        ei_point_t src_origine;
+        ei_point_t dst_origine;
+
+        if(dst_rect && src_rect){
+                if(dst_rect->size.width != src_rect->size.width || dst_rect->size.height != src_rect->size.height)
+                        return 1;
+
+                src_rect_size = src_rect->size;
+                dst_rect_size = dst_rect->size;
+
+                src_origine = src_rect->top_left;
+                dst_origine = dst_rect->top_left;
+
+        } else if(dst_rect){
+                if(dst_rect->size.width != source_size.width || dst_rect->size.height != source_size.height)
+                        return 1;
+
+                src_rect_size = source_size;
+                dst_rect_size = dst_rect->size;
+
+                src_origine.x = 0;
+                src_origine.y = 0;
+                dst_origine = dst_rect->top_left;
+
+        } else if (src_rect){
+                if(destination_size.width != src_rect->size.width || destination_size.height != src_rect->size.height)
+                        return 1;
+
+                src_rect_size = src_rect->size;
+                dst_rect_size = destination_size;
+
+                src_origine = src_rect->top_left;
+                dst_origine.x = 0;
+                dst_origine.y = 0;
+
+        } else{
+                if(destination_size.width != source_size.width || destination_size.height != source_size.height)
+                        return 1;
+
+                src_rect_size = source_size;
+                dst_rect_size = destination_size;
+
+                src_origine.x = 0;
+                src_origine.y = 0;
+                dst_origine.x = 0;
+                dst_origine.y = 0;
+
+        }
+        int i ;
+        uint32_t *pixel_src = (uint32_t *) hw_surface_get_buffer(source);
+        uint32_t *pixel_dst = (uint32_t *) hw_surface_get_buffer(destination);
+
+        pixel_src = pixel_src + source_size.width * src_origine.y + src_origine.x;
+        pixel_dst = pixel_dst + destination_size.width * dst_origine.y + dst_origine.x;
+
+        for (i = 0; i < src_rect_size.height * src_rect_size.width; i++) {
+                if (i % src_rect_size.width == 0 && i != 0) {
+                        for (int j = 0; j < (source_size.width - src_rect_size.width); j++) {
+                                pixel_src++;
+                        }
+                        for (int k = 0; k < (destination_size.width - dst_rect_size.width); k++) {
+                                pixel_dst++;
+                        }
+                }
+                *pixel_dst = *pixel_src;
+                pixel_src++;
+                pixel_dst++;
+        }
+        return 0;
 }
