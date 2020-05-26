@@ -8,6 +8,53 @@
 #include "ei_draw_annexe.h"
 
 
+/**
+ * \brief Génère une liste de quatre points définissant un rectangle.
+ *
+ * @param       coord_x         Coordonnées en x des points
+ * @param       coord_y         Coordonnées en y des points
+ * @param       border_width    Epaisseur du contour à soustraire au rectangle (utile lorsqu'il y a un relief)
+ *
+ * @return Une liste chainée de quatre points définissants un rectangle
+ */
+ei_linked_point_t * rectangle(int coord_x[], int coord_y[], int border_width){
+        int i = 0;
+        ei_linked_point_t* points = (ei_linked_point_t*)malloc(sizeof(ei_linked_point_t));
+        while (i != 4) {
+                switch (i) {
+                        case 0 :
+                                points[i].point.x = coord_x[0] + border_width;
+                                points[i].point.y = coord_y[0] + border_width;
+                                break;
+                        case 1 :
+                                points[i].point.x = coord_x[1] - border_width;
+                                points[i].point.y = coord_y[0] + border_width;
+                                break;
+                        case 2 :
+                                points[i].point.x = coord_x[1] - border_width;
+                                points[i].point.y = coord_y[1] - border_width;
+                                break;
+                        case 3 :
+                                points[i].point.x = coord_x[0] + border_width;
+                                points[i].point.y = coord_y[1] - border_width;
+                                break;
+                }
+                if (i < 3) points[i].next = &points[i + 1];
+                else points[i].next = NULL;
+                i++;
+        }
+        return points;
+}
+
+/**
+ * \brief Génère une liste de quatre points définissant un rectangle.
+ *
+ * @param       coord_x         Coordonnées en x des points
+ * @param       coord_y         Coordonnées en y des points
+ * @param       border_width    Epaisseur du contour à soustraire au rectangle (utile lorsqu'il y a un relief)
+ *
+ * @return Une liste chainée de quatre points définissants un rectangle
+ */
 
 /*
  * Fonction qui génère une liste de points définissant un arc,paramétrée par le centre, le rayon,

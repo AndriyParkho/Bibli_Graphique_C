@@ -16,6 +16,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include "ei_application.h"
+#include "ei_draw_annexe.h"
 
 /**
  * \brief	A function that draws frame.
