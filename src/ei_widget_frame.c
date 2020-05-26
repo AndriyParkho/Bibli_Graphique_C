@@ -28,10 +28,8 @@ void frame_drawfunc(ei_widget_t *widget){
                 int half_length = widget->screen_location.size.height / 2;
                 ei_linked_point_t points_sup[5];
                 ei_linked_point_t points_inf[5];
-                ei_color_t dark_color = {frame->color.red - 30, frame->color.green - 30,
-                                         frame->color.blue - 30, frame->color.alpha};
-                ei_color_t light_color = {frame->color.red + 30, frame->color.green + 30,
-                                          frame->color.blue + 30, frame->color.alpha};
+                ei_color_t dark_color = color_variation(frame, -30);
+                ei_color_t light_color = color_variation(frame, 30);
                 i = 0;
                 while (i != 5) {
                         switch (i) {

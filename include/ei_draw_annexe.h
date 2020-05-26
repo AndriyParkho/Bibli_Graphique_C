@@ -9,6 +9,7 @@
 #ifndef EI_DRAW_ANNEXE_H
 #define EI_DRAW_ANNEXE_H
 
+#include <ei_widgettypes.h>
 #include "ei_draw.h"
 #include <stdlib.h>
 #include <math.h>
@@ -26,6 +27,16 @@
  * @return Une liste chainée de quatre points définissants un rectangle
  */
 ei_linked_point_t * rectangle(int coord_x[], int coord_y[], int border_width);
+
+/**
+ * \brief Génère une couleur plus sombre ou plus claire que celle donnée en entrée.
+ *
+ * @param       frame           Un widget frame
+ * @param       variation       Valeur correspondant à la variation de couleur souhaité
+ *
+ * @return Une couleur de type ei_color_t
+ */
+ei_color_t color_variation(ei_frame_t* frame, int variation);
 
 ei_linked_point_t * arc(ei_point_t centre, int rayon, double angle_d, double angle_f);
 
