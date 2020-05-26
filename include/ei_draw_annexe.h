@@ -24,7 +24,7 @@
  * @param       coord_y         Coordonnées en y des points
  * @param       border_width    Epaisseur du contour à soustraire au rectangle (utile lorsqu'il y a un relief)
  *
- * @return Une liste chainée de quatre points définissants un rectangle
+ * @return      Une liste chainée de quatre points définissants un rectangle
  */
 ei_linked_point_t * rectangle(int coord_x[], int coord_y[], int border_width);
 
@@ -34,9 +34,20 @@ ei_linked_point_t * rectangle(int coord_x[], int coord_y[], int border_width);
  * @param       frame           Un widget frame
  * @param       variation       Valeur correspondant à la variation de couleur souhaité
  *
- * @return Une couleur de type ei_color_t
+ * @return      Une couleur de type ei_color_t
  */
 ei_color_t color_variation(ei_frame_t* frame, int variation);
+
+/**
+ * \brief Génère et affiche deux polygones de couleurs différentes pour créer un effet de relief.
+ *
+ * @param       widget       Widget de type frame
+ * @param       points       Liste de points caractérisant un rectangle
+ * @param       surface      Correspond à ei_app_root_surface()
+ *
+ * @return      void
+ */
+void draw_polygons_relief(ei_widget_t* widget, ei_linked_point_t points[4], ei_surface_t surface);
 
 ei_linked_point_t * arc(ei_point_t centre, int rayon, double angle_d, double angle_f);
 

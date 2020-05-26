@@ -20,7 +20,7 @@
  */
 ei_linked_point_t * rectangle(int coord_x[], int coord_y[], int border_width){
         int i = 0;
-        ei_linked_point_t* points = (ei_linked_point_t*)malloc(sizeof(ei_linked_point_t));
+        ei_linked_point_t* points = (ei_linked_point_t*)calloc(4, sizeof(ei_linked_point_t));
         while (i != 4) {
                 switch (i) {
                         case 0 :
@@ -53,12 +53,68 @@ ei_linked_point_t * rectangle(int coord_x[], int coord_y[], int border_width){
  * @param       frame           Un widget frame
  * @param       variation       Valeur correspondant à la variation de couleur souhaité
  *
- * @return Une couleur de type ei_color_t
+ * @return      Une couleur de type ei_color_t
  */
 ei_color_t color_variation(ei_frame_t* frame, int variation){
         ei_color_t new_color = {frame->color.red + variation, frame->color.green + variation,
                                 frame->color.blue + variation, frame->color.alpha};
         return new_color;
+}
+
+/**
+ * \brief Génère et affiche deux polygones de couleurs différentes pour créer un effet de relief.
+ *
+ * @param       widget       Widget de type frame
+ * @param       points       Liste de points caractérisant un rectangle
+ * @param       surface      Correspond à ei_app_root_surface()
+ *
+ * @return      void
+ */
+void draw_polygons_relief(ei_widget_t* widget, ei_linked_point_t points[4], ei_surface_t surface) {
+        int half_length = widget->screen_location.size.height / 2;
+        ei_frame_t* frame = (ei_frame_t*)widget;
+        ei_linked_point_t points_sup[5];
+        ei_linked_point_t points_inf[5];
+        ei_color_t dark_color = color_variation(frame, -30);
+        ei_color_t light_color = color_variation(frame, 30);
+        int i = 0;
+        while (i != 5) {
+                switch (i) {
+                        case 0 :
+                        case 1 :
+                                points_sup[i] = points[i];
+                                points_inf[i] = points[i + 1];
+                                break;
+                        case 2 :
+                                points_sup[i].point.x = points[i].point.x - half_length;
+                                points_sup[i].point.y = points[i].point.y - half_length;
+                                points_inf[i] = points[i + 1];
+                                break;
+                        case 3 :
+                                points_sup[i].point.x = points[i].point.x + half_length;
+                                points_sup[i].point.y = points[i].point.y - half_length;
+                                points_inf[i].point.x = points[i].point.x + half_length;
+                                points_inf[i].point.y = points[i].point.y - half_length;
+                                break;
+                        case 4 :
+                                points_sup[i] = points[i - 1];
+                                points_inf[i].point.x = points[i - 2].point.x - half_length;
+                                points_inf[i].point.y = points[i - 2].point.y - half_length;
+                                break;
+                }
+                if (i < 4) points_sup[i].next = &points_sup[i + 1];
+                else points_sup[i].next = NULL;
+                if (i < 4) points_inf[i].next = &points_inf[i + 1];
+                else points_inf[i].next = NULL;
+                i++;
+        }
+        if (frame->relief == ei_relief_raised) {
+                ei_draw_polygon(surface, points_sup, light_color, &(widget->screen_location));
+                ei_draw_polygon(surface, points_inf, dark_color, &(widget->screen_location));
+        } else { // cad frame->relief == ei_relief_sunken
+                ei_draw_polygon(surface, points_sup, dark_color, &(widget->screen_location));
+                ei_draw_polygon(surface, points_inf, light_color, &(widget->screen_location));
+        }
 }
 
 /*
