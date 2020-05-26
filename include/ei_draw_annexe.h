@@ -16,6 +16,17 @@
 #include <stdio.h>
 #define min(a,b) (a<=b?a:b)
 
+/**
+ * \brief Génère une liste de quatre points définissant un rectangle.
+ *
+ * @param       coord_x         Coordonnées en x des points
+ * @param       coord_y         Coordonnées en y des points
+ * @param       border_width    Epaisseur du contour à soustraire au rectangle (utile lorsqu'il y a un relief)
+ *
+ * @return Une liste chainée de quatre points définissants un rectangle
+ */
+ei_linked_point_t * rectangle(int coord_x[], int coord_y[], int border_width);
+
 ei_linked_point_t * arc(ei_point_t centre, int rayon, double angle_d, double angle_f);
 
 ei_linked_point_t* cree_element_point(ei_point_t coord);
