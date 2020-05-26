@@ -161,38 +161,39 @@ int			ei_copy_surface		(ei_surface_t		destination,
                                        const ei_surface_t	source,
                                        const ei_rect_t*	src_rect,
                                        const ei_bool_t	alpha) {
-
+        // On récupère la taille de nos deux surfaces
         ei_size_t destination_size = hw_surface_get_size(destination);
         ei_size_t source_size = hw_surface_get_size(source);
-
+        // On définit la taille des rectangles dans les quels on utilisera ou changera les pixels
+        // Je fais ça pour pas avoir à écrire les boucles for de parcours des pixels dans chaque cas
         ei_size_t src_rect_size;
         ei_size_t dst_rect_size;
-
+        // On fait la même pour le point top_left de ces rectangles
         ei_point_t src_origine;
         ei_point_t dst_origine;
-
+        // On a le cas où les clipper src et dst sont non NULL
         if(dst_rect && src_rect){
                 if(dst_rect->size.width != src_rect->size.width || dst_rect->size.height != src_rect->size.height)
-                        return 1;
-
+                        return 1; // S'ils sont de taille différente la fonction fail
+                // Ils ont la même taille donc les rectangles qu'on utilisera seront les clippers src et dst
                 src_rect_size = src_rect->size;
                 dst_rect_size = dst_rect->size;
 
                 src_origine = src_rect->top_left;
                 dst_origine = dst_rect->top_left;
 
-        } else if(dst_rect){
+        } else if(dst_rect){ // Le cas où src est NULL mais pas dst du coup la src sera la surface entière
                 if(dst_rect->size.width != source_size.width || dst_rect->size.height != source_size.height)
                         return 1;
-
+                // Le rectangle utilisé pour la source sera alors toute la surface source
                 src_rect_size = source_size;
                 dst_rect_size = dst_rect->size;
-
+                // On fixe l'origine à 0,0 étant donné que c'est la surface qu'on regardera
                 src_origine.x = 0;
                 src_origine.y = 0;
                 dst_origine = dst_rect->top_left;
 
-        } else if (src_rect){
+        } else if (src_rect){ // Pareil ici en inversant src et dst
                 if(destination_size.width != src_rect->size.width || destination_size.height != src_rect->size.height)
                         return 1;
 
@@ -219,17 +220,17 @@ int			ei_copy_surface		(ei_surface_t		destination,
         int i ;
         uint32_t *pixel_src = (uint32_t *) hw_surface_get_buffer(source);
         uint32_t *pixel_dst = (uint32_t *) hw_surface_get_buffer(destination);
-
+        // On se place au premier pixel des rectangles qu'on utilise
         pixel_src = pixel_src + source_size.width * src_origine.y + src_origine.x;
         pixel_dst = pixel_dst + destination_size.width * dst_origine.y + dst_origine.x;
 
         for (i = 0; i < src_rect_size.height * src_rect_size.width; i++) {
                 if (i % src_rect_size.width == 0 && i != 0) {
                         for (int j = 0; j < (source_size.width - src_rect_size.width); j++) {
-                                pixel_src++;
+                                pixel_src++; // Cette boucle est parcouru que si le rectagle src sur le quel on travail est le clipper src
                         }
                         for (int k = 0; k < (destination_size.width - dst_rect_size.width); k++) {
-                                pixel_dst++;
+                                pixel_dst++; // Pareil pour celle-ci avec la dst
                         }
                 }
                 *pixel_dst = *pixel_src;
