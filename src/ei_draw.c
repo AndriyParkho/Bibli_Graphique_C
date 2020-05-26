@@ -27,21 +27,6 @@ uint32_t		ei_map_rgba		(ei_surface_t surface, const ei_color_t* color){
         uint32_t pixel_val = 0;
         hw_surface_get_channel_indices(surface, ir, ig, ib, ia);
 
-/*        if (*ir == 0 || *ir == 1){ // De la forme ARGB ou RGBA
-                pixel_val = color->blue;
-                pixel_val = (color->green << 8) + pixel_val;
-                pixel_val = (color->red << 16) + pixel_val;
-        } else { // De la forme ABGR ou BGRA
-                pixel_val = color->red;
-                pixel_val = (color->green << 8) + pixel_val;
-                pixel_val = (color->blue << 16) + pixel_val;
-        }
-
-        if (*ir + *ig + *ib == 6) { // De la forme AXXX
-                pixel_val = (color->alpha << 24) + pixel_val;
-        } else { // De la forme XXXA
-                pixel_val = color->alpha + (pixel_val << 8);
-        }*/
         if(*ia == -1)
                 pixel_val = (color->red << 8 * (*ir)) + (color->green << 8 * (*ig)) + (color->blue << 8 * (*ib));
         else
