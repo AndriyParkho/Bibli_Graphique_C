@@ -27,21 +27,6 @@ uint32_t		ei_map_rgba		(ei_surface_t surface, const ei_color_t* color){
         uint32_t pixel_val = 0;
         hw_surface_get_channel_indices(surface, ir, ig, ib, ia);
 
-/*        if (*ir == 0 || *ir == 1){ // De la forme ARGB ou RGBA
-                pixel_val = color->blue;
-                pixel_val = (color->green << 8) + pixel_val;
-                pixel_val = (color->red << 16) + pixel_val;
-        } else { // De la forme ABGR ou BGRA
-                pixel_val = color->red;
-                pixel_val = (color->green << 8) + pixel_val;
-                pixel_val = (color->blue << 16) + pixel_val;
-        }
-
-        if (*ir + *ig + *ib == 6) { // De la forme AXXX
-                pixel_val = (color->alpha << 24) + pixel_val;
-        } else { // De la forme XXXA
-                pixel_val = color->alpha + (pixel_val << 8);
-        }*/
         if(*ia == -1)
                 pixel_val = (color->red << 8 * (*ir)) + (color->green << 8 * (*ig)) + (color->blue << 8 * (*ib));
         else
@@ -106,9 +91,16 @@ void			ei_draw_text		(ei_surface_t		surface,
                                      ei_color_t		color,
                                      const ei_rect_t*	clipper) {
         ei_surface_t surface_du_texte = hw_text_create_surface(text, font, color);
+        ei_rect_t* clipperText = (ei_rect_t*)malloc(sizeof(ei_rect_t));
+        clipperText->top_left = *where;
+        clipperText->size = hw_surface_get_size(surface_du_texte);
         hw_surface_lock(surface);
-        ei_fill(surface_du_texte, &color, clipper);
+        hw_surface_lock(surface_du_texte);
+        ei_copy_surface(surface, clipper, surface_du_texte, clipperText, EI_FALSE);
+        ei_fill(surface, &color, clipper);
+        hw_surface_unlock(surface_du_texte);
         hw_surface_unlock(surface);
+        hw_surface_free(surface_du_texte);
         hw_surface_update_rects(surface, NULL);
 }
 
@@ -127,19 +119,22 @@ void ei_fill (ei_surface_t surface, const ei_color_t* color, const ei_rect_t* cl
         ei_size_t surface_size = hw_surface_get_size(surface);
 
         uint32_t *pixel_ptr = (uint32_t *) hw_surface_get_buffer(surface);
-        ei_size_t root_size = hw_surface_get_size(ei_app_root_surface());
         if (clipper) {
-                surface_size = clipper->size;
-        }
-        pixel_ptr = pixel_ptr + root_size.width*clipper->top_left.y + clipper->top_left.x;
-        for (i = 0; i < surface_size.height * surface_size.width; i++) {
-                if (i%surface_size.width == 0 && i!=0) {
-                        for (int j=0; j<(root_size.width-surface_size.width); j++) {
-                                pixel_ptr++;
+                pixel_ptr = pixel_ptr + surface_size.width * clipper->top_left.y + clipper->top_left.x;
+                for (i = 0; i < clipper->size.height * clipper->size.width; i++) {
+                        if (i % clipper->size.width == 0 && i != 0) {
+                                for (int j = 0; j < (surface_size.width - clipper->size.width); j++) {
+                                        pixel_ptr++;
+                                }
                         }
+                        *pixel_ptr = ei_map_rgba(surface, color);
+                        pixel_ptr++;
                 }
-                *pixel_ptr = ei_map_rgba(surface, color);
-                pixel_ptr++;
+        } else {
+                for (i = 0; i < surface_size.height * surface_size.width; i++) {
+                        *pixel_ptr = ei_map_rgba(surface, color);
+                        pixel_ptr++;
+                }
         }
 }
 
@@ -168,4 +163,6 @@ int			ei_copy_surface		(ei_surface_t		destination,
                                        const ei_rect_t*	dst_rect,
                                        const ei_surface_t	source,
                                        const ei_rect_t*	src_rect,
-                                       const ei_bool_t	alpha);
+                                       const ei_bool_t	alpha) {
+
+}
