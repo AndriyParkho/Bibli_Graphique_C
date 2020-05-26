@@ -26,7 +26,7 @@ ei_bool_t button_press(ei_widget_t* widget, ei_event_t* event, void* user_param)
  *	Simply looks for the "Escape" key to request the application to quit.
  */
 ei_bool_t process_key(ei_widget_t* widget, ei_event_t* event, void* user_param)
-{
+{       printf("Coucou\n");
 	if (event->param.key.key_code == SDLK_ESCAPE) {
 		ei_app_quit_request();
 		return EI_TRUE;
@@ -69,13 +69,13 @@ int main(int argc, char** argv)
 	ei_place(button, NULL, &button_x, &button_y, NULL, NULL, NULL, NULL, NULL, NULL );
 
 	/* Hook the keypress callback to the event. */
-//	ei_bind(ei_ev_keydown,		NULL, "all", process_key, NULL);
+	//ei_bind(ei_ev_keydown,		NULL, "all", process_key, NULL);
 
 	/* Run the application's main loop. */
 	ei_app_run();
 
 	/* We just exited from the main loop. Terminate the application (cleanup). */
-//	ei_unbind(ei_ev_keydown,	NULL, "all", process_key, NULL);
+	//ei_unbind(ei_ev_keydown,	NULL, "all", process_key, NULL);
 	ei_app_free();
 
 	return (EXIT_SUCCESS);
