@@ -12,6 +12,8 @@
 #include <string.h>
 #include "ei_widgetclass.h"
 #include "ei_widget.h"
+#include <stdlib.h>
+#include "ei_event.h"
 
 extern ei_widgetclass_t *class_tete;
 
@@ -47,5 +49,7 @@ void ei_parcours_profondeur_free_widget(ei_widget_t* root);
  * @param list           un pointeur sur la tête de la liste chainée des widget class
  */
 void free_class(ei_widgetclass_t *list);
+
+void ei_parcours_profondeur_callback(ei_widget_t* root, ei_callback_t callback, ei_tag_t tag, ei_event_t* event, void* user_param);
 
 #endif //EI_WIDGETCLASS_PARCOURS_H

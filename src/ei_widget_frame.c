@@ -13,7 +13,6 @@
 void frame_drawfunc(ei_widget_t *widget){
         // declaration of the widget as a frame
         ei_frame_t* frame = (ei_frame_t*)widget;
-        int i;
         int coord_x[] = {widget->screen_location.top_left.x,
                          widget->screen_location.top_left.x + widget->screen_location.size.width};
         int coord_y[] = {widget->screen_location.top_left.y,

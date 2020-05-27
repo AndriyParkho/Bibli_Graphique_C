@@ -3,7 +3,6 @@
  */
 
 #include "ei_widgetclass_parcours.h"
-#include <stdlib.h>
 
 ei_widgetclass_t *class_tete = NULL;
 
@@ -113,4 +112,12 @@ void free_class(ei_widgetclass_t *list){
                 free_class(list->next);
                 free(list);
         }
+}
+
+void ei_parcours_profondeur_callback(ei_widget_t* root, ei_callback_t callback, ei_tag_t tag, ei_event_t* event, void* user_param) {
+        if (strcmp(tag, "all") == 0 || strcmp(root->wclass->name, tag)==0) {
+                callback(root, event, user_param);
+        }
+        if (root->children_head) ei_parcours_profondeur_callback(root->children_head, callback, tag, event, user_param);
+        if (root->next_sibling) ei_parcours_profondeur_callback(root->next_sibling, callback, tag, event, user_param);
 }
