@@ -8,6 +8,7 @@
 #include "ei_event.h"
 #include "ei_types.h"
 #include <stdlib.h>
+#include <string.h>
 
 
 
@@ -29,7 +30,7 @@ typedef struct {
     struct ei_linked_event_t*    next;
 } ei_linked_event_t;
 
-extern ei_linked_event_t *l_event;
+extern ei_linked_event_t *l_event = NULL;
 
 void insere_binding(ei_eventtype_t		eventtype,
                     ei_widget_t*		widget,

@@ -84,6 +84,7 @@ set(LIB_EI_SOURCES
 		${SRC}/ei_widget_button.c
 		${SRC}/ei_draw_annexe.c
 		${SRC}/ei_binding.c
+		${SRC}/ei_event.c
 		)
 
 add_library(ei STATIC			${LIB_EI_SOURCES})

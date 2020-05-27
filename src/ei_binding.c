@@ -3,7 +3,6 @@
 //
 
 #include "ei_binding.h"
-#include <string.h>
 
 void insere_binding(ei_eventtype_t		eventtype,
                     ei_widget_t*		widget,
@@ -12,7 +11,6 @@ void insere_binding(ei_eventtype_t		eventtype,
                     void*			user_param) {
         ei_linked_event_t* l_event_cour = l_event;
         if (l_event_cour==NULL) {
-                l_event_cour = malloc(sizeof(ei_linked_event_t));
                 l_event_cour = (ei_linked_event_t*)malloc(sizeof(ei_linked_event_t));
                 l_event_cour->eventtype = eventtype;
                 l_event_cour->l_action = new_action(widget, tag, callback, user_param);

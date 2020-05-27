@@ -254,7 +254,7 @@ int			ei_copy_surface		(ei_surface_t		destination,
         for (i = 0; i < src_rect_size.height * src_rect_size.width; i++) {
                 if (i % src_rect_size.width == 0 && i != 0) {
                         for (int j = 0; j < (source_size.width - src_rect_size.width); j++) {
-                                pixel_src++; // Cette boucle est parcouru que si le rectagle src sur le quel on travail est le clipper src
+                                pixel_src++; // Cette boucle est parcouru que si le rectangle src sur lequel on travaille est le clipper src
                         }
                         for (int k = 0; k < (destination_size.width - dst_rect_size.width); k++) {
                                 pixel_dst++; // Pareil pour celle-ci avec la dst
