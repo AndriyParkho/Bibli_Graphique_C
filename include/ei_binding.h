@@ -30,7 +30,7 @@ typedef struct {
     struct ei_linked_event_t*    next;
 } ei_linked_event_t;
 
-extern ei_linked_event_t *l_event = NULL;
+extern ei_linked_event_t *l_event;
 
 void insere_binding(ei_eventtype_t		eventtype,
                     ei_widget_t*		widget,

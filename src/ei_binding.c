@@ -4,6 +4,8 @@
 
 #include "ei_binding.h"
 
+ei_linked_event_t *l_event = NULL;
+
 void insere_binding(ei_eventtype_t		eventtype,
                     ei_widget_t*		widget,
                     ei_tag_t		tag,
