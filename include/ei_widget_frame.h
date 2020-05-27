@@ -17,6 +17,7 @@
 #include <stdbool.h>
 #include "ei_application.h"
 #include "ei_draw_annexe.h"
+#include "ei_geometrymanager_parcours.h"
 
 /**
  * \brief	A function that draws frame.
