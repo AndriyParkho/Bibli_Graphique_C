@@ -45,7 +45,7 @@ ei_linked_action_t* new_action(ei_widget_t*		widget,
 
 ei_linked_event_t* trouve_event(ei_eventtype_t eventtype);
 
-void insere_action(ei_linked_action_t* l_action,
+void insere_action(ei_linked_action_t** l_action,
                    ei_widget_t*		widget,
                    ei_tag_t		tag,
                    ei_callback_t		callback,

@@ -19,7 +19,7 @@ void insere_binding(ei_eventtype_t		eventtype,
         else {
                 l_event_cour = trouve_event(eventtype);
                 if (l_event_cour) {
-                        insere_action(l_event_cour->l_action, widget, tag, callback, user_param);
+                        insere_action(&l_event_cour->l_action, widget, tag, callback, user_param);
                 }
                 else {
                         l_event_cour = l_event;
@@ -28,7 +28,7 @@ void insere_binding(ei_eventtype_t		eventtype,
                         }
                         ei_linked_event_t* new_event = malloc(sizeof(ei_linked_event_t));
                         new_event->eventtype = eventtype;
-                        insere_action(new_event->l_action, widget, tag, callback, user_param);
+                        insere_action(&new_event->l_action, widget, tag, callback, user_param);
                         new_event->next = NULL;
                         l_event_cour->next = new_event;
                 }
