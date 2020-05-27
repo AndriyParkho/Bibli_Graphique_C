@@ -52,6 +52,9 @@ void button_drawfunc(ei_widget_t *widget){
                 where->y = widget->screen_location.top_left.y + widget->screen_location.size.height/2 - *height_txt/2;
                 ei_draw_text(ei_app_root_surface(), where, button->frame.text,
                              button->frame.text_font, button->frame.text_color, &widget->screen_location);
+                free(width_txt);
+                free(height_txt);
+                free(where);
         }
         hw_surface_unlock(ei_app_root_surface());
         hw_surface_update_rects(ei_app_root_surface(), NULL);

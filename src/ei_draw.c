@@ -98,6 +98,7 @@ void			ei_draw_text		(ei_surface_t		surface,
         ei_copy_surface(surface, clipperText, surface_du_texte, NULL, EI_TRUE);
         hw_surface_unlock(surface_du_texte);
         hw_surface_free(surface_du_texte);
+        free(clipperText);
 }
 
 /**
