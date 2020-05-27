@@ -32,6 +32,10 @@ uint32_t		ei_map_rgba		(ei_surface_t surface, const ei_color_t* color){
         else
                 pixel_val = (color->red << 8 * (*ir)) + (color->green << 8 * (*ig))
                                 + (color->blue << 8 * (*ib)) + (color->alpha << 8 * (*ia));
+        free(ir);
+        free(ig);
+        free(ib);
+        free(ia);
         return pixel_val;
 }
 
@@ -281,5 +285,14 @@ int			ei_copy_surface		(ei_surface_t		destination,
                 pixel_src++;
                 pixel_dst++;
         }
+        // On libère la mémoire allouée
+        free(ir_src);
+        free(ig_src);
+        free(ib_src);
+        free(ia_src);
+        free(ir_dst);
+        free(ig_dst);
+        free(ib_dst);
+        free(ia_dst);
         return 0;
 }
