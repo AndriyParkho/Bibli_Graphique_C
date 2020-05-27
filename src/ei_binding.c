@@ -12,11 +12,11 @@ void insere_binding(ei_eventtype_t		eventtype,
                     ei_callback_t		callback,
                     void*			user_param) {
         ei_linked_event_t* l_event_cour = l_event;
-        if (l_event_cour==NULL) {
-                l_event_cour = (ei_linked_event_t*)malloc(sizeof(ei_linked_event_t));
-                l_event_cour->eventtype = eventtype;
-                l_event_cour->l_action = new_action(widget, tag, callback, user_param);
-                l_event_cour->next = NULL;
+        if (l_event==NULL) {
+                l_event = (ei_linked_event_t*)malloc(sizeof(ei_linked_event_t));
+                l_event->eventtype = eventtype;
+                l_event->l_action = new_action(widget, tag, callback, user_param);
+                l_event->next = NULL;
         }
         else {
                 l_event_cour = trouve_event(eventtype);
