@@ -25,15 +25,29 @@ void button_drawfunc(ei_widget_t *widget){
         ei_rect_t new_rect;
 
         hw_surface_lock(ei_app_root_surface());
-        //Partie haute
-        points = rounded_frame(button->frame.widget.screen_location, button->corner_radius,2);
-        ei_draw_polygon(ei_app_root_surface(), points, light_color, &(widget->screen_location));
-        free_points(points);
 
-        //Partie basse
-        points = rounded_frame(button->frame.widget.screen_location, button->corner_radius,1);
-        ei_draw_polygon(ei_app_root_surface(), points, dark_color, &(widget->screen_location));
-        free_points(points);
+        if (button->frame.relief == ei_relief_raised) {
+                //Partie haute
+                points = rounded_frame(button->frame.widget.screen_location, button->corner_radius, 2);
+                ei_draw_polygon(ei_app_root_surface(), points, light_color, &(widget->screen_location));
+                free_points(points);
+
+                //Partie basse
+                points = rounded_frame(button->frame.widget.screen_location, button->corner_radius, 1);
+                ei_draw_polygon(ei_app_root_surface(), points, dark_color, &(widget->screen_location));
+                free_points(points);
+        }
+        else if (button->frame.relief == ei_relief_sunken) {
+                //Partie haute
+                points = rounded_frame(button->frame.widget.screen_location, button->corner_radius, 2);
+                ei_draw_polygon(ei_app_root_surface(), points, dark_color, &(widget->screen_location));
+                free_points(points);
+
+                //Partie basse
+                points = rounded_frame(button->frame.widget.screen_location, button->corner_radius, 1);
+                ei_draw_polygon(ei_app_root_surface(), points, light_color, &(widget->screen_location));
+                free_points(points);
+        }
 
         //Totalité
         new_rect = widget->screen_location;
@@ -82,8 +96,8 @@ void* button_allocfunc(){
  * @param	widget		The widget which resources are to be freed.
  */
 void button_releasefunc(ei_button_t* button){
-        free(button->frame.text);
-        free(button->frame.img_rect);
+        //free(button->frame.text);
+        //free(button->frame.img_rect);
         free(button);
 }
 

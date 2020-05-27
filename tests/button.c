@@ -53,7 +53,7 @@ int main(int argc, char** argv)
 	char*		button_title		= "Mon premier Bouton !";
 	ei_color_t	button_text_color	= {0x00, 0x00, 0x00, 0xff};
 	int		button_corner_radius	= 20;
-	ei_relief_t	button_relief		= ei_relief_raised;
+	ei_relief_t	button_relief		= ei_relief_sunken;
 	int		button_border_width	= 6;
 	ei_callback_t	button_callback 	= button_press;
 

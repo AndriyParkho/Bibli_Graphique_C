@@ -122,7 +122,7 @@ void draw_polygons_relief(ei_widget_t* widget, ei_linked_point_t points[4], ei_s
  * et les angles de début et fin de l’arc
  */
 ei_linked_point_t * arc(ei_point_t centre, int rayon, double angle_d, double angle_f){
-        int nb_points = 10000;
+        int nb_points = 10;
         double pas = (angle_d - angle_f )/nb_points;
         ei_linked_point_t* points = (ei_linked_point_t*)malloc(sizeof(ei_linked_point_t));
         ei_linked_point_t* cour;
