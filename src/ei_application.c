@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include "ei_widgettypes.h"
-#include <stdlib.h>
 #include <ei_geometrytypes.h>
 #include "ei_widgetclass_parcours.h"
 #include "ei_widgetclass.h"
