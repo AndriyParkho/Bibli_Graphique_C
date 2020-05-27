@@ -73,3 +73,21 @@ void free_geometrymanager(ei_geometrymanager_t *list){
 }
 
 
+/**
+ * \brief Fonction qui libère la mémoire allouée pour une liste chainée de points
+ *
+ * @param list           un pointeur sur la tête de la liste chainée de points
+ */
+void free_points(ei_linked_point_t *list){
+        // Si la liste est vide on ne fait rien...
+        if (list == NULL){
+                // Y a rien à faire
+        } else if(list->next == NULL)
+                free(list); // On libère la tête de liste
+        else{
+                free_points(list->next);
+                free(list);
+        }
+}
+
+
