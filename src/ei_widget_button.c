@@ -42,10 +42,17 @@ void button_drawfunc(ei_widget_t *widget){
         new_rect.size.height -= 2*button->frame.border_width;
         points = rounded_frame(new_rect, button->corner_radius,0);
         ei_draw_polygon(ei_app_root_surface(), points, button->frame.color, &new_rect);
-
-        ei_draw_text(ei_app_root_surface(), &widget->screen_location.top_left, button->frame.text,
-                     button->frame.text_font, button->frame.text_color, &widget->screen_location);
-
+        // Dessin du texte s'il y en a un
+        if (button->frame.text) {
+                ei_point_t *where = malloc(sizeof(ei_point_t));
+                int * width_txt = calloc(1, sizeof(int));
+                int * height_txt = calloc(1, sizeof(int));
+                hw_text_compute_size(button->frame.text, button->frame.text_font, width_txt, height_txt);
+                where->x = widget->screen_location.top_left.x + widget->screen_location.size.width/2 - *width_txt/2;
+                where->y = widget->screen_location.top_left.y + widget->screen_location.size.height/2 - *height_txt/2;
+                ei_draw_text(ei_app_root_surface(), where, button->frame.text,
+                             button->frame.text_font, button->frame.text_color, &widget->screen_location);
+        }
         hw_surface_unlock(ei_app_root_surface());
         hw_surface_update_rects(ei_app_root_surface(), NULL);
 }
@@ -58,10 +65,7 @@ void button_drawfunc(ei_widget_t *widget){
  * @return		A block of memory with all bytes set to 0.
  */
 void* button_allocfunc(){
-        ei_button_t *button = calloc(1, sizeof(ei_button_t));
-        button->frame.text = calloc(1, sizeof(char));
-        button->frame.img_rect = calloc(1, sizeof(ei_rect_t));
-        return (void*) button;
+        return calloc(1, sizeof(ei_button_t));
 }
 
 /**

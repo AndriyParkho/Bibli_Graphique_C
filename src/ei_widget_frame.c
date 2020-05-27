@@ -42,10 +42,7 @@ void frame_drawfunc(ei_widget_t *widget){
  * @return		A block of memory with all bytes set to 0.
  */
 void* frame_allocfunc(){
-        ei_frame_t *frame = calloc(1, sizeof(ei_frame_t));
-        frame->text = calloc(1, sizeof(char));
-        frame->img_rect = calloc(1, sizeof(ei_rect_t));
-        return (void*) frame;
+        return (void*) calloc(1, sizeof(ei_frame_t));
 }
 
 /**

@@ -173,7 +173,7 @@ void			ei_frame_configure		(ei_widget_t*		widget,
         if (border_width) frame->border_width = *border_width;
         if (relief) frame->relief = *relief;
         if (text) {
-                frame->text = malloc(sizeof(char));
+                frame->text = calloc(strlen(*text) ,sizeof(char));
                 strcpy(frame->text,*text);
         }
         if (text_font) frame->text_font = *text_font;
