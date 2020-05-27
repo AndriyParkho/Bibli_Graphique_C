@@ -70,8 +70,8 @@ void insere_action(ei_linked_action_t** l_action,
                    ei_callback_t		callback,
                    void*			user_param) {
         ei_linked_action_t* cour = *l_action;
-        if (cour == NULL) {
-                cour = new_action(widget, tag, callback, user_param);
+        if (*l_action == NULL) {
+                *l_action = new_action(widget, tag, callback, user_param);
         }
         else {
                 while(cour->next) {
