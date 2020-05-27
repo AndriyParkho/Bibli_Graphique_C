@@ -92,11 +92,10 @@ void			ei_draw_text		(ei_surface_t		surface,
                                      const ei_rect_t*	clipper) {
         ei_surface_t surface_du_texte = hw_text_create_surface(text, font, color);
         ei_rect_t* clipperText = (ei_rect_t*)malloc(sizeof(ei_rect_t));
-        clipperText->top_left.x = 0;
-        clipperText->top_left.y = 0;
-        clipperText->size = clipper->size;
+        clipperText->top_left = *where;
+        clipperText->size = hw_surface_get_size(surface_du_texte);
         hw_surface_lock(surface_du_texte);
-        ei_copy_surface(surface, clipper, surface_du_texte, clipperText, EI_FALSE);
+        ei_copy_surface(surface, clipperText, surface_du_texte, NULL, EI_TRUE);
         hw_surface_unlock(surface_du_texte);
         hw_surface_free(surface_du_texte);
 }
@@ -173,7 +172,11 @@ int			ei_copy_surface		(ei_surface_t		destination,
         ei_point_t dst_origine;
         // On a le cas où les clipper src et dst sont non NULL
         if(dst_rect && src_rect){
-                if(dst_rect->size.width != src_rect->size.width || dst_rect->size.height != src_rect->size.height)
+                if(dst_rect->size.width != src_rect->size.width || dst_rect->size.height != src_rect->size.height
+                   || dst_rect->top_left.x + dst_rect->size.width > destination_size.width
+                   || dst_rect->top_left.y + dst_rect->size.height > destination_size.height
+                   || src_rect->top_left.x + src_rect->size.width > source_size.width
+                   || src_rect->top_left.y + src_rect->size.height > source_size.height)
                         return 1; // S'ils sont de taille différente la fonction fail
                 // Ils ont la même taille donc les rectangles qu'on utilisera seront les clippers src et dst
                 src_rect_size = src_rect->size;
@@ -183,7 +186,9 @@ int			ei_copy_surface		(ei_surface_t		destination,
                 dst_origine = dst_rect->top_left;
 
         } else if(dst_rect){ // Le cas où src est NULL mais pas dst du coup la src sera la surface entière
-                if(dst_rect->size.width != source_size.width || dst_rect->size.height != source_size.height)
+                if(dst_rect->size.width != source_size.width || dst_rect->size.height != source_size.height
+                   || dst_rect->top_left.x + dst_rect->size.width > destination_size.width
+                   || dst_rect->top_left.y + dst_rect->size.height > destination_size.height)
                         return 1;
                 // Le rectangle utilisé pour la source sera alors toute la surface source
                 src_rect_size = source_size;
@@ -194,7 +199,9 @@ int			ei_copy_surface		(ei_surface_t		destination,
                 dst_origine = dst_rect->top_left;
 
         } else if (src_rect){ // Pareil ici en inversant src et dst
-                if(destination_size.width != src_rect->size.width || destination_size.height != src_rect->size.height)
+                if(destination_size.width != src_rect->size.width || destination_size.height != src_rect->size.height
+                   || src_rect->top_left.x + src_rect->size.width > source_size.width
+                   || src_rect->top_left.y + src_rect->size.height > source_size.height)
                         return 1;
 
                 src_rect_size = src_rect->size;
@@ -220,6 +227,26 @@ int			ei_copy_surface		(ei_surface_t		destination,
         int i ;
         uint32_t *pixel_src = (uint32_t *) hw_surface_get_buffer(source);
         uint32_t *pixel_dst = (uint32_t *) hw_surface_get_buffer(destination);
+        // On définit les variable qui nous serviront à changer la couleur en prenant en compte la transparence
+        uint8_t *red_src;
+        uint8_t *red_dst;
+        uint8_t *green_src;
+        uint8_t *green_dst;
+        uint8_t *blue_src;
+        uint8_t *blue_dst;
+        uint8_t *alpha_src;
+        // On récupère l'indice des pixels de la surface source
+        int* ir_src = malloc(sizeof(int));
+        int* ig_src = malloc(sizeof(int));
+        int* ib_src = malloc(sizeof(int));
+        int* ia_src = malloc(sizeof(int));
+        hw_surface_get_channel_indices(source, ir_src, ig_src, ib_src, ia_src);
+        // On récupère l'indice des de la surface destination
+        int* ir_dst = malloc(sizeof(int));
+        int* ig_dst = malloc(sizeof(int));
+        int* ib_dst = malloc(sizeof(int));
+        int* ia_dst = malloc(sizeof(int));
+        hw_surface_get_channel_indices(destination, ir_dst, ig_dst, ib_dst, ia_dst);
         // On se place au premier pixel des rectangles qu'on utilise
         pixel_src = pixel_src + source_size.width * src_origine.y + src_origine.x;
         pixel_dst = pixel_dst + destination_size.width * dst_origine.y + dst_origine.x;
@@ -233,7 +260,23 @@ int			ei_copy_surface		(ei_surface_t		destination,
                                 pixel_dst++; // Pareil pour celle-ci avec la dst
                         }
                 }
-                *pixel_dst = *pixel_src;
+                if(alpha == EI_FALSE)
+                        *pixel_dst = *pixel_src;
+                else{
+                        // Pour chaque couleur on place bien leur pointeur
+                        red_src = (uint8_t *)pixel_src + *ir_src;
+                        green_src = (uint8_t *)pixel_src + *ig_src;
+                        blue_src = (uint8_t *)pixel_src + *ib_src;
+                        alpha_src = (uint8_t *)pixel_src + *ia_src;
+
+                        red_dst = (uint8_t *)pixel_dst + *ir_dst;
+                        green_dst = (uint8_t *)pixel_dst + *ig_dst;
+                        blue_dst = (uint8_t *)pixel_dst + *ib_dst;
+                        // On utilise la formule du sujet pour prendre en compte la transparence
+                        *red_dst = (*alpha_src * *red_src + (255 - *alpha_src) * *red_dst) / 255;
+                        *green_dst = (*alpha_src * *green_src + (255 - *alpha_src) * *green_dst) / 255;
+                        *blue_dst = (*alpha_src * *blue_src + (255 - *alpha_src) * *blue_dst) / 255;
+                }
                 pixel_src++;
                 pixel_dst++;
         }
