@@ -25,14 +25,14 @@ void frame_drawfunc(ei_widget_t *widget){
         // draw the polygon
         if (frame->relief != ei_relief_none) {
                 draw_polygons_relief(widget, points, ei_app_root_surface());
-                free_points(points);
+                //free_points(points);
                 points = rectangle(coord_x, coord_y, frame->border_width);
         }
         ei_draw_polygon(ei_app_root_surface(), points, frame->color, &(widget->screen_location));
         // unlock the surface and update the screen
         hw_surface_unlock(ei_app_root_surface());
         hw_surface_update_rects(ei_app_root_surface(), NULL);
-        free_points(points);
+        //free_points(points);
 }
 
 /**
