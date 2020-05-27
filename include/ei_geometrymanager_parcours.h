@@ -45,4 +45,11 @@ ei_geometrymanager_t* trouve_geomanager(ei_geometrymanager_t **list, ei_geometry
  */
 void free_geometrymanager(ei_geometrymanager_t *list);
 
+/**
+ * \brief Fonction qui libère la mémoire allouée pour une liste chainée de points
+ *
+ * @param list           un pointeur sur la tête de la liste chainée de points
+ */
+void free_points(ei_linked_point_t *list);
+
 #endif

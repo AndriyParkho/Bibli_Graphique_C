@@ -17,12 +17,11 @@
  *				(expressed in the surface reference frame).
  */
 void button_drawfunc(ei_widget_t *widget){
+        ei_frame_t* frame = (ei_frame_t*)widget;
         ei_button_t* button = (ei_button_t*)widget;
         ei_linked_point_t* points;
-        ei_color_t dark_color = {button->frame.color.red - 30, button->frame.color.green - 30,
-                                 button->frame.color.blue - 30, button->frame.color.alpha};
-        ei_color_t light_color = {button->frame.color.red + 30, button->frame.color.green + 30,
-                                  button->frame.color.blue + 30, button->frame.color.alpha};
+        ei_color_t dark_color = color_variation(frame, -30);
+        ei_color_t light_color = color_variation(frame, 30);
         ei_rect_t new_rect;
 
         hw_surface_lock(ei_app_root_surface());
@@ -52,6 +51,9 @@ void button_drawfunc(ei_widget_t *widget){
                 where->y = widget->screen_location.top_left.y + widget->screen_location.size.height/2 - *height_txt/2;
                 ei_draw_text(ei_app_root_surface(), where, button->frame.text,
                              button->frame.text_font, button->frame.text_color, &widget->screen_location);
+                free(width_txt);
+                free(height_txt);
+                free(where);
         }
         hw_surface_unlock(ei_app_root_surface());
         hw_surface_update_rects(ei_app_root_surface(), NULL);
