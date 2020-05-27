@@ -15,7 +15,7 @@
 #include <math.h>
 #include <assert.h>
 #include <stdio.h>
-//#define min(a,b) (a<=b?a:b)
+#define min(a,b) (a<=b?a:b)
 
 /**
  * \brief Génère une liste de quatre points définissant un rectangle.

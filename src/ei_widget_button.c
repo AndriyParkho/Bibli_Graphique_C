@@ -28,10 +28,12 @@ void button_drawfunc(ei_widget_t *widget){
         //Partie haute
         points = rounded_frame(button->frame.widget.screen_location, button->corner_radius,2);
         ei_draw_polygon(ei_app_root_surface(), points, light_color, &(widget->screen_location));
+        free_points(points);
 
         //Partie basse
         points = rounded_frame(button->frame.widget.screen_location, button->corner_radius,1);
         ei_draw_polygon(ei_app_root_surface(), points, dark_color, &(widget->screen_location));
+        free_points(points);
 
         //Totalité
         new_rect = widget->screen_location;
@@ -41,6 +43,7 @@ void button_drawfunc(ei_widget_t *widget){
         new_rect.size.height -= 2*button->frame.border_width;
         points = rounded_frame(new_rect, button->corner_radius,0);
         ei_draw_polygon(ei_app_root_surface(), points, button->frame.color, &new_rect);
+        free_points(points);
         // Dessin du texte s'il y en a un
         if (button->frame.text) {
                 ei_point_t *where = malloc(sizeof(ei_point_t));
