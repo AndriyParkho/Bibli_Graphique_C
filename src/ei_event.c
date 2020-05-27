@@ -26,5 +26,5 @@ void		ei_bind			(ei_eventtype_t		eventtype,
                                 ei_callback_t		callback,
                                 void*			user_param) {
         assert(!(widget==NULL && tag == NULL));
-
+        insere_binding(eventtype, widget, tag, callback, user_param);
 }

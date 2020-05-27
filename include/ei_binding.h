@@ -7,8 +7,9 @@
 
 #include "ei_event.h"
 #include "ei_types.h"
+#include <stdlib.h>
 
-extern ei_linked_event_t* l_event;
+
 
 typedef struct {
     ei_callback_t       callback;
@@ -27,6 +28,8 @@ typedef struct {
     ei_linked_action_t*          l_action;
     struct ei_linked_event_t*    next;
 } ei_linked_event_t;
+
+extern ei_linked_event_t *l_event;
 
 void insere_binding(ei_eventtype_t		eventtype,
                     ei_widget_t*		widget,
