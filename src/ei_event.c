@@ -6,6 +6,7 @@
 #include <string.h>
 #include <assert.h>
 #include "ei_binding.h"
+#include <stdio.h>
 
 /**
  * \brief	Binds a callback to an event type and a widget or a tag.
