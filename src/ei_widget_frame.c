@@ -55,6 +55,8 @@ void* frame_allocfunc(){
  * @param	widget		The widget which resources are to be freed.
  */
 void frame_releasefunc(ei_frame_t* frame){
+        free(frame->text);
+        free(frame->img_rect);
         free(frame);
 }
 

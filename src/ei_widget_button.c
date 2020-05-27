@@ -81,7 +81,9 @@ void* button_allocfunc(){
  *
  * @param	widget		The widget which resources are to be freed.
  */
-void button_releasefunc(ei_widget_t* button){
+void button_releasefunc(ei_button_t* button){
+        free(button->frame.text);
+        free(button->frame.img_rect);
         free(button);
 }
 

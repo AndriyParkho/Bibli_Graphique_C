@@ -40,7 +40,7 @@ void* button_allocfunc();
  *
  * @param	widget		The widget which resources are to be freed.
  */
-void button_releasefunc(ei_widget_t* widget);
+void button_releasefunc(ei_button_t* widget);
 
 /**
  * \brief	A function that sets the default values for a class.
