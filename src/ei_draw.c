@@ -265,7 +265,7 @@ int			ei_copy_surface		(ei_surface_t		destination,
                                 pixel_dst++; // Pareil pour celle-ci avec la dst
                         }
                 }
-                if(alpha == EI_FALSE)
+                if(!alpha)
                         *pixel_dst = *pixel_src;
                 else{
                         // Pour chaque couleur on place bien leur pointeur
