@@ -43,4 +43,20 @@ typedef struct {
 } ei_button_t;
 
 
+/**
+ * @brief Structure du type toplevel. Un toplevel est un frame avec des particulatirés en plus
+ */
+typedef struct {
+        ei_frame_t         frame;
+
+        ei_button_t        title_bar;
+        ei_button_t        resize_button;
+        ei_button_t        close_button;
+
+        ei_bool_t          closable;
+        ei_axis_set_t      window_resizable;
+        ei_size_t*         min_size;
+} ei_toplevel_t;
+
+
 #endif //EI_WIDGETTYPES_H
