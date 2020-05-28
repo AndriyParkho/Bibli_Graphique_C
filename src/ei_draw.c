@@ -98,12 +98,12 @@ void			ei_draw_text		(ei_surface_t		surface,
         ei_rect_t* clipperText_dst = (ei_rect_t*)malloc(sizeof(ei_rect_t));
         ei_rect_t* clipperText_src = (ei_rect_t*)malloc(sizeof(ei_rect_t));
         ei_size_t text_size = hw_surface_get_size(surface_du_texte);
-        if (where->x + text_size.width > clipper->size.width)
-                clipperText_dst->size.width = text_size.width - where->x + clipper->top_left.x + clipper->size.width;
+        if (where->x + text_size.width > clipper->top_left.x + clipper->size.width)
+                clipperText_dst->size.width = clipper->top_left.x + clipper->size.width - where->x;
         else
                 clipperText_dst->size.width = text_size.width;
-        if (where->y + text_size.height > clipper->size.height)
-                clipperText_dst->size.height = text_size.height - where->y + clipper->top_left.y + clipper->size.height;
+        if (where->y + text_size.height > clipper->top_left.y + clipper->size.height)
+                clipperText_dst->size.height = clipper->top_left.y + clipper->size.height - where->y;
         else
                 clipperText_dst->size.height = text_size.height;
         clipperText_src->size = clipperText_dst->size;

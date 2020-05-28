@@ -39,7 +39,7 @@ void ei_app_run(void) {
         event.type = ei_ev_none;
         while (!quit) {
                 // ei_parcours_profondeur_widget(frame_root_widget, root_widget);
-                frame_root_widget->wclass->drawfunc(frame_root_widget, root_widget, root_widget, frame_root_widget->content_rect);
+                frame_root_widget->wclass->drawfunc(ei_app_root_widget(), ei_app_root_surface(), get_root_offscreen(), frame_root_widget->content_rect);
                 hw_event_wait_next(&event);
                 e_cour = trouve_event(event.type);
                 if (e_cour) {

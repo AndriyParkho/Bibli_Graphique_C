@@ -71,17 +71,21 @@ void button_drawfunc(ei_widget_t        *widget,
                 where->y = widget->screen_location.top_left.y + widget->screen_location.size.height/2 - *height_txt/2;
 
                 ei_rect_t * clipper_button_text = widget->content_rect;
-                if(clipper_button_text->top_left.x + )
+                if(clipper_button_text->top_left.x + clipper_button_text->size.width > clipper->top_left.x + clipper->size.width)
+                        clipper_button_text->size.width = clipper->top_left.x + clipper->size.width  - clipper_button_text->top_left.x;
+                if(clipper_button_text->top_left.y + clipper_button_text->size.height > clipper->top_left.y + clipper->size.height)
+                        clipper_button_text->size.height = clipper->top_left.y + clipper->size.height  - clipper_button_text->top_left.y;
+
                 ei_draw_text(surface, where, button->frame.text,
-                             button->frame.text_font, button->frame.text_color, &widget->screen_location);
+                             button->frame.text_font, button->frame.text_color, clipper_button_text);
                 free(width_txt);
                 free(height_txt);
                 free(where);
         }
         hw_surface_unlock(surface);
         hw_surface_update_rects(surface, NULL);
-        if (widget->children_head) widget->children_head->wclass->drawfunc(widget->children_head, surface, surface, widget->content_rect);
-        if (widget->next_sibling) widget->next_sibling->wclass->drawfunc(widget->next_sibling, surface, surface, clipper);
+        if (widget->children_head) widget->children_head->wclass->drawfunc(widget->children_head, surface, pick_surface, widget->content_rect);
+        if (widget->next_sibling) widget->next_sibling->wclass->drawfunc(widget->next_sibling, surface, pick_surface, clipper);
 }
 
 /**

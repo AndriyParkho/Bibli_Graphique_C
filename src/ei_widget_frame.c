@@ -52,8 +52,8 @@ void frame_drawfunc(ei_widget_t        *widget,
         hw_surface_unlock(surface);
         hw_surface_update_rects(surface, NULL);
         free(points);
-        if (widget->children_head) widget->children_head->wclass->drawfunc(widget->children_head, surface, surface, widget->content_rect);
-        if (widget->next_sibling) widget->next_sibling->wclass->drawfunc(widget->next_sibling, surface, surface, clipper);
+        if (widget->children_head) widget->children_head->wclass->drawfunc(widget->children_head, surface, pick_surface, widget->content_rect);
+        if (widget->next_sibling) widget->next_sibling->wclass->drawfunc(widget->next_sibling, surface, pick_surface, clipper);
 }
 
 /**
