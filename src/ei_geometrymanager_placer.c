@@ -18,21 +18,39 @@ void placer_runfunc(ei_widget_t* widget){
         ei_widget_t* parent = widget->parent;
         ei_rect_t * clipper = parent->content_rect;
 
-        ei_rect_t * clipper_button_text = (ei_rect_t*)malloc(sizeof(ei_rect_t));
-        clipper_button_text->size.width = widget->content_rect->size.width;
-        clipper_button_text->size.height = widget->content_rect->size.height;
-        clipper_button_text->top_left = widget->content_rect->top_left;
-
-        if(clipper_button_text->top_left.x + clipper_button_text->size.width > clipper->top_left.x + clipper->size.width)
-                clipper_button_text->size.width = clipper->top_left.x + clipper->size.width  - clipper_button_text->top_left.x;
-        if(clipper_button_text->top_left.y + clipper_button_text->size.height > clipper->top_left.y + clipper->size.height)
-                clipper_button_text->size.height = clipper->top_left.y + clipper->size.height  - clipper_button_text->top_left.y;
-
         ei_rect_t screen_location;
         screen_location.size = widget->requested_size;
         screen_location.top_left.x = placer->x;
         screen_location.top_left.y = placer->y;
         widget->screen_location = screen_location;
+
+        ei_bool_t right_exceed = widget->content_rect->top_left.x + widget->content_rect->size.width > clipper->top_left.x + clipper->size.width;
+        ei_bool_t bottom_exceed = widget->content_rect->top_left.y + widget->content_rect->size.height > clipper->top_left.y + clipper->size.height;
+        ei_bool_t left_exceed = widget->content_rect->top_left.x < clipper->top_left.x;
+        ei_bool_t top_exceed = widget->content_rect->top_left.y < clipper->top_left.y;
+
+        if(right_exceed || bottom_exceed || left_exceed || top_exceed){
+                ei_rect_t * new_content_rect = (ei_rect_t*)malloc(sizeof(ei_rect_t));
+                new_content_rect->size.width = widget->content_rect->size.width;
+                new_content_rect->size.height = widget->content_rect->size.height;
+                new_content_rect->top_left = widget->content_rect->top_left;
+                if(right_exceed){
+                        new_content_rect->size.width = clipper->top_left.x + clipper->size.width  - new_content_rect->top_left.x;
+                }
+                else if(left_exceed){
+                        new_content_rect->size.width = new_content_rect->top_left.x + new_content_rect->size.width  - clipper->top_left.x;
+                        new_content_rect->top_left.x = clipper->top_left.x;
+                }
+
+                if(bottom_exceed)
+                        new_content_rect->size.height = clipper->top_left.y + clipper->size.height  - new_content_rect->top_left.y;
+                else if(top_exceed){
+                        new_content_rect->size.height = new_content_rect->top_left.y + new_content_rect->size.height  - clipper->top_left.y;
+                        new_content_rect->top_left.y = clipper->top_left.y;
+                }
+                widget->content_rect = new_content_rect;
+        }
+
 }
 
 /**

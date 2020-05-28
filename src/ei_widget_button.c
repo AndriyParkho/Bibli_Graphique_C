@@ -81,22 +81,11 @@ void button_drawfunc(ei_widget_t        *widget,
                 where->x = widget->screen_location.top_left.x + widget->screen_location.size.width/2 - *width_txt/2;
                 where->y = widget->screen_location.top_left.y + widget->screen_location.size.height/2 - *height_txt/2;
 
-                ei_rect_t * clipper_button_text = (ei_rect_t*)malloc(sizeof(ei_rect_t));
-                clipper_button_text->size.width = widget->content_rect->size.width;
-                clipper_button_text->size.height = widget->content_rect->size.height;
-                clipper_button_text->top_left = widget->content_rect->top_left;
-
-                if(clipper_button_text->top_left.x + clipper_button_text->size.width > clipper->top_left.x + clipper->size.width)
-                        clipper_button_text->size.width = clipper->top_left.x + clipper->size.width  - clipper_button_text->top_left.x;
-                if(clipper_button_text->top_left.y + clipper_button_text->size.height > clipper->top_left.y + clipper->size.height)
-                        clipper_button_text->size.height = clipper->top_left.y + clipper->size.height  - clipper_button_text->top_left.y;
-
                 ei_draw_text(surface, where, button->frame.text,
-                             button->frame.text_font, button->frame.text_color, clipper_button_text);
+                             button->frame.text_font, button->frame.text_color, widget->content_rect);
                 free(width_txt);
                 free(height_txt);
                 free(where);
-                free(clipper_button_text);
         }
         hw_surface_unlock(surface);
         //hw_surface_update_rects(surface, NULL);

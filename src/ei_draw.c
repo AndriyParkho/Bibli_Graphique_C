@@ -98,18 +98,34 @@ void			ei_draw_text		(ei_surface_t		surface,
         ei_rect_t* clipperText_dst = (ei_rect_t*)malloc(sizeof(ei_rect_t));
         ei_rect_t* clipperText_src = (ei_rect_t*)malloc(sizeof(ei_rect_t));
         ei_size_t text_size = hw_surface_get_size(surface_du_texte);
-        if (where->x + text_size.width > clipper->top_left.x + clipper->size.width)
-                clipperText_dst->size.width = clipper->top_left.x + clipper->size.width - where->x;
-        else
-                clipperText_dst->size.width = text_size.width;
-        if (where->y + text_size.height > clipper->top_left.y + clipper->size.height)
-                clipperText_dst->size.height = clipper->top_left.y + clipper->size.height - where->y;
-        else
-                clipperText_dst->size.height = text_size.height;
-        clipperText_src->size = clipperText_dst->size;
+
+        clipperText_dst->top_left = *where;
+        clipperText_dst->size = text_size;
+
         clipperText_src->top_left.x = 0;
         clipperText_src->top_left.y = 0;
-        clipperText_dst->top_left = *where;
+
+        ei_bool_t right_exceed = where->x + text_size.width > clipper->top_left.x + clipper->size.width;
+        ei_bool_t bottom_exceed = where->y + text_size.height > clipper->top_left.y + clipper->size.height;
+        ei_bool_t left_exceed = where->x < clipper->top_left.x;
+        ei_bool_t top_exceed = where->y < clipper->top_left.y;
+
+        if (right_exceed)
+                clipperText_dst->size.width = clipper->top_left.x + clipper->size.width - where->x;
+        else if(left_exceed) {
+                clipperText_dst->size.width = where->x + text_size.width - clipper->top_left.x;
+                clipperText_dst->top_left.x = clipper->top_left.x;
+                clipperText_src->top_left.x = clipper->top_left.x - where->x;
+        }
+        if (bottom_exceed)
+                clipperText_dst->size.height = clipper->top_left.y + clipper->size.height - where->y;
+        else if(top_exceed){
+                clipperText_dst->size.height = where->y + text_size.height - clipper->top_left.y;
+                clipperText_dst->top_left.y = clipper->top_left.y;
+                clipperText_src->top_left.y = clipper->top_left.y - where->y;
+        }
+        clipperText_src->size = clipperText_dst->size;
+
         hw_surface_lock(surface_du_texte);
         ei_copy_surface(surface, clipperText_dst, surface_du_texte, clipperText_src, EI_TRUE);
         hw_surface_unlock(surface_du_texte);
