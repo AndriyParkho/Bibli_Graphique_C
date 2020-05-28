@@ -24,7 +24,7 @@ typedef struct ei_linked_action_t{
     struct ei_linked_action_t*     next;
 } ei_linked_action_t;
 
-typedef struct {
+typedef struct ei_linked_event_t{
     ei_eventtype_t              eventtype;
     ei_linked_action_t*          l_action;
     struct ei_linked_event_t*    next;
