@@ -36,27 +36,26 @@ void ei_app_run(void) {
         ei_event_t event;
         ei_linked_event_t* e_cour;
         ei_linked_action_t* a_cour;
+        ei_button_t* button = NULL;
         event.type = ei_ev_none;
         while (!quit) {
                 // ei_parcours_profondeur_widget(frame_root_widget, root_widget);
                 frame_root_widget->wclass->drawfunc(ei_app_root_widget(), ei_app_root_surface(), get_root_offscreen(), frame_root_widget->content_rect);
                 hw_surface_update_rects(ei_app_root_surface(), NULL);
                 hw_event_wait_next(&event);
-                /*
-                if (event.type == ei_ev_mouse_buttondown) {
-                        ei_point_t where = event.param.mouse.where;
-                        ei_button_t* ev_widget = (ei_button_t*)ei_widget_pick(&where);
-                        ev_widget->callback(ev_widget, &event, ev_widget->user_param);
-                }
-                 */
                 e_cour = trouve_event(event.type);
                 if (e_cour) {
                         a_cour = e_cour->l_action;
                         while (a_cour) {
                                 if (a_cour->action.widget) {
                                         if (e_cour->eventtype == ei_ev_mouse_buttondown) {
-                                                if (ei_widget_pick(&event.param.mouse.where) == a_cour->action.widget) {
-                                                        a_cour->action.callback(a_cour->action.widget, &event, a_cour->action.user_param);
+                                                ei_widget_t* ev_widget = ei_widget_pick(&event.param.mouse.where);
+                                                if (ev_widget == a_cour->action.widget) {
+                                                        a_cour->action.callback(ev_widget, &event, a_cour->action.user_param);
+                                                        if (strcmp(ev_widget->wclass->name,"button")==0) {
+                                                                button = (ei_button_t*)ev_widget;
+                                                                button->frame.relief = ei_relief_sunken;
+                                                        }
                                                 }
                                         }
                                         else a_cour->action.callback(a_cour->action.widget, &event, a_cour->action.user_param);
@@ -65,6 +64,18 @@ void ei_app_run(void) {
                                         ei_parcours_profondeur_callback(frame_root_widget, a_cour->action.callback, a_cour->action.tag, &event, a_cour->action.user_param);
                                 }
                                 a_cour = a_cour->next;
+                        }
+                }
+                if (button) {
+                        int x = event.param.mouse.where.x;
+                        int y = event.param.mouse.where.y;
+                        ei_rect_t screen_location = button->frame.widget.screen_location;
+                        if (event.type==ei_ev_mouse_buttonup || (x < screen_location.top_left.x ||
+                                                                 x > screen_location.top_left.x + screen_location.size.width ||
+                                                                 y < screen_location.top_left.y ||
+                                                                 y > screen_location.top_left.y + screen_location.size.height)) {
+                                button->frame.relief = ei_relief_raised;
+                                button = NULL;
                         }
                 }
         }

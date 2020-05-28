@@ -35,16 +35,6 @@ ei_bool_t process_key(ei_widget_t* widget, ei_event_t* event, void* user_param)
 	return EI_FALSE;
 }
 
-ei_bool_t coucou(ei_widget_t* widget, ei_event_t* event, void* user_param)
-{
-        if (event->param.key.key_code == SDLK_ESCAPE) {
-                printf("Coucou\n");
-                return EI_TRUE;
-        }
-
-        return EI_FALSE;
-}
-
 /*
  * main --
  *
@@ -63,7 +53,7 @@ int main(int argc, char** argv)
 	char*		button_title		= "Mon premier Bouton !";
 	ei_color_t	button_text_color	= {0x00, 0x00, 0x00, 0xff};
 	int		button_corner_radius	= 20;
-	ei_relief_t	button_relief		= ei_relief_sunken;
+	ei_relief_t	button_relief		= ei_relief_raised;
 	int		button_border_width	= 6;
 	ei_callback_t	button_callback 	= button_press;
 

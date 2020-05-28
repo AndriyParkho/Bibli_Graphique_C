@@ -28,10 +28,9 @@ void button_drawfunc(ei_widget_t        *widget,
         ei_rect_t new_rect;
 
 
-
         hw_surface_lock(surface);
 
-        if (button->frame.relief == ei_relief_raised) {
+        if (button->frame.relief == ei_relief_sunken) {
                 //Partie haute
                 points = rounded_frame(button->frame.widget.screen_location, button->corner_radius, 2);
                 ei_draw_polygon(surface, points, light_color, &(widget->screen_location));
@@ -42,7 +41,7 @@ void button_drawfunc(ei_widget_t        *widget,
                 ei_draw_polygon(surface, points, dark_color, &(widget->screen_location));
                 free_points(points);
         }
-        else if (button->frame.relief == ei_relief_sunken) {
+        else if (button->frame.relief == ei_relief_raised) {
                 //Partie haute
                 points = rounded_frame(button->frame.widget.screen_location, button->corner_radius, 2);
                 ei_draw_polygon(surface, points, dark_color, &(widget->screen_location));
