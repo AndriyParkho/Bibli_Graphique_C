@@ -95,14 +95,27 @@ void			ei_draw_text		(ei_surface_t		surface,
                                      ei_color_t		color,
                                      const ei_rect_t*	clipper) {
         ei_surface_t surface_du_texte = hw_text_create_surface(text, font, color);
-        ei_rect_t* clipperText = (ei_rect_t*)malloc(sizeof(ei_rect_t));
-        clipperText->top_left = *where;
-        clipperText->size = hw_surface_get_size(surface_du_texte);
+        ei_rect_t* clipperText_dst = (ei_rect_t*)malloc(sizeof(ei_rect_t));
+        ei_rect_t* clipperText_src = (ei_rect_t*)malloc(sizeof(ei_rect_t));
+        ei_size_t text_size = hw_surface_get_size(surface_du_texte);
+        if (where->x + text_size.width > clipper->size.width)
+                clipperText_dst->size.width = text_size.width - where->x + clipper->top_left.x + clipper->size.width;
+        else
+                clipperText_dst->size.width = text_size.width;
+        if (where->y + text_size.height > clipper->size.height)
+                clipperText_dst->size.height = text_size.height - where->y + clipper->top_left.y + clipper->size.height;
+        else
+                clipperText_dst->size.height = text_size.height;
+        clipperText_src->size = clipperText_dst->size;
+        clipperText_src->top_left.x = 0;
+        clipperText_src->top_left.y = 0;
+        clipperText_dst->top_left = *where;
         hw_surface_lock(surface_du_texte);
-        ei_copy_surface(surface, clipperText, surface_du_texte, NULL, EI_TRUE);
+        ei_copy_surface(surface, clipperText_dst, surface_du_texte, clipperText_src, EI_TRUE);
         hw_surface_unlock(surface_du_texte);
         hw_surface_free(surface_du_texte);
-        free(clipperText);
+        free(clipperText_dst);
+        free(clipperText_src);
 }
 
 /**
@@ -195,6 +208,7 @@ int			ei_copy_surface		(ei_surface_t		destination,
                    || dst_rect->top_left.x + dst_rect->size.width > destination_size.width
                    || dst_rect->top_left.y + dst_rect->size.height > destination_size.height)
                         return 1;
+
                 // Le rectangle utilisé pour la source sera alors toute la surface source
                 src_rect_size = source_size;
                 dst_rect_size = dst_rect->size;

@@ -16,7 +16,10 @@
  * @param	clipper		If not NULL, the drawing is restricted within this rectangle
  *				(expressed in the surface reference frame).
  */
-void button_drawfunc(ei_widget_t *widget){
+void button_drawfunc(ei_widget_t        *widget,
+                     ei_surface_t	surface,
+                     ei_surface_t	pick_surface,
+                     ei_rect_t*		clipper){
         ei_frame_t* frame = (ei_frame_t*)widget;
         ei_button_t* button = (ei_button_t*)widget;
         ei_linked_point_t* points;
@@ -24,28 +27,28 @@ void button_drawfunc(ei_widget_t *widget){
         ei_color_t light_color = color_variation(frame, 30);
         ei_rect_t new_rect;
 
-        hw_surface_lock(ei_app_root_surface());
+        hw_surface_lock(surface);
 
         if (button->frame.relief == ei_relief_raised) {
                 //Partie haute
                 points = rounded_frame(button->frame.widget.screen_location, button->corner_radius, 2);
-                ei_draw_polygon(ei_app_root_surface(), points, light_color, &(widget->screen_location));
+                ei_draw_polygon(surface, points, light_color, &(widget->screen_location));
                 free_points(points);
 
                 //Partie basse
                 points = rounded_frame(button->frame.widget.screen_location, button->corner_radius, 1);
-                ei_draw_polygon(ei_app_root_surface(), points, dark_color, &(widget->screen_location));
+                ei_draw_polygon(surface, points, dark_color, &(widget->screen_location));
                 free_points(points);
         }
         else if (button->frame.relief == ei_relief_sunken) {
                 //Partie haute
                 points = rounded_frame(button->frame.widget.screen_location, button->corner_radius, 2);
-                ei_draw_polygon(ei_app_root_surface(), points, dark_color, &(widget->screen_location));
+                ei_draw_polygon(surface, points, dark_color, &(widget->screen_location));
                 free_points(points);
 
                 //Partie basse
                 points = rounded_frame(button->frame.widget.screen_location, button->corner_radius, 1);
-                ei_draw_polygon(ei_app_root_surface(), points, light_color, &(widget->screen_location));
+                ei_draw_polygon(surface, points, light_color, &(widget->screen_location));
                 free_points(points);
         }
 
@@ -56,7 +59,7 @@ void button_drawfunc(ei_widget_t *widget){
         new_rect.size.width -= 2*button->frame.border_width;
         new_rect.size.height -= 2*button->frame.border_width;
         points = rounded_frame(new_rect, button->corner_radius,0);
-        ei_draw_polygon(ei_app_root_surface(), points, button->frame.color, &new_rect);
+        ei_draw_polygon(surface, points, button->frame.color, &new_rect);
         free_points(points);
         // Dessin du texte s'il y en a un
         if (button->frame.text) {
@@ -66,14 +69,19 @@ void button_drawfunc(ei_widget_t *widget){
                 hw_text_compute_size(button->frame.text, button->frame.text_font, width_txt, height_txt);
                 where->x = widget->screen_location.top_left.x + widget->screen_location.size.width/2 - *width_txt/2;
                 where->y = widget->screen_location.top_left.y + widget->screen_location.size.height/2 - *height_txt/2;
-                ei_draw_text(ei_app_root_surface(), where, button->frame.text,
+
+                ei_rect_t * clipper_button_text = widget->content_rect;
+                if(clipper_button_text->top_left.x + )
+                ei_draw_text(surface, where, button->frame.text,
                              button->frame.text_font, button->frame.text_color, &widget->screen_location);
                 free(width_txt);
                 free(height_txt);
                 free(where);
         }
-        hw_surface_unlock(ei_app_root_surface());
-        hw_surface_update_rects(ei_app_root_surface(), NULL);
+        hw_surface_unlock(surface);
+        hw_surface_update_rects(surface, NULL);
+        if (widget->children_head) widget->children_head->wclass->drawfunc(widget->children_head, surface, surface, widget->content_rect);
+        if (widget->next_sibling) widget->next_sibling->wclass->drawfunc(widget->next_sibling, surface, surface, clipper);
 }
 
 /**

@@ -10,7 +10,10 @@
  * @param	clipper		If not NULL, the drawing is restricted within this rectangle
  *				(expressed in the surface reference frame).
  */
-void frame_drawfunc(ei_widget_t *widget){
+void frame_drawfunc(ei_widget_t        *widget,
+                    ei_surface_t	surface,
+                    ei_surface_t	pick_surface,
+                    ei_rect_t*		clipper){
         // declaration of the widget as a frame
         ei_frame_t* frame = (ei_frame_t*)widget;
         int coord_x[] = {widget->screen_location.top_left.x,
@@ -21,18 +24,20 @@ void frame_drawfunc(ei_widget_t *widget){
         ei_linked_point_t* points;
         points = rectangle(coord_x, coord_y, 0);
         // lock the surface for drawing
-        hw_surface_lock(ei_app_root_surface());
+        hw_surface_lock(surface);
         // draw the polygon
         if (frame->relief != ei_relief_none) {
-                draw_polygons_relief(widget, points, ei_app_root_surface());
+                draw_polygons_relief(widget, points, surface);
                 free(points);
                 points = rectangle(coord_x, coord_y, frame->border_width);
         }
-        ei_draw_polygon(ei_app_root_surface(), points, frame->color, &(widget->screen_location));
+        ei_draw_polygon(surface, points, frame->color, &(widget->screen_location));
         // unlock the surface and update the screen
-        hw_surface_unlock(ei_app_root_surface());
-        hw_surface_update_rects(ei_app_root_surface(), NULL);
+        hw_surface_unlock(surface);
+        hw_surface_update_rects(surface, NULL);
         free(points);
+        if (widget->children_head) widget->children_head->wclass->drawfunc(widget->children_head, surface, surface, widget->content_rect);
+        if (widget->next_sibling) widget->next_sibling->wclass->drawfunc(widget->next_sibling, surface, surface, clipper);
 }
 
 /**
