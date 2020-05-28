@@ -32,6 +32,22 @@ void frame_drawfunc(ei_widget_t        *widget,
                 points = rectangle(coord_x, coord_y, frame->border_width);
         }
         ei_draw_polygon(surface, points, frame->color, &(widget->screen_location));
+        ei_draw_polygon(ei_app_root_surface(), points, frame->color, &(widget->screen_location));
+
+        if (frame->text) {
+                ei_point_t *where = malloc(sizeof(ei_point_t));
+                int * width_txt = calloc(1, sizeof(int));
+                int * height_txt = calloc(1, sizeof(int));
+                hw_text_compute_size(frame->text, frame->text_font, width_txt, height_txt);
+                where->x = widget->screen_location.top_left.x + widget->screen_location.size.width/2 - *width_txt/2;
+                where->y = widget->screen_location.top_left.y + widget->screen_location.size.height/2 - *height_txt/2;
+                ei_draw_text(ei_app_root_surface(), where, frame->text,
+                             frame->text_font, frame->text_color, &widget->screen_location);
+                free(width_txt);
+                free(height_txt);
+                free(where);
+        }
+
         // unlock the surface and update the screen
         hw_surface_unlock(surface);
         hw_surface_update_rects(surface, NULL);

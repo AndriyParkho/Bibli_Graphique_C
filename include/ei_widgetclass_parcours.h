@@ -14,6 +14,7 @@
 #include "ei_widget.h"
 #include <stdlib.h>
 #include "ei_event.h"
+#include "ei_draw_annexe.h"
 
 extern ei_widgetclass_t *class_tete;
 
@@ -52,4 +53,5 @@ void free_class(ei_widgetclass_t *list);
 
 void ei_parcours_profondeur_callback(ei_widget_t* root, ei_callback_t callback, ei_tag_t tag, ei_event_t* event, void* user_param);
 
+ei_widget_t* ei_widget_pick_rec(ei_widget_t* widget, uint32_t pixel_color);
 #endif //EI_WIDGETCLASS_PARCOURS_H

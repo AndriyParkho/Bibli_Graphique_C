@@ -15,8 +15,14 @@
 #include <math.h>
 #include <assert.h>
 #include <stdio.h>
+
 #define min(a,b) (a<=b?a:b)
 
+ei_surface_t static root_offscreen;
+
+ei_surface_t get_root_offscreen();
+
+void set_root_offscreen(ei_surface_t surface);
 /**
  * \brief Génère une liste de quatre points définissant un rectangle.
  *

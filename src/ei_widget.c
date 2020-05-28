@@ -9,10 +9,16 @@ Fonction pour implémenter les widget
 #include "ei_widgetclass_parcours.h"
 #include <stdlib.h>
 #include <assert.h>
+#include <stdio.h>
+#include "ei_application.h"
+#include "ei_draw_annexe.h"
 
 struct ei_geometry_param_t;
 struct ei_event_t;
 struct ei_widget_t;
+
+static uint32_t count_pick_id = 1;
+static ei_color_t count_pick_color = {0x00, 0x00, 0x01, 0x00};
 
 /**
  * @brief	The type of functions that are called in response to a user event. Usually passed as a
@@ -67,7 +73,23 @@ ei_widget_t*		ei_widget_create		(ei_widgetclass_name_t	class_name,
         ei_widget_t *new_widget = (ei_widget_t*)widgetclass->allocfunc();
         new_widget->wclass = widgetclass;
         new_widget->wclass->setdefaultsfunc(new_widget);
-        new_widget->pick_color = NULL;
+        new_widget->pick_id = count_pick_id;
+        count_pick_id++;
+        ei_color_t* pick_color = malloc(sizeof(ei_color_t));
+        *pick_color = count_pick_color;
+        if (count_pick_color.blue == 0xff) {
+                count_pick_color.blue = 0x00;
+                if (count_pick_color.green == 0xff) {
+                        count_pick_color.green = 0x00;
+                        if (count_pick_color.red == 0xff) {
+                                count_pick_color.red = 0x00;
+                        }
+                        else count_pick_color.red++;
+                }
+                else count_pick_color.green++;
+        }
+        else count_pick_color.blue++;
+        new_widget->pick_color = pick_color;
         new_widget->user_data = user_data;
         new_widget->destructor = destructor;
 
@@ -106,7 +128,10 @@ void			ei_widget_destroy		( ei_widget_t*		widget){
  *				at this location (except for the root widget).
  */
 ei_widget_t*		ei_widget_pick			(ei_point_t*		where){
-
+        uint32_t* pixel_ptr = hw_surface_get_buffer(get_root_offscreen());
+        ei_size_t surface_size = hw_surface_get_size(get_root_offscreen());
+        pixel_ptr = pixel_ptr + surface_size.width * where->y + where->x;
+        return ei_widget_pick_rec(ei_app_root_widget(), *pixel_ptr);
 }
 
 

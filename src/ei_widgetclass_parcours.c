@@ -121,3 +121,20 @@ void ei_parcours_profondeur_callback(ei_widget_t* root, ei_callback_t callback, 
         if (root->children_head) ei_parcours_profondeur_callback(root->children_head, callback, tag, event, user_param);
         if (root->next_sibling) ei_parcours_profondeur_callback(root->next_sibling, callback, tag, event, user_param);
 }
+
+
+ei_widget_t* ei_widget_pick_rec(ei_widget_t* widget, uint32_t pixel_color) {
+        if (widget) {
+                uint32_t pickcolor = ei_map_rgba(get_root_offscreen(), widget->pick_color);
+                if (pickcolor == pixel_color) {
+                        return widget;
+                } else {
+                        ei_widget_t* widgetbis = ei_widget_pick_rec(widget->children_head, pixel_color);
+                        if (widgetbis == NULL) {
+                                widgetbis = ei_widget_pick_rec(widget->next_sibling, pixel_color);
+                        }
+                        return widgetbis;
+                }
+        }
+        else return NULL;
+}
