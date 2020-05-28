@@ -66,7 +66,7 @@ ei_widget_t* ei_app_root_widget(void) {
                 return frame_root_widget;
         }
         ei_widgetclass_t *frame_widgetclass = ei_widgetclass_from_name("frame");
-        frame_root_widget = (ei_widget_t*)frame_widgetclass->allocfunc();;
+        frame_root_widget = (ei_widget_t*)frame_widgetclass->allocfunc();
         frame_root_widget->wclass = frame_widgetclass;
         frame_root_widget->wclass->setdefaultsfunc(frame_root_widget);
         /* Widget Hierachy Management */
