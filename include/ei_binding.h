@@ -21,7 +21,7 @@ typedef struct {
 
 typedef struct {
     ei_action_t                 action;
-    struct ei_linked_action*     next;
+    struct ei_linked_action_t*     next;
 } ei_linked_action_t;
 
 typedef struct {
