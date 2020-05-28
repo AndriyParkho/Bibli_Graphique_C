@@ -41,6 +41,13 @@ void ei_app_run(void) {
                 // ei_parcours_profondeur_widget(frame_root_widget, root_widget);
                 frame_root_widget->wclass->drawfunc(ei_app_root_widget(), ei_app_root_surface(), get_root_offscreen(), frame_root_widget->content_rect);
                 hw_event_wait_next(&event);
+                /*
+                if (event.type == ei_ev_mouse_buttondown) {
+                        ei_point_t where = event.param.mouse.where;
+                        ei_button_t* ev_widget = (ei_button_t*)ei_widget_pick(&where);
+                        ev_widget->callback(ev_widget, &event, ev_widget->user_param);
+                }
+                 */
                 e_cour = trouve_event(event.type);
                 if (e_cour) {
                         a_cour = e_cour->l_action;

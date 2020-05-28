@@ -53,13 +53,19 @@ void button_drawfunc(ei_widget_t        *widget,
         }
 
         //Totalité
-        new_rect = widget->screen_location;
-        new_rect.top_left.x += button->frame.border_width;
-        new_rect.top_left.y += button->frame.border_width;
-        new_rect.size.width -= 2*button->frame.border_width;
-        new_rect.size.height -= 2*button->frame.border_width;
+        if (button->frame.relief != ei_relief_none) {
+                new_rect = widget->screen_location;
+                new_rect.top_left.x += button->frame.border_width;
+                new_rect.top_left.y += button->frame.border_width;
+                new_rect.size.width -= 2*button->frame.border_width;
+                new_rect.size.height -= 2*button->frame.border_width;
+        }
+        else new_rect = widget->screen_location;
         points = rounded_frame(new_rect, button->corner_radius,0);
         ei_draw_polygon(surface, points, button->frame.color, &new_rect);
+        hw_surface_lock(pick_surface);
+        ei_draw_polygon(pick_surface, points, *widget->pick_color, &new_rect);
+        hw_surface_unlock(pick_surface);
         free_points(points);
         // Dessin du texte s'il y en a un
         if (button->frame.text) {
