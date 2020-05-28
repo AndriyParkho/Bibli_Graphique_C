@@ -304,3 +304,8 @@ ei_linked_point_t* rounded_frame_bas(ei_rect_t rect, int r) {
         dernier_point->next = cree_element_point(centre);
         return points;
 }
+
+
+ei_linked_point_t* delete_points(ei_linked_point_t** list, ei_rect_t* clipper){
+
+}

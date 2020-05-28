@@ -27,6 +27,8 @@ void button_drawfunc(ei_widget_t        *widget,
         ei_color_t light_color = color_variation(frame, 30);
         ei_rect_t new_rect;
 
+
+
         hw_surface_lock(surface);
 
         if (button->frame.relief == ei_relief_raised) {
@@ -61,6 +63,9 @@ void button_drawfunc(ei_widget_t        *widget,
         points = rounded_frame(new_rect, button->corner_radius,0);
         ei_draw_polygon(surface, points, button->frame.color, &new_rect);
         free_points(points);
+
+
+
         // Dessin du texte s'il y en a un
         if (button->frame.text) {
                 ei_point_t *where = malloc(sizeof(ei_point_t));
@@ -70,7 +75,11 @@ void button_drawfunc(ei_widget_t        *widget,
                 where->x = widget->screen_location.top_left.x + widget->screen_location.size.width/2 - *width_txt/2;
                 where->y = widget->screen_location.top_left.y + widget->screen_location.size.height/2 - *height_txt/2;
 
-                ei_rect_t * clipper_button_text = widget->content_rect;
+                ei_rect_t * clipper_button_text = (ei_rect_t*)malloc(sizeof(ei_rect_t));
+                clipper_button_text->size.width = widget->content_rect->size.width;
+                clipper_button_text->size.height = widget->content_rect->size.height;
+                clipper_button_text->top_left = widget->content_rect->top_left;
+
                 if(clipper_button_text->top_left.x + clipper_button_text->size.width > clipper->top_left.x + clipper->size.width)
                         clipper_button_text->size.width = clipper->top_left.x + clipper->size.width  - clipper_button_text->top_left.x;
                 if(clipper_button_text->top_left.y + clipper_button_text->size.height > clipper->top_left.y + clipper->size.height)
@@ -81,9 +90,10 @@ void button_drawfunc(ei_widget_t        *widget,
                 free(width_txt);
                 free(height_txt);
                 free(where);
+                free(clipper_button_text);
         }
         hw_surface_unlock(surface);
-        hw_surface_update_rects(surface, NULL);
+        //hw_surface_update_rects(surface, NULL);
         if (widget->children_head) widget->children_head->wclass->drawfunc(widget->children_head, surface, pick_surface, widget->content_rect);
         if (widget->next_sibling) widget->next_sibling->wclass->drawfunc(widget->next_sibling, surface, pick_surface, clipper);
 }
