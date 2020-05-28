@@ -32,7 +32,9 @@ void frame_drawfunc(ei_widget_t        *widget,
                 points = rectangle(coord_x, coord_y, frame->border_width);
         }
         ei_draw_polygon(surface, points, frame->color, &(widget->screen_location));
-        ei_draw_polygon(ei_app_root_surface(), points, frame->color, &(widget->screen_location));
+        hw_surface_lock(pick_surface);
+        ei_draw_polygon(pick_surface, points, *widget->pick_color, &(widget->screen_location));
+        hw_surface_unlock(pick_surface);
 
         if (frame->text) {
                 ei_point_t *where = malloc(sizeof(ei_point_t));
