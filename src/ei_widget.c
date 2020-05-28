@@ -130,12 +130,8 @@ void			ei_widget_destroy		( ei_widget_t*		widget){
 ei_widget_t*		ei_widget_pick			(ei_point_t*		where){
         uint32_t* pixel_ptr = hw_surface_get_buffer(get_root_offscreen());
         ei_size_t surface_size = hw_surface_get_size(get_root_offscreen());
-        ei_widget_t* widget = ei_app_root_widget();
         pixel_ptr = pixel_ptr + surface_size.width * where->y + where->x;
-        uint32_t pickcolor = ei_map_rgba(get_root_offscreen(), widget->pick_color);
-        while (pickcolor != *pixel_ptr) {
-
-        }
+        return ei_widget_pick_rec(ei_app_root_widget(), *pixel_ptr);
 }
 
 
