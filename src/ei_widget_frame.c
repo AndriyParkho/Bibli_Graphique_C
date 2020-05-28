@@ -41,8 +41,15 @@ void frame_drawfunc(ei_widget_t        *widget,
                 hw_text_compute_size(frame->text, frame->text_font, width_txt, height_txt);
                 where->x = widget->screen_location.top_left.x + widget->screen_location.size.width/2 - *width_txt/2;
                 where->y = widget->screen_location.top_left.y + widget->screen_location.size.height/2 - *height_txt/2;
+
+                ei_rect_t * clipper_button_text = widget->content_rect;
+                if(clipper_button_text->top_left.x + clipper_button_text->size.width > clipper->top_left.x + clipper->size.width)
+                        clipper_button_text->size.width = clipper->top_left.x + clipper->size.width  - clipper_button_text->top_left.x;
+                if(clipper_button_text->top_left.y + clipper_button_text->size.height > clipper->top_left.y + clipper->size.height)
+                        clipper_button_text->size.height = clipper->top_left.y + clipper->size.height  - clipper_button_text->top_left.y;
+
                 ei_draw_text(ei_app_root_surface(), where, frame->text,
-                             frame->text_font, frame->text_color, &widget->screen_location);
+                             frame->text_font, frame->text_color, clipper_button_text);
                 free(width_txt);
                 free(height_txt);
                 free(where);
