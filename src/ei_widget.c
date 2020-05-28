@@ -9,7 +9,6 @@ Fonction pour implémenter les widget
 #include "ei_widgetclass_parcours.h"
 #include <stdlib.h>
 #include <assert.h>
-#include <stdio.h>
 #include "ei_application.h"
 #include "ei_draw_annexe.h"
 
@@ -18,7 +17,7 @@ struct ei_event_t;
 struct ei_widget_t;
 
 static uint32_t count_pick_id = 1;
-static ei_color_t count_pick_color = {0x00, 0x00, 0x01, 0x00};
+static ei_color_t count_pick_color = {0x00, 0x00, 0x01, 0xff};
 
 /**
  * @brief	The type of functions that are called in response to a user event. Usually passed as a
@@ -131,7 +130,8 @@ ei_widget_t*		ei_widget_pick			(ei_point_t*		where){
         uint32_t* pixel_ptr = hw_surface_get_buffer(get_root_offscreen());
         ei_size_t surface_size = hw_surface_get_size(get_root_offscreen());
         pixel_ptr = pixel_ptr + surface_size.width * where->y + where->x;
-        return ei_widget_pick_rec(ei_app_root_widget(), *pixel_ptr);
+        ei_widget_t* widget = ei_widget_pick_rec(ei_app_root_widget(), *pixel_ptr);
+        return widget;
 }
 
 
@@ -249,6 +249,9 @@ void			ei_button_configure		(ei_widget_t*		widget,
         if (corner_radius) button->corner_radius = *corner_radius;
         if (callback) button->callback = *callback;
         if (user_param) button->user_param = *user_param;
+        if (button->callback) {
+                ei_bind(ei_ev_mouse_buttondown, button, NULL, button->callback, button->user_param);
+        }
 }
 
 /**

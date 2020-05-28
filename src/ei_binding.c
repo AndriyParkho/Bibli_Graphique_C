@@ -30,6 +30,7 @@ void insere_binding(ei_eventtype_t		eventtype,
                         }
                         ei_linked_event_t* new_event = malloc(sizeof(ei_linked_event_t));
                         new_event->eventtype = eventtype;
+                        new_event->l_action = NULL;
                         insere_action(&new_event->l_action, widget, tag, callback, user_param);
                         new_event->next = NULL;
                         l_event_cour->next = new_event;

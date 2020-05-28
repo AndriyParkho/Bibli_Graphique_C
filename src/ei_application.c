@@ -11,7 +11,6 @@
 
 
 ei_surface_t static root_widget;
-ei_surface_t static root_offscreen;
 static ei_widget_t* frame_root_widget = NULL;
 static ei_bool_t quit = EI_FALSE;
 
@@ -19,6 +18,7 @@ void ei_app_create(ei_size_t main_window_size, ei_bool_t fullscreen) {
         hw_init();
         root_widget = hw_create_window(main_window_size, fullscreen);
         set_root_offscreen(hw_surface_create(root_widget, main_window_size, EI_TRUE));
+        printf("%d - %d - %d - %d\n", hw_surface_get_size(root_widget).width, hw_surface_get_size(root_widget).height, hw_surface_get_size(get_root_offscreen()).width, hw_surface_get_size(get_root_offscreen()).height);
         ei_register_placer_manager();
         ei_frame_register_class();
         ei_button_register_class();
@@ -54,7 +54,12 @@ void ei_app_run(void) {
                         a_cour = e_cour->l_action;
                         while (a_cour) {
                                 if (a_cour->action.widget) {
-                                        a_cour->action.callback(a_cour->action.widget, &event, a_cour->action.user_param);
+                                        if (e_cour->eventtype == ei_ev_mouse_buttondown) {
+                                                if (ei_widget_pick(&event.param.mouse.where) == a_cour->action.widget) {
+                                                        a_cour->action.callback(a_cour->action.widget, &event, a_cour->action.user_param);
+                                                }
+                                        }
+                                        else a_cour->action.callback(a_cour->action.widget, &event, a_cour->action.user_param);
                                 }
                                 else {
                                         ei_parcours_profondeur_callback(frame_root_widget, a_cour->action.callback, a_cour->action.tag, &event, a_cour->action.user_param);
@@ -84,7 +89,7 @@ ei_widget_t* ei_app_root_widget(void) {
 
         frame_root_widget->pick_id = 0;
         ei_color_t* pick_color = malloc(sizeof(ei_color_t));
-        ei_color_t color = {0x00, 0x00, 0x00, 0x00};
+        ei_color_t color = {0x00, 0x00, 0x00, 0xff};
         *pick_color = color;
         frame_root_widget->pick_color = pick_color;
 

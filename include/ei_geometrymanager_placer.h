@@ -11,6 +11,7 @@
 #include "ei_geometrymanager.h"
 #include "ei_geometrytypes.h"
 #include <string.h>
+#include <stdlib.h>
 
 /**
  * \brief	A function that runs the geometry computation for this widget. This may trigger

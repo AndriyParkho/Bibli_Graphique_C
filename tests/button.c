@@ -6,6 +6,7 @@
 #include "hw_interface.h"
 #include "ei_widget.h"
 #include "ei_geometrymanager.h"
+#include "ei_widgettypes.h"
 
 
 /*
@@ -33,6 +34,16 @@ ei_bool_t process_key(ei_widget_t* widget, ei_event_t* event, void* user_param)
 	}
 
 	return EI_FALSE;
+}
+
+ei_bool_t coucou(ei_widget_t* widget, ei_event_t* event, void* user_param)
+{
+        if (event->param.key.key_code == SDLK_ESCAPE) {
+                printf("Coucou\n");
+                return EI_TRUE;
+        }
+
+        return EI_FALSE;
 }
 
 /*
@@ -67,6 +78,8 @@ int main(int argc, char** argv)
 				 &button_border_width, &button_corner_radius, &button_relief, &button_title, NULL, &button_text_color, NULL,
 				 NULL, NULL, NULL, &button_callback, NULL);
 	ei_place(button, NULL, &button_x, &button_y, NULL, NULL, NULL, NULL, NULL, NULL );
+
+	ei_button_t* buttonbis = (ei_button_t*)button;
 
 	/* Hook the keypress callback to the event. */
 	ei_bind(ei_ev_keydown,		NULL, "all", process_key, NULL);
