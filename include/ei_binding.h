@@ -19,7 +19,7 @@ typedef struct {
     void*               user_param;
 } ei_action_t;
 
-typedef struct {
+typedef struct ei_linked_action_t{
     ei_action_t                 action;
     struct ei_linked_action_t*     next;
 } ei_linked_action_t;
