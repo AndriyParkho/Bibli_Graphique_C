@@ -7,15 +7,18 @@
 #include "ei_geometrymanager_parcours.h"
 #include "ei_event.h"
 #include "ei_binding.h"
+#include "ei_draw_annexe.h"
 
 
 ei_surface_t static root_widget;
+ei_surface_t static root_offscreen;
 static ei_widget_t* frame_root_widget = NULL;
 static ei_bool_t quit = EI_FALSE;
 
 void ei_app_create(ei_size_t main_window_size, ei_bool_t fullscreen) {
         hw_init();
         root_widget = hw_create_window(main_window_size, fullscreen);
+        set_root_offscreen(hw_surface_create(root_widget, main_window_size, EI_TRUE));
         ei_register_placer_manager();
         ei_frame_register_class();
         ei_button_register_class();
@@ -69,6 +72,13 @@ ei_widget_t* ei_app_root_widget(void) {
         frame_root_widget = (ei_widget_t*)frame_widgetclass->allocfunc();
         frame_root_widget->wclass = frame_widgetclass;
         frame_root_widget->wclass->setdefaultsfunc(frame_root_widget);
+
+        frame_root_widget->pick_id = 0;
+        ei_color_t* pick_color = malloc(sizeof(ei_color_t));
+        ei_color_t color = {0x00, 0x00, 0x00, 0x00};
+        *pick_color = color;
+        frame_root_widget->pick_color = pick_color;
+
         /* Widget Hierachy Management */
         frame_root_widget->parent = NULL;
         frame_root_widget->children_head = NULL;

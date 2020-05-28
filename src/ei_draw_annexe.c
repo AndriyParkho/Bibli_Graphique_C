@@ -8,6 +8,15 @@
 
 #include "ei_draw_annexe.h"
 
+static ei_surface_t root_offscreen = NULL;
+
+ei_surface_t get_root_offscreen() {
+        return root_offscreen;
+}
+
+void set_root_offscreen(ei_surface_t surface) {
+        root_offscreen = surface;
+}
 
 /**
  * \brief Génère une liste de quatre points définissant un rectangle.

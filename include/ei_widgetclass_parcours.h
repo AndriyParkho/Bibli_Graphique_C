@@ -14,6 +14,7 @@
 #include "ei_widget.h"
 #include <stdlib.h>
 #include "ei_event.h"
+#include "ei_draw_annexe.h"
 
 extern ei_widgetclass_t *class_tete;
 
