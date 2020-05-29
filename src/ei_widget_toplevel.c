@@ -50,7 +50,6 @@ void ei_toplevel_releasefunc(ei_toplevel_t* toplevel) {
  *
  * @param	widget		A pointer to the widget instance to initialize.
  */
- /*
 void ei_toplevel_setdefaultsfunc(ei_toplevel_t* toplevel) {
         ei_size_t default_size = {320,240};
         ei_size_t min_default_size = {160, 120};
@@ -58,23 +57,34 @@ void ei_toplevel_setdefaultsfunc(ei_toplevel_t* toplevel) {
         toplevel->frame.widget.requested_size = default_size;
         toplevel->frame.border_width = 4;
 
+        // On initialise la title bar
+        ei_button_t * title_bar = toplevel->title_bar;
         button_setdefaultsfunc(toplevel->title_bar);
-        strcpy(toplevel->title_bar->frame.text, "TopLevel");
+        strcpy(title_bar->frame.text, "TopLevel");
 
         toplevel->closable = EI_TRUE;
-        frame_setdefaultsfunc(&(toplevel->close_button->frame.widget));
-        toplevel->close_button->frame.relief = ei_relief_none;
-        toplevel->close_button->frame.border_width = 0;
-        toplevel->close_button->corner_radius = 10;
-        toplevel->close_button->frame.widget.requested_size = ei_size(toplevel->close_button->corner_radius * 2, toplevel->close_button->corner_radius * 2);
-        toplevel->close_button->frame.text = "X";
-        toplevel->close_button->frame.text_color = ei_color_t(0x00, 0x00, 0x00, 0xff);
+        // On initialise le bouton de fermeture
+        ei_button_t * close_button = toplevel->close_button;
+        button_setdefaultsfunc(&(close_button->frame.widget));
+        // On change les paramètres liés au type frame
+        close_button->frame.relief = ei_relief_none;
+        close_button->frame.border_width = 0;
+        close_button->frame.widget.requested_size = ei_size(toplevel->close_button->corner_radius * 2, toplevel->close_button->corner_radius * 2);
+        close_button->frame.text = "X";
+        ei_color_t close_text_color = {0x00, 0x00, 0x00, 0xff};
+        close_button->frame.text_color = close_text_color;
+        close_button->frame.text_anchor = ei_anc_northwest;
+        ei_color_t close_color = {0xff, 0x00, 0x00, 0xff};
+        close_button->frame.color = close_color;
+        // On change les paramètres liés au type bouton
+        close_button->corner_radius = 10;
+        close_button->callback = ei_widget_destroy; // A CHANGER
 
         toplevel->window_resizable = ei_axis_both;
 
         toplevel->min_size = &min_default_size;
 }
-*/
+
 /**
  * \brief 	A function that is called to notify the widget that its geometry has been modified
  *		by its geometry manager. Can set to NULL in \ref ei_widgetclass_t.
