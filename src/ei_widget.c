@@ -199,10 +199,7 @@ void			ei_frame_configure		(ei_widget_t*		widget,
         if (color) frame->color = *color;
         if (border_width) frame->border_width = *border_width;
         if (relief) frame->relief = *relief;
-        if (text) {
-                frame->text = calloc(strlen(*text) ,sizeof(char));
-                strcpy(frame->text,*text);
-        }
+        if (text) frame->text = *text;
         if (text_font) frame->text_font = *text_font;
         if (text_color) frame->text_color = *text_color;
         if (text_anchor) frame->text_anchor = *text_anchor;
@@ -282,11 +279,21 @@ void			ei_toplevel_configure		( ei_widget_t*		widget,
                                                                   ei_size_t*		requested_size,
                                                                   ei_color_t*		color,
                                                                   int*			border_width,
-                                                                  char**			title,
+                                                                  char**		title,
                                                                   ei_bool_t*		closable,
-                                                                  ei_axis_set_t*		resizable,
+                                                                  ei_axis_set_t*	resizable,
                                                                   ei_size_t**		min_size){
+        ei_toplevel_t * toplevel = (ei_toplevel_t *)widget;
 
+        if(requested_size) toplevel->frame.widget.requested_size = *requested_size;
+
+        if(color) toplevel->frame.color = *color;
+        if(border_width) toplevel->frame.border_width = *border_width;
+        if(title) toplevel->frame.text = *title;
+
+        if(closable) toplevel->closable = *closable;
+        if(resizable) toplevel->window_resizable = *resizable;
+        if(min_size) toplevel->min_size = *min_size;
 }
 
 
