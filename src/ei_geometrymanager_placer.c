@@ -98,15 +98,15 @@ ei_point_t anchor_to_topleft(ei_widget_t * widget, ei_anchor_t anchor, ei_point_
                 return new_top_left;
         } else if (anchor == ei_anc_east){
                 new_top_left.x = point.x - widget->screen_location.size.width;
-                new_top_left.y = point.y - widget->screen_location.size.width/2;
+                new_top_left.y = point.y - widget->screen_location.size.height/2;
                 return new_top_left;
         } else if (anchor == ei_anc_southeast){
                 new_top_left.x = point.x - widget->screen_location.size.width;
-                new_top_left.y = point.y - widget->screen_location.size.width;
+                new_top_left.y = point.y - widget->screen_location.size.height;
                 return new_top_left;
         } else if (anchor == ei_anc_south){
                 new_top_left.x = point.x - widget->screen_location.size.width/2;
-                new_top_left.y = point.y - widget->screen_location.size.width;
+                new_top_left.y = point.y - widget->screen_location.size.height;
                 return new_top_left;
         } else if (anchor == ei_anc_southwest){
                 new_top_left.x = point.x;
