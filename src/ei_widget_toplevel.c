@@ -20,7 +20,48 @@
 void toplevel_drawfunc(ei_widget_t        *widget,
                     ei_surface_t	surface,
                     ei_surface_t	pick_surface,
-                    ei_rect_t*		clipper);
+                    ei_rect_t*		clipper) {
+        ei_toplevel_t *toplevel = (ei_toplevel_t *) widget;
+        // On place d'abord la title bar
+        ei_button_t * title_bar = toplevel->title_bar;
+        ei_anchor_t     title_bar_anc           = ei_anc_southwest;
+        int             title_bar_x             =  - toplevel->frame.border_width;
+        int             title_bar_y             =  - title_bar->frame.widget.requested_size.height;
+        float           title_bar_rel_x         = 0.0;
+        float           title_bar_rel_y         = 0.0;
+        float           title_bar_rel_width     = 1.0;
+        int             title_bar_width         = toplevel->frame.border_width * 2;
+        ei_place(title_bar, &title_bar_anc, &title_bar_x, &title_bar_y, &title_bar_width, NULL,
+                                &title_bar_rel_x, &title_bar_rel_y, &title_bar_rel_width, NULL);
+
+        // On place le boutton close
+        ei_button_t  * close_button = toplevel->close_button;
+        ei_anchor_t     close_button_anc        = ei_anc_northwest;
+        int             close_button_x          = 5;
+        int             close_button_y          = 5;
+        ei_place(close_button, &close_button_anc, &close_button_x, &close_button_y, NULL,
+                                NULL, NULL, NULL, NULL, NULL);
+
+        // On place le bouton de redimensionnement
+        ei_button_t * resize_button = toplevel->resize_button;
+        ei_anchor_t     resize_button_anc       = ei_anc_southeast;
+        int             resize_button_x         = toplevel->frame.border_width;
+        int             resize_button_y         = toplevel->frame.border_width;
+        float           resize_button_rel_x     = 1.0;
+        float           resize_button_rel_y     = 1.0;
+        ei_place(resize_button, &resize_button_anc, &resize_button_x, &resize_button_y, NULL, NULL,
+                                        &resize_button_rel_x, &resize_button_rel_y, NULL, NULL);
+
+        toplevel->frame.widget.wclass->drawfunc(toplevel, surface, pick_surface, clipper);
+        title_bar->frame.widget.wclass->drawfunc(title_bar, surface, pick_surface, clipper);
+        close_button->frame.widget.wclass->drawfunc(close_button, surface, pick_surface, title_bar->frame.widget.content_rect);
+
+        if (widget->children_head) widget->children_head->wclass->drawfunc(widget->children_head, surface, pick_surface, widget->content_rect);
+
+        resize_button->frame.widget.wclass->drawfunc(resize_button, surface, pick_surface, clipper);
+
+        if (widget->next_sibling) widget->next_sibling->wclass->drawfunc(widget->next_sibling, surface, pick_surface, clipper);
+}
 
 /**
  * \brief	A function that allocates a block of memory that is big enough to store the
@@ -42,6 +83,9 @@ void* ei_toplevel_allocfunc() {
  * @param	widget		The widget which resources are to be freed.
  */
 void ei_toplevel_releasefunc(ei_toplevel_t* toplevel) {
+        free(toplevel->resize_button);
+        free(toplevel->close_button);
+        free(toplevel->title_bar);
         free(toplevel);
 }
 
@@ -70,6 +114,7 @@ void ei_toplevel_setdefaultsfunc(ei_toplevel_t* toplevel) {
         ei_relief_t     title_bar_relief        = ei_relief_none;
         ei_button_configure(title_bar, &title_bar_size, &title_bar_color, &title_bar_border, &title_bar_radius, &title_bar_relief,
                                 &title_bar_text, NULL, &title_color, &title_anc, NULL, NULL, NULL, NULL, NULL);
+        title_bar->frame.widget.parent = toplevel;
         toplevel->title_bar = title_bar;
 
 
@@ -101,6 +146,7 @@ void ei_toplevel_setdefaultsfunc(ei_toplevel_t* toplevel) {
         ei_relief_t     resize_button_relief    = ei_relief_none;
         ei_button_configure(resize_button, &resize_button_size, &resize_button_color, &resize_button_border, &resize_button_radius,
                                 &resize_button_relief, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+        resize_button->frame.widget.parent = toplevel;
         toplevel->resize_button = resize_button;
 
         toplevel->min_size = &min_default_size;
