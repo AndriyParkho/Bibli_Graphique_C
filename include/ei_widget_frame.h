@@ -18,6 +18,8 @@
 #include "ei_application.h"
 #include "ei_draw_annexe.h"
 #include "ei_geometrymanager_parcours.h"
+#include "ei_geometrymanager_placer.h"
+#include "ei_utils.h"
 
 /**
  * \brief	A function that draws frame.

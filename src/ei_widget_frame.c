@@ -15,7 +15,7 @@ void frame_drawfunc(ei_widget_t        *widget,
                     ei_surface_t	pick_surface,
                     ei_rect_t*		clipper){
         // declaration of the widget as a frame
-        ei_color_t black = {0x00, 0x00, 0x00, 0xff};
+        ei_color_t border_color = {0x69, 0x69, 0x76, 0xff};
         ei_frame_t* frame = (ei_frame_t*)widget;
         int coord_x[] = {widget->screen_location.top_left.x,
                          widget->screen_location.top_left.x + widget->screen_location.size.width};
@@ -34,7 +34,7 @@ void frame_drawfunc(ei_widget_t        *widget,
         }
         else {
                 points = rectangle(coord_x,coord_y,-frame->border_width);
-                ei_draw_polygon(surface, points, black, clipper);
+                ei_draw_polygon(surface, points, border_color, clipper);
                 points = rectangle(coord_x,coord_y,0);
         }
         ei_draw_polygon(surface, points, frame->color, clipper);

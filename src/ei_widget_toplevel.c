@@ -26,7 +26,7 @@ void toplevel_drawfunc(ei_widget_t        *widget,
         ei_button_t * title_bar = toplevel->title_bar;
         ei_anchor_t     title_bar_anc           = ei_anc_northwest;
         int             title_bar_x             =  - toplevel->frame.border_width;
-        int             title_bar_y             =  0;
+        int             title_bar_y             =  -5;
         float           title_bar_rel_x         = 0.0;
         float           title_bar_rel_y         = 0.0;
         float           title_bar_rel_width     = 1.0;
@@ -38,7 +38,7 @@ void toplevel_drawfunc(ei_widget_t        *widget,
         ei_button_t  * close_button = toplevel->close_button;
         ei_anchor_t     close_button_anc        = ei_anc_northwest;
         int             close_button_x          = 5;
-        int             close_button_y          = 5;
+        int             close_button_y          = 0;
         ei_place(close_button, &close_button_anc, &close_button_x, &close_button_y, NULL,
                                 NULL, NULL, NULL, NULL, NULL);
 
@@ -110,7 +110,7 @@ void ei_toplevel_setdefaultsfunc(ei_toplevel_t* toplevel) {
         ei_color_t      title_color             = {0x00, 0x00, 0x00, 0xff};
         ei_anchor_t     title_anc               = ei_anc_northwest;
         int             title_bar_border        = 0;
-        int             title_bar_radius        = 15;
+        int             title_bar_radius        = 0;
         ei_relief_t     title_bar_relief        = ei_relief_none;
         ei_button_configure(title_bar, &title_bar_size, &title_bar_color, &title_bar_border, &title_bar_radius, &title_bar_relief,
                                 &title_bar_text, NULL, &title_color, &title_anc, NULL, NULL, NULL, NULL, NULL);
@@ -125,7 +125,7 @@ void ei_toplevel_setdefaultsfunc(ei_toplevel_t* toplevel) {
         ei_color_t      close_color             = {0xff, 0x00, 0x00, 0xff};
         char*           text_close              = "X";
         ei_color_t      close_text_color        = {0x00, 0x00, 0x00, 0xff};
-        ei_anchor_t     text_close_anc          = ei_anc_northwest;
+        ei_anchor_t     text_close_anc          = ei_anc_center;
         int             close_border_width      = 0;
         int             close_button_radius     = 10;
         ei_relief_t     close_button_relief     = ei_relief_none;

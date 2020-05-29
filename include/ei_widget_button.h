@@ -10,6 +10,7 @@
 #include <stdlib.h>
 #include "ei_draw_annexe.h"
 #include "ei_application.h"
+#include "ei_utils.h"
 
 /**
  * \brief	A function that draws button.

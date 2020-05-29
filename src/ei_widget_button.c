@@ -25,7 +25,7 @@ void button_drawfunc(ei_widget_t        *widget,
         ei_linked_point_t* points;
         ei_color_t dark_color = color_variation(frame, -20);
         ei_color_t light_color = color_variation(frame, 20);
-        ei_color_t black = {0x00, 0x00, 0x00, 0xff};
+        ei_color_t border_color = {0x69, 0x69, 0x76, 0xff};
 
         ei_rect_t new_rect;
 
@@ -63,7 +63,7 @@ void button_drawfunc(ei_widget_t        *widget,
         //Totalité
         else {
                 points = rounded_frame(new_rect, button->corner_radius, 0);
-                ei_draw_polygon(surface, points, black, clipper);
+                ei_draw_polygon(surface, points, border_color, clipper);
         }
         points = rounded_frame(widget->screen_location, button->corner_radius, 0);
         ei_draw_polygon(surface, points, frame->color, clipper);
