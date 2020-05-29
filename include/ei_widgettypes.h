@@ -49,7 +49,7 @@ typedef struct {
 typedef struct {
         ei_frame_t         frame;
 
-        ei_frame_t        title_bar;
+        ei_button_t*        title_bar;
         ei_button_t*       resize_button;
         ei_button_t*        close_button;
 

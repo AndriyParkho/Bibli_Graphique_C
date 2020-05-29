@@ -5,13 +5,16 @@
  *  \author Created by Equipe 5 on 28.05.2020.
  */
 
-#ifndef PROJETC_IG_EI_WIDGET_TOPLEVEL_H
-#define PROJETC_IG_EI_WIDGET_TOPLEVEL_H
+#ifndef EI_WIDGET_TOPLEVEL_H
+#define EI_WIDGET_TOPLEVEL_H
 
 #include "ei_widget.h"
 #include "ei_widgettypes.h"
 #include <stdlib.h>
 #include "ei_widget_frame.h"
+#include "ei_widget_button.h"
+#include "ei_types.h"
+#include "utils.h"
 
 #include "ei_draw.h"
 #include "ei_types.h"
@@ -71,4 +74,4 @@ void ei_toplevel_setdefaultsfunc(ei_toplevel_t* toplevel);
  */
 void ei_toplevel_geomnotifyfunc(ei_widget_t* widget);
 
-#endif //PROJETC_IG_EI_WIDGET_TOPLEVEL_H
+#endif
