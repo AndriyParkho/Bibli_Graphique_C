@@ -40,6 +40,7 @@ void frame_drawfunc(ei_widget_t        *widget,
         hw_surface_unlock(pick_surface);
 
         if (frame->text) {
+                // On place le texte au milieu de l'image en centrant le point top left
                 ei_point_t *where = malloc(sizeof(ei_point_t));
                 int * width_txt = calloc(1, sizeof(int));
                 int * height_txt = calloc(1, sizeof(int));

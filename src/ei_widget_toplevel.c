@@ -53,14 +53,15 @@ void toplevel_drawfunc(ei_widget_t        *widget,
         ei_place(resize_button, &resize_button_anc, &resize_button_x, &resize_button_y, NULL, NULL,
                                         &resize_button_rel_x, &resize_button_rel_y, NULL, NULL);
 
+        // On dessine d'abord la frame, puis la title bar, puis le bouton de fermeture
         frame_drawfunc(toplevel, surface, pick_surface, clipper);
         title_bar->frame.widget.wclass->drawfunc(title_bar, surface, pick_surface, clipper);
         close_button->frame.widget.wclass->drawfunc(close_button, surface, pick_surface, title_bar->frame.widget.content_rect);
-
+        // On dessine les enfants de la top level
         if (widget->children_head) widget->children_head->wclass->drawfunc(widget->children_head, surface, pick_surface, widget->content_rect);
-
+        // Puis le bouton qui permet de redimensionner la fenêtre
         resize_button->frame.widget.wclass->drawfunc(resize_button, surface, pick_surface, clipper);
-
+        // On dessine les widget restant
         if (widget->next_sibling) widget->next_sibling->wclass->drawfunc(widget->next_sibling, surface, pick_surface, clipper);
 }
 
@@ -101,11 +102,13 @@ ei_bool_t fermerToplevel(ei_widget_t* widget, ei_event_t* event, void* user_para
  * @param	widget		A pointer to the widget instance to initialize.
  */
 void ei_toplevel_setdefaultsfunc(ei_toplevel_t* toplevel) {
+        // On initialise les champs de base de la top level
         ei_size_t default_size = {320,240};
         ei_size_t min_default_size = {160, 120};
         frame_setdefaultsfunc(&toplevel->frame);
         toplevel->frame.widget.requested_size = default_size;
         toplevel->frame.border_width = 4;
+        toplevel->min_size = &min_default_size;
 
         // On créer la title bar
         ei_button_t * title_bar = ei_widget_create("button", NULL, NULL, NULL);
@@ -154,8 +157,6 @@ void ei_toplevel_setdefaultsfunc(ei_toplevel_t* toplevel) {
                                 &resize_button_relief, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
         resize_button->frame.widget.parent = toplevel;
         toplevel->resize_button = resize_button;
-
-        toplevel->min_size = &min_default_size;
 }
 
 /**
