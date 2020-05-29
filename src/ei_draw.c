@@ -112,15 +112,15 @@ void			ei_draw_text		(ei_surface_t		surface,
 
         if (right_exceed)
                 clipperText_dst->size.width = clipper->top_left.x + clipper->size.width - where->x;
-        else if(left_exceed) {
-                clipperText_dst->size.width = where->x + text_size.width - clipper->top_left.x;
+        if(left_exceed) {
+                clipperText_dst->size.width = where->x + clipperText_dst->size.width - clipper->top_left.x;
                 clipperText_dst->top_left.x = clipper->top_left.x;
                 clipperText_src->top_left.x = clipper->top_left.x - where->x;
         }
         if (bottom_exceed)
                 clipperText_dst->size.height = clipper->top_left.y + clipper->size.height - where->y;
-        else if(top_exceed){
-                clipperText_dst->size.height = where->y + text_size.height - clipper->top_left.y;
+        if(top_exceed){
+                clipperText_dst->size.height = where->y + clipperText_dst->size.height - clipper->top_left.y;
                 clipperText_dst->top_left.y = clipper->top_left.y;
                 clipperText_src->top_left.y = clipper->top_left.y - where->y;
         }

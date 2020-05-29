@@ -59,7 +59,6 @@ void ei_toplevel_setdefaultsfunc(ei_toplevel_t* toplevel) {
 
         frame_setdefaultsfunc(&toplevel->title_bar);
         strcpy(toplevel->title_bar.text, "TopLevel");
-
         toplevel->closable = EI_TRUE;
 
         toplevel->window_resizable = ei_axis_both;
