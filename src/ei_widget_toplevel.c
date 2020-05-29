@@ -70,7 +70,7 @@ void ei_toplevel_setdefaultsfunc(ei_toplevel_t* toplevel) {
         ei_relief_t     title_bar_relief        = ei_relief_none;
         ei_button_configure(title_bar, &title_bar_size, &title_bar_color, &title_bar_border, &title_bar_radius, &title_bar_relief,
                                 &title_bar_text, NULL, &title_color, &title_anc, NULL, NULL, NULL, NULL, NULL);
-
+        toplevel->title_bar = title_bar;
 
 
         toplevel->closable = EI_TRUE;
@@ -88,8 +88,20 @@ void ei_toplevel_setdefaultsfunc(ei_toplevel_t* toplevel) {
                                 &text_close, NULL, &close_text_color, &text_close_anc, NULL, NULL, NULL, NULL, NULL);
         // On change la taille ici car dépend du rayon
         close_button->frame.widget.requested_size = ei_size(toplevel->close_button->corner_radius * 2, toplevel->close_button->corner_radius * 2);
+        toplevel->close_button = close_button;
 
         toplevel->window_resizable = ei_axis_both;
+        // On créer le bouton de redimensionnement
+        ei_button_t * resize_button = ei_widget_create("button", NULL, NULL, NULL);
+        // On initialise les paramètres du bouton de redimensionnement
+        ei_size_t       resize_button_size      = {5, 5};
+        ei_color_t      resize_button_color     = title_bar_color;
+        int             resize_button_border    = 0;
+        int             resize_button_radius    = 0;
+        ei_relief_t     resize_button_relief    = ei_relief_none;
+        ei_button_configure(resize_button, &resize_button_size, &resize_button_color, &resize_button_border, &resize_button_radius,
+                                &resize_button_relief, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+        toplevel->resize_button = resize_button;
 
         toplevel->min_size = &min_default_size;
 }
