@@ -16,6 +16,19 @@
 ei_bool_t button_press(ei_widget_t* widget, ei_event_t* event, void* user_param)
 {
         printf("Click !\n");
+
+        ei_color_t      frame_new_color         = {0xff, 0x00, 0x00, 0xff};
+
+        ei_color_t      button_new_color        = {0x00, 0x00, 0xff, 0xff};
+        char*           button_new_title       = "Bleu";
+        ei_color_t	button_text_color	= {0x00, 0x00, 0x00, 0xff};
+
+        ei_frame_configure(widget->parent, NULL, &frame_new_color,
+                           NULL, NULL, NULL, NULL, NULL, NULL,
+                           NULL, NULL, NULL);
+        ei_button_configure(widget, NULL, &button_new_color,
+                            NULL, NULL, NULL, &button_new_title, ei_default_font, &button_text_color, NULL,
+                            NULL, NULL, NULL, NULL, NULL);
         return EI_TRUE;
 }
 
@@ -74,7 +87,7 @@ int main(int argc, char** argv)
         char*		button_title		= "Rouge";
         ei_color_t	button_text_color	= {0x00, 0x00, 0x00, 0xff};
         int		button_corner_radius	= 20;
-        ei_relief_t	button_relief		= ei_relief_sunken;
+        ei_relief_t	button_relief		= ei_relief_raised;
         int		button_border_width	= 6;
         ei_callback_t	button_callback 	= button_press;
 
