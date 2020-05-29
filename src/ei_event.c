@@ -3,10 +3,8 @@
 //
 
 #include "ei_event.h"
-#include <string.h>
 #include <assert.h>
 #include "ei_binding.h"
-#include <stdio.h>
 
 /**
  * \brief	Binds a callback to an event type and a widget or a tag.
@@ -28,4 +26,28 @@ void		ei_bind			(ei_eventtype_t		eventtype,
                                 void*			user_param) {
         assert(!(widget==NULL && tag == NULL));
         insere_binding(eventtype, widget, tag, callback, user_param);
+}
+
+void    ei_unbind(ei_eventtype_t		eventtype,
+                  ei_widget_t*		widget,
+                  ei_tag_t		tag,
+                  ei_callback_t		callback,
+                  void*			user_param) {
+        ei_linked_event_t* ev_cherche = trouve_event(eventtype);
+        ei_linked_action_t* ac_cour = ev_cherche->l_action;
+        ei_linked_action_t* ac_pred = NULL;
+        if (meme_action(ev_cherche->l_action, widget,tag,callback,user_param)) {
+                ev_cherche->l_action = ac_cour->next;
+        }
+        else {
+                ac_pred = ac_cour;
+                ac_cour = ac_cour->next;
+                while (!meme_action(ac_cour, widget, tag, callback, user_param)) {
+                        ac_pred = ac_cour;
+                        ac_cour = ac_cour->next;
+                }
+                ac_pred = ac_cour->next;
+        }
+        free(ac_cour);
+        ac_cour->next = NULL;
 }

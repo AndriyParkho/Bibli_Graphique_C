@@ -29,10 +29,7 @@ void frame_drawfunc(ei_widget_t        *widget,
         // draw the polygon
         if (frame->relief != ei_relief_none) {
                 draw_polygons_relief(widget, points, surface);
-                /*free(points);
-                points = rectangle(coord_x, coord_y, frame->border_width);*/
-        }
-        else {
+        } else {
                 points = rectangle(coord_x,coord_y,-frame->border_width);
                 ei_draw_polygon(surface, points, border_color, clipper);
                 points = rectangle(coord_x,coord_y,0);
@@ -55,6 +52,8 @@ void frame_drawfunc(ei_widget_t        *widget,
                 free(width_txt);
                 free(height_txt);
                 free(where);
+        } else if (frame->img) {
+                ei_copy_surface(surface, frame->img_rect, frame->img, frame->img_rect, EI_FALSE);
         }
 
         // unlock the surface and update the screen

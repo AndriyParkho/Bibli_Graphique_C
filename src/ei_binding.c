@@ -3,6 +3,7 @@
 //
 
 #include "ei_binding.h"
+#include <stdio.h>
 
 ei_linked_event_t *l_event = NULL;
 
@@ -84,3 +85,26 @@ void insere_action(ei_linked_action_t** l_action,
         }
 }
 
+ei_bool_t meme_action(ei_linked_action_t* action,
+                      ei_widget_t*		  widget,
+                      ei_tag_t		      tag,
+                      ei_callback_t		  callback,
+                      void*			      user_param) {
+        if (widget && action->action.widget) {
+                if (action->action.widget == widget &&
+                    action->action.callback == callback &&
+                    action->action.user_param == user_param) {
+                        return EI_TRUE;
+                }
+                return EI_FALSE;
+        }
+        else if (tag && action->action.tag) {
+                if (strcmp(action->action.tag, tag)==0 &&
+                    action->action.callback == callback &&
+                    action->action.user_param == user_param) {
+                        return EI_TRUE;
+                }
+                return EI_FALSE;
+        }
+        return EI_FALSE;
+}
