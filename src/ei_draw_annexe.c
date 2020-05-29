@@ -65,23 +65,18 @@ ei_linked_point_t * rectangle(int coord_x[], int coord_y[], int border_width){
  * @return      Une couleur de type ei_color_t
  */
 ei_color_t color_variation(ei_frame_t* frame, int variation){
-        int red;
-        int green;
-        int blue;
-
-        printf("%i\n",frame->color.red + variation);
-        /*if(frame->color.red + variation > 254) red = 254;
-        else if(frame->color.red + variation < 254) red = 0;
-        else */red = frame->color.red + variation;
-
-        /*if(frame->color.green + variation > 254) green = 254;
-        else if(frame->color.green + variation < 254) green = 0;
-        else */green = frame->color.green + variation;
-
-        /*if(frame->color.blue + variation > 254) blue = 254;
-        else if(frame->color.blue + variation < 254) blue = 0;
-        else */blue = frame->color.blue + variation;
-
+        int red = frame->color.red + variation;
+        int green = frame->color.green + variation;
+        int blue = frame->color.blue + variation;
+        if(red > 254) red = 254;
+        else if(red < 0) red = 0;
+        else red += variation;
+        if(green > 254) green = 254;
+        else if(green < 0) green = 0;
+        else green += variation;
+        if(blue > 254) blue = 254;
+        else if(blue < 0) blue = 0;
+        else blue += variation;
         ei_color_t new_color = {red, green, blue, frame->color.alpha};
         return new_color;
 }
@@ -101,8 +96,8 @@ void draw_polygons_relief(ei_widget_t* widget, ei_linked_point_t points[4], ei_s
         int border_width = frame->border_width;
         ei_linked_point_t points_sup[5];
         ei_linked_point_t points_inf[5];
-        ei_color_t dark_color = color_variation(frame, -30);
-        ei_color_t light_color = color_variation(frame, 30);
+        ei_color_t dark_color = color_variation(frame, -20);
+        ei_color_t light_color = color_variation(frame, 20);
         int i = 0;
         while (i != 5) {
                 switch (i) {
@@ -144,11 +139,11 @@ void draw_polygons_relief(ei_widget_t* widget, ei_linked_point_t points[4], ei_s
                 i++;
         }
         if (frame->relief == ei_relief_raised) {
-                ei_draw_polygon(surface, points_sup, light_color, &(widget->parent->screen_location));
-                ei_draw_polygon(surface, points_inf, dark_color, &(widget->parent->screen_location));
+                ei_draw_polygon(surface, points_sup, light_color, widget->parent->content_rect);
+                ei_draw_polygon(surface, points_inf, dark_color, widget->parent->content_rect);
         } else { // cad frame->relief == ei_relief_sunken
-                ei_draw_polygon(surface, points_sup, dark_color, &(widget->parent->screen_location));
-                ei_draw_polygon(surface, points_inf, light_color, &(widget->parent->screen_location));
+                ei_draw_polygon(surface, points_sup, dark_color, widget->parent->content_rect);
+                ei_draw_polygon(surface, points_inf, light_color, widget->parent->content_rect);
         }
 }
 
