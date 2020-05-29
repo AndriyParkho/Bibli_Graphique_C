@@ -3,7 +3,6 @@
 //
 
 #include "ei_binding.h"
-#include <stdio.h>
 
 ei_linked_event_t *l_event = NULL;
 
@@ -13,6 +12,7 @@ void insere_binding(ei_eventtype_t		eventtype,
                     ei_callback_t		callback,
                     void*			user_param) {
         ei_linked_event_t* l_event_cour = l_event;
+        //Si la liste des événements liés aux traitants est vide on la crée
         if (l_event==NULL) {
                 l_event = (ei_linked_event_t*)malloc(sizeof(ei_linked_event_t));
                 l_event->eventtype = eventtype;
@@ -21,9 +21,11 @@ void insere_binding(ei_eventtype_t		eventtype,
         }
         else {
                 l_event_cour = trouve_event(eventtype);
+                //Si le type d'événement est déjà associé à un traitant, on rajoute un traitant à la liste des traitants
                 if (l_event_cour) {
                         insere_action(&l_event_cour->l_action, widget, tag, callback, user_param);
                 }
+                //Sinon on crée la liste des traitants
                 else {
                         l_event_cour = l_event;
                         while(l_event_cour->next) {
@@ -59,6 +61,7 @@ ei_linked_event_t* trouve_event(ei_eventtype_t eventtype) {
                 int trouve;
                 ei_linked_event_t* cour = l_event;
                 trouve = cour->eventtype == eventtype;
+                //Parcours la liste des événements liés aux traitants jusqu'à le trouver où à arriver au bout
                 while (!trouve && cour->next) {
                         cour = cour->next;
                         trouve = cour->eventtype == eventtype;
@@ -106,5 +109,6 @@ ei_bool_t meme_action(ei_linked_action_t* action,
                 }
                 return EI_FALSE;
         }
+        //si l'un est qualifié par un tag et l'autre par un widget, c'est forcément 2 actions différentes
         return EI_FALSE;
 }
