@@ -4,8 +4,6 @@
 
 #include "ei_draw.h"
 #include <stdlib.h>
-#include <stdio.h>
-#include "ei_application.h"
 
 /**
  * \brief	Converts the three red, green and blue component of a color in a 32 bits integer

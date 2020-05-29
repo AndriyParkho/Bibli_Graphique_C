@@ -1,5 +1,4 @@
 #include "ei_application.h"
-#include <stdio.h>
 #include "ei_widgettypes.h"
 #include <ei_geometrytypes.h>
 #include "ei_widgetclass_parcours.h"

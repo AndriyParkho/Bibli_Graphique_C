@@ -154,12 +154,3 @@ void			ei_toplevel_register_class 	(void){
         toplevel->next = NULL;
         ei_widgetclass_register(toplevel);
 }
-
-
-/* Inline function definitions. */
-/*
-static inline char*	ei_widgetclass_stringname	(ei_widgetclass_name_t name)
-{
-        return (char*)name;
-}
-*/
