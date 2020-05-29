@@ -44,14 +44,14 @@ void placer_runfunc(ei_widget_t* widget){
                 if(right_exceed){
                         new_content_rect->size.width = clipper->top_left.x + clipper->size.width  - new_content_rect->top_left.x;
                 }
-                else if(left_exceed){
+                if(left_exceed){
                         new_content_rect->size.width = new_content_rect->top_left.x + new_content_rect->size.width  - clipper->top_left.x;
                         new_content_rect->top_left.x = clipper->top_left.x;
                 }
 
                 if(bottom_exceed)
                         new_content_rect->size.height = clipper->top_left.y + clipper->size.height  - new_content_rect->top_left.y;
-                else if(top_exceed){
+                if(top_exceed){
                         new_content_rect->size.height = new_content_rect->top_left.y + new_content_rect->size.height  - clipper->top_left.y;
                         new_content_rect->top_left.y = clipper->top_left.y;
                 }
