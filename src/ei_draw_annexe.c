@@ -65,8 +65,24 @@ ei_linked_point_t * rectangle(int coord_x[], int coord_y[], int border_width){
  * @return      Une couleur de type ei_color_t
  */
 ei_color_t color_variation(ei_frame_t* frame, int variation){
-        ei_color_t new_color = {frame->color.red + variation, frame->color.green + variation,
-                                frame->color.blue + variation, frame->color.alpha};
+        int red;
+        int green;
+        int blue;
+
+        printf("%i\n",frame->color.red + variation);
+        /*if(frame->color.red + variation > 254) red = 254;
+        else if(frame->color.red + variation < 254) red = 0;
+        else */red = frame->color.red + variation;
+
+        /*if(frame->color.green + variation > 254) green = 254;
+        else if(frame->color.green + variation < 254) green = 0;
+        else */green = frame->color.green + variation;
+
+        /*if(frame->color.blue + variation > 254) blue = 254;
+        else if(frame->color.blue + variation < 254) blue = 0;
+        else */blue = frame->color.blue + variation;
+
+        ei_color_t new_color = {red, green, blue, frame->color.alpha};
         return new_color;
 }
 
@@ -82,6 +98,7 @@ ei_color_t color_variation(ei_frame_t* frame, int variation){
 void draw_polygons_relief(ei_widget_t* widget, ei_linked_point_t points[4], ei_surface_t surface) {
         int half_length = widget->screen_location.size.height / 2;
         ei_frame_t* frame = (ei_frame_t*)widget;
+        int border_width = frame->border_width;
         ei_linked_point_t points_sup[5];
         ei_linked_point_t points_inf[5];
         ei_color_t dark_color = color_variation(frame, -30);
@@ -90,14 +107,22 @@ void draw_polygons_relief(ei_widget_t* widget, ei_linked_point_t points[4], ei_s
         while (i != 5) {
                 switch (i) {
                         case 0 :
+                                points_sup[i].point.x = points[i].point.x - border_width;
+                                points_sup[i].point.y = points[i].point.y - border_width;
+                                points_inf[i].point.x = points[i + 1].point.x + border_width;
+                                points_inf[i].point.y = points[i + 1].point.y - border_width;
+                                break;
                         case 1 :
-                                points_sup[i] = points[i];
-                                points_inf[i] = points[i + 1];
+                                points_sup[i].point.x = points[i].point.x + border_width;
+                                points_sup[i].point.y = points[i].point.y - border_width;
+                                points_inf[i].point.x = points[i + 1].point.x + border_width;
+                                points_inf[i].point.y = points[i + 1].point.y + border_width;
                                 break;
                         case 2 :
                                 points_sup[i].point.x = points[i].point.x - half_length;
                                 points_sup[i].point.y = points[i].point.y - half_length;
-                                points_inf[i] = points[i + 1];
+                                points_inf[i].point.x = points[i + 1].point.x - border_width;
+                                points_inf[i].point.y = points[i + 1].point.y + border_width;
                                 break;
                         case 3 :
                                 points_sup[i].point.x = points[i].point.x + half_length;
@@ -106,7 +131,8 @@ void draw_polygons_relief(ei_widget_t* widget, ei_linked_point_t points[4], ei_s
                                 points_inf[i].point.y = points[i].point.y - half_length;
                                 break;
                         case 4 :
-                                points_sup[i] = points[i - 1];
+                                points_sup[i].point.x = points[i - 1].point.x - border_width;
+                                points_sup[i].point.y = points[i - 1].point.y + border_width;
                                 points_inf[i].point.x = points[i - 2].point.x - half_length;
                                 points_inf[i].point.y = points[i - 2].point.y - half_length;
                                 break;
@@ -118,11 +144,11 @@ void draw_polygons_relief(ei_widget_t* widget, ei_linked_point_t points[4], ei_s
                 i++;
         }
         if (frame->relief == ei_relief_raised) {
-                ei_draw_polygon(surface, points_sup, light_color, &(widget->screen_location));
-                ei_draw_polygon(surface, points_inf, dark_color, &(widget->screen_location));
+                ei_draw_polygon(surface, points_sup, light_color, &(widget->parent->screen_location));
+                ei_draw_polygon(surface, points_inf, dark_color, &(widget->parent->screen_location));
         } else { // cad frame->relief == ei_relief_sunken
-                ei_draw_polygon(surface, points_sup, dark_color, &(widget->screen_location));
-                ei_draw_polygon(surface, points_inf, light_color, &(widget->screen_location));
+                ei_draw_polygon(surface, points_sup, dark_color, &(widget->parent->screen_location));
+                ei_draw_polygon(surface, points_inf, light_color, &(widget->parent->screen_location));
         }
 }
 
