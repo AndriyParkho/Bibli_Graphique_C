@@ -24,9 +24,9 @@ void toplevel_drawfunc(ei_widget_t        *widget,
         ei_toplevel_t *toplevel = (ei_toplevel_t *) widget;
         // On place d'abord la title bar
         ei_button_t * title_bar = toplevel->title_bar;
-        ei_anchor_t     title_bar_anc           = ei_anc_southwest;
+        ei_anchor_t     title_bar_anc           = ei_anc_northwest;
         int             title_bar_x             =  - toplevel->frame.border_width;
-        int             title_bar_y             =  - title_bar->frame.widget.requested_size.height;
+        int             title_bar_y             =  0;
         float           title_bar_rel_x         = 0.0;
         float           title_bar_rel_y         = 0.0;
         float           title_bar_rel_width     = 1.0;
@@ -52,7 +52,7 @@ void toplevel_drawfunc(ei_widget_t        *widget,
         ei_place(resize_button, &resize_button_anc, &resize_button_x, &resize_button_y, NULL, NULL,
                                         &resize_button_rel_x, &resize_button_rel_y, NULL, NULL);
 
-        toplevel->frame.widget.wclass->drawfunc(toplevel, surface, pick_surface, clipper);
+        frame_drawfunc(toplevel, surface, pick_surface, clipper);
         title_bar->frame.widget.wclass->drawfunc(title_bar, surface, pick_surface, clipper);
         close_button->frame.widget.wclass->drawfunc(close_button, surface, pick_surface, title_bar->frame.widget.content_rect);
 
@@ -132,7 +132,7 @@ void ei_toplevel_setdefaultsfunc(ei_toplevel_t* toplevel) {
         ei_button_configure(close_button, NULL, &close_color, &close_border_width, &close_button_radius, &close_button_relief,
                                 &text_close, NULL, &close_text_color, &text_close_anc, NULL, NULL, NULL, NULL, NULL);
         // On change la taille ici car dépend du rayon
-        close_button->frame.widget.requested_size = ei_size(toplevel->close_button->corner_radius * 2, toplevel->close_button->corner_radius * 2);
+        close_button->frame.widget.requested_size = ei_size(close_button->corner_radius * 2, close_button->corner_radius * 2);
         toplevel->close_button = close_button;
 
         toplevel->window_resizable = ei_axis_both;

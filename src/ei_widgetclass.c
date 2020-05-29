@@ -10,6 +10,7 @@
 #include <ei_widgetclass_parcours.h>
 #include <stdlib.h>
 #include "ei_widget_button.h"
+#include "ei_widget_toplevel.h"
 
 
 /**
@@ -143,7 +144,15 @@ void			ei_button_register_class 	(){
  *		\ref ei_toplevel_configure.
  */
 void			ei_toplevel_register_class 	(void){
-        
+        ei_widgetclass_t *toplevel = malloc(sizeof(ei_widgetclass_t));
+        strcpy(toplevel->name, "toplevel");
+        toplevel->allocfunc = &ei_toplevel_allocfunc;
+        toplevel->releasefunc = (ei_widgetclass_releasefunc_t) &ei_toplevel_releasefunc;
+        toplevel->drawfunc = (ei_widgetclass_drawfunc_t) &toplevel_drawfunc;
+        toplevel->setdefaultsfunc = &ei_toplevel_setdefaultsfunc;
+        toplevel->geomnotifyfunc = NULL; // En attendant de comprendre à quoi sert &toplevel_geomnotifyfunc;
+        toplevel->next = NULL;
+        ei_widgetclass_register(toplevel);
 }
 
 

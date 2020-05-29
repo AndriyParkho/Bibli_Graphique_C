@@ -79,7 +79,7 @@ int main(int argc, char** argv)
 
         ei_app_run();
 
-	ei_unbind(ei_ev_keydown, NULL, "all", process_key, NULL);
+	// ei_unbind(ei_ev_keydown, NULL, "all", process_key, NULL);
 
 	ei_app_free();
 
