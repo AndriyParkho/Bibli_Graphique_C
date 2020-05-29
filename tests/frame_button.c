@@ -28,7 +28,7 @@ ei_bool_t button_press(ei_widget_t* widget, ei_event_t* event, void* user_param)
                            NULL, NULL, NULL, NULL, NULL, NULL,
                            NULL, NULL, NULL);
         ei_button_configure(widget, NULL, &button_new_color,
-                            NULL, NULL, NULL, &button_new_title, ei_default_font, &button_text_color, NULL,
+                            NULL, NULL, NULL, &button_new_title, NULL, &button_text_color, NULL,
                             NULL, NULL, NULL, NULL, NULL);
 
         return EI_TRUE;
