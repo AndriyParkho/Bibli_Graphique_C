@@ -15,7 +15,7 @@
 typedef struct {
     ei_geometrymanager_t* manager;
 
-    //ei_widget_t widget ??
+
     ei_anchor_t anchor;
     int         x;
     int         y;

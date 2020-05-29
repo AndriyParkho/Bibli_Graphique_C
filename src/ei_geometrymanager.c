@@ -158,7 +158,7 @@ void			ei_place			(ei_widget_t*		widget,
         if (widget->geom_params) {
                 if (strcmp(widget->geom_params->manager->name, "placer") != 0) {
                         widget->geom_params->manager->releasefunc(widget);
-                        placer = malloc(sizeof(ei_placer_param_t));
+                        placer = calloc(1, sizeof(ei_placer_param_t));
                         placer->manager = geometrymanager;
                         widget->geom_params = (ei_geometry_param_t *)placer;
                 }
@@ -166,7 +166,7 @@ void			ei_place			(ei_widget_t*		widget,
                         placer = (ei_placer_param_t *)widget->geom_params;
                 }
         else {
-                placer = malloc(sizeof(ei_placer_param_t));
+                placer = calloc(1, sizeof(ei_placer_param_t));
                 placer->manager = geometrymanager;
                 widget->geom_params = (ei_geometry_param_t *)placer;
         }
@@ -180,7 +180,13 @@ void			ei_place			(ei_widget_t*		widget,
         if (y) placer->y = *y;
         else placer->y = 0;
 
-        if (width) placer->width = *width;
+        if (width) {
+                placer->width = *width;
+                if (rel_width)
+                        placer->rel_width = *rel_width;
+                else
+                        placer->rel_width = 0.0;
+        }
         else if (rel_width) {
                 placer->width = 0;
                 placer->rel_width = *rel_width;
@@ -190,7 +196,13 @@ void			ei_place			(ei_widget_t*		widget,
                 placer->rel_width = (float)0.0;
         }
 
-        if (height) placer->height = *height;
+        if (height) {
+                placer->height = *height;
+                if (rel_height)
+                        placer->rel_height = *rel_height;
+                else
+                        placer->rel_height = 0.0;
+        }
         else if (rel_height) {
                 placer->height = 0;
                 placer->rel_height = *rel_height;

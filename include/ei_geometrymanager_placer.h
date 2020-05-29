@@ -32,4 +32,14 @@ void placer_runfunc(ei_widget_t* widget);
  */
 void placer_releasefunc(ei_widget_t* widget);
 
+/**
+ * \brief	Fonction qui permet de calculer le point top_left d'un rectangle selon l'ancre du widget
+ *
+ * @param	widget		Le widget dont il faut déterminier le point top_left
+ * @param       anchor          L'ancre du widget (par défaut ei_anc_northwest)
+ * @param       point           Le point dont il faut modifier les coordonées pour obtenir le point top_left
+ */
+ei_point_t anchor_to_topleft(ei_widget_t * widget, ei_anchor_t anchor, ei_point_t point);
+
+
 #endif

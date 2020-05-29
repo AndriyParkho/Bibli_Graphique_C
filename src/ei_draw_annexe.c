@@ -306,6 +306,6 @@ ei_linked_point_t* rounded_frame_bas(ei_rect_t rect, int r) {
 }
 
 
-ei_linked_point_t* delete_points(ei_linked_point_t** list, ei_rect_t* clipper){
+void delete_points(ei_linked_point_t** list, ei_rect_t* clipper){
 
 }

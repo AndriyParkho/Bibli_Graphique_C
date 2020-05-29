@@ -11,6 +11,7 @@ Fonction pour implémenter les widget
 #include <assert.h>
 #include "ei_application.h"
 #include "ei_draw_annexe.h"
+#include "ei_utils.h"
 
 struct ei_geometry_param_t;
 struct ei_event_t;
@@ -192,6 +193,15 @@ void			ei_frame_configure		(ei_widget_t*		widget,
         ei_frame_t* frame = (ei_frame_t*)widget;
 
         if (requested_size) frame->widget.requested_size = *requested_size;
+        else if (text) {
+                int* text_width = malloc(sizeof(int));
+                int* text_height = malloc(sizeof(int));
+                hw_text_compute_size(text, text_font, text_width, text_height);
+                frame->widget.requested_size = ei_size_add(ei_size(text_width, text_height), ei_size(10, 10));
+        }
+        else if (img){
+                frame->widget.requested_size = (*img_rect)->size;
+        }
         //ei_rect_t screen_location = {(0,0),requested_size};
         //frame->widget.screen_location = screen_location;
         if (color) frame->color = *color;
