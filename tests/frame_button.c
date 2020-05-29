@@ -75,7 +75,7 @@ int main(int argc, char** argv)
         int             frame_x                 = 100;
         int             frame_y                 = 100;
         ei_color_t      frame_color             = {0x00, 0x00, 0xff, 0xff};
-        ei_relief_t     frame_relief            = ei_relief_raised;
+        ei_relief_t     frame_relief            = ei_relief_none;
         int             frame_border_width      = 5;
 
         ei_widget_t*	button;
@@ -83,7 +83,7 @@ int main(int argc, char** argv)
         ei_anchor_t     button_anchor           = ei_anc_southeast;
         float           button_rel_x            = 1.0;
         float           button_rel_y            = 1.0;
-        int		button_x		= -20;
+        int		button_x		= 20;
         int		button_y		= -20;
         ei_color_t	button_color		= {0xff, 0x00, 0x00, 0xff};
         char*		button_title		= "Rouge";

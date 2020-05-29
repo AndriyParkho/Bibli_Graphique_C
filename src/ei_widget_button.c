@@ -25,16 +25,18 @@ void button_drawfunc(ei_widget_t        *widget,
         ei_linked_point_t* points;
         ei_color_t dark_color = color_variation(frame, -30);
         ei_color_t light_color = color_variation(frame, 30);
+        ei_color_t black = {0x00, 0x00, 0x00, 0xff};
 
         ei_rect_t new_rect;
 
+        new_rect = widget->screen_location;
+        new_rect.top_left.x -= button->frame.border_width;
+        new_rect.top_left.y -= button->frame.border_width;
+        new_rect.size.width += 2 * button->frame.border_width;
+        new_rect.size.height += 2 * button->frame.border_width;
+
         hw_surface_lock(surface);
         if (button->frame.relief != ei_relief_none) {
-                new_rect = widget->screen_location;
-                new_rect.top_left.x -= button->frame.border_width;
-                new_rect.top_left.y -= button->frame.border_width;
-                new_rect.size.width += 2 * button->frame.border_width;
-                new_rect.size.height += 2 * button->frame.border_width;
 
                 if (button->frame.relief == ei_relief_sunken) {
                         //Partie haute
@@ -59,8 +61,12 @@ void button_drawfunc(ei_widget_t        *widget,
                 }
         }
         //Totalité
-        points = rounded_frame(widget->screen_location, button->corner_radius,0);
-        ei_draw_polygon(surface, points, button->frame.color, clipper);
+        else {
+                points = rounded_frame(new_rect, button->corner_radius, 0);
+                ei_draw_polygon(surface, points, black, clipper);
+        }
+        points = rounded_frame(widget->screen_location, button->corner_radius, 0);
+        ei_draw_polygon(surface, points, frame->color, clipper);
         hw_surface_lock(pick_surface);
         ei_draw_polygon(pick_surface, points, *widget->pick_color, clipper);
         hw_surface_unlock(pick_surface);
