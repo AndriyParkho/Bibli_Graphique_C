@@ -51,10 +51,19 @@ void ei_app_run(void) {
                                         if (e_cour->eventtype == ei_ev_mouse_buttondown) {
                                                 ei_widget_t* ev_widget = ei_widget_pick(&event.param.mouse.where);
                                                 if (ev_widget == a_cour->action.widget) {
-                                                        a_cour->action.callback(ev_widget, &event, a_cour->action.user_param);
                                                         if (strcmp(ev_widget->wclass->name,"button")==0) {
                                                                 button = (ei_button_t*)ev_widget;
-                                                                button->frame.relief = ei_relief_sunken;
+                                                                if (button->frame.relief == ei_relief_raised) {
+                                                                        button->frame.relief = ei_relief_sunken;
+                                                                        a_cour->action.callback(ev_widget, &event,
+                                                                                                a_cour->action.user_param);
+                                                                }
+                                                                else {
+                                                                        button = NULL;
+                                                                }
+                                                        }
+                                                        else {
+                                                                a_cour->action.callback(ev_widget, &event, a_cour->action.user_param);
                                                         }
                                                 }
                                         }
