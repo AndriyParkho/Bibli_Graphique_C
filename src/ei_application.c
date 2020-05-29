@@ -37,9 +37,9 @@ void ei_app_run(void) {
         ei_linked_event_t* e_cour;
         ei_linked_action_t* a_cour;
         ei_button_t* button = NULL;
+
         event.type = ei_ev_none;
         while (!quit) {
-                // ei_parcours_profondeur_widget(frame_root_widget, root_widget);
                 frame_root_widget->wclass->drawfunc(ei_app_root_widget(), ei_app_root_surface(), get_root_offscreen(), frame_root_widget->content_rect);
                 hw_surface_update_rects(ei_app_root_surface(), NULL);
                 hw_event_wait_next(&event);
@@ -54,8 +54,8 @@ void ei_app_run(void) {
                                                         if (strcmp(ev_widget->wclass->name,"button")==0) {
                                                                 button = (ei_button_t*)ev_widget;
                                                                 if (button->frame.relief == ei_relief_raised) {
-                                                                        a_cour->action.callback(ev_widget, &event,
-                                                                                                a_cour->action.user_param);
+                                                                        //a_cour->action.callback(ev_widget, &event,
+//                                                                                                a_cour->action.user_param);
                                                                         button->frame.relief = ei_relief_sunken;
                                                                 }
                                                                 else {
@@ -79,12 +79,23 @@ void ei_app_run(void) {
                         int x = event.param.mouse.where.x;
                         int y = event.param.mouse.where.y;
                         ei_rect_t screen_location = button->frame.widget.screen_location;
-                        if (event.type==ei_ev_mouse_buttonup || (x < screen_location.top_left.x ||
-                                                                 x > screen_location.top_left.x + screen_location.size.width ||
-                                                                 y < screen_location.top_left.y ||
-                                                                 y > screen_location.top_left.y + screen_location.size.height)) {
+
+                        if (x < screen_location.top_left.x ||
+                            x > screen_location.top_left.x + screen_location.size.width ||
+                            y < screen_location.top_left.y ||
+                            y > screen_location.top_left.y + screen_location.size.height) {
                                 button->frame.relief = ei_relief_raised;
-                                button = NULL;
+                                if (event.type==ei_ev_mouse_buttonup) {
+                                        button = NULL;
+                                }
+                        }
+                        else {
+                                button->frame.relief = ei_relief_sunken;
+                                if (event.type==ei_ev_mouse_buttonup) {
+                                        button->callback(button, &event, button->user_param);
+                                        button->frame.relief = ei_relief_raised;
+                                        button = NULL;
+                                }
                         }
                 }
         }

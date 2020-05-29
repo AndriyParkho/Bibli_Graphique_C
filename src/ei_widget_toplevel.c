@@ -50,6 +50,7 @@ void ei_toplevel_releasefunc(ei_toplevel_t* toplevel) {
  *
  * @param	widget		A pointer to the widget instance to initialize.
  */
+ /*
 void ei_toplevel_setdefaultsfunc(ei_toplevel_t* toplevel) {
         ei_size_t default_size = {320,240};
         ei_size_t min_default_size = {160, 120};
@@ -65,7 +66,7 @@ void ei_toplevel_setdefaultsfunc(ei_toplevel_t* toplevel) {
         toplevel->close_button->frame.relief = ei_relief_none;
         toplevel->close_button->frame.border_width = 0;
         toplevel->close_button->corner_radius = 10;
-        toplevel->close_button->frame.widget.requested_size = ei_size_t(toplevel->close_button->corner_radius * 2, toplevel->close_button->corner_radius * 2);
+        toplevel->close_button->frame.widget.requested_size = ei_size(toplevel->close_button->corner_radius * 2, toplevel->close_button->corner_radius * 2);
         toplevel->close_button->frame.text = "X";
         toplevel->close_button->frame.text_color = ei_color_t(0x00, 0x00, 0x00, 0xff);
 
@@ -73,7 +74,7 @@ void ei_toplevel_setdefaultsfunc(ei_toplevel_t* toplevel) {
 
         toplevel->min_size = &min_default_size;
 }
-
+*/
 /**
  * \brief 	A function that is called to notify the widget that its geometry has been modified
  *		by its geometry manager. Can set to NULL in \ref ei_widgetclass_t.
