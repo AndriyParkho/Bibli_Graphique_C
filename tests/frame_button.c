@@ -83,8 +83,8 @@ int main(int argc, char** argv)
         ei_anchor_t     button_anchor           = ei_anc_southeast;
         float           button_rel_x            = 1.0;
         float           button_rel_y            = 1.0;
-        int		button_x		= 30;
-        int		button_y		= -10;
+        int		button_x		= -20;
+        int		button_y		= -20;
         ei_color_t	button_color		= {0xff, 0x00, 0x00, 0xff};
         char*		button_title		= "Rouge";
         ei_color_t	button_text_color	= {0x00, 0x00, 0x00, 0xff};
@@ -92,6 +92,21 @@ int main(int argc, char** argv)
         ei_relief_t	button_relief		= ei_relief_raised;
         int		button_border_width	= 6;
         ei_callback_t	button_callback 	= button_press;
+
+        // Verification si la bordure du boutton est bien prise en compte avec un autre boutton
+        /*ei_widget_t*	button_bis;
+        ei_size_t	button_bis_size		= {100,50};
+        ei_anchor_t     button_bis_anchor           = ei_anc_southeast;
+        float           button_bis_rel_x            = 1.0;
+        float           button_bis_rel_y            = 1.0;
+        int		button_bis_x		= 30;
+        int		button_bis_y		= 20;
+        ei_color_t	button_bis_color		= {0x00, 0xff, 0x00, 0xff};
+        char*		button_bis_title		= "Rouge";
+        ei_color_t	button_bis_text_color	= {0x00, 0x00, 0x00, 0xff};
+        int		button_bis_corner_radius	= 20;
+        ei_relief_t	button_bis_relief		= ei_relief_raised;
+        int		button_bis_border_width	= 6;*/
 
         /* Create the application and change the color of the background. */
         ei_app_create(screen_size, EI_FALSE);
@@ -111,6 +126,14 @@ int main(int argc, char** argv)
                                     &button_border_width, &button_corner_radius, &button_relief, &button_title, NULL, &button_text_color, NULL,
                                     NULL, NULL, NULL, &button_callback, NULL);
         ei_place(button, &button_anchor, &button_x, &button_y, NULL, NULL, &button_rel_x, &button_rel_y, NULL, NULL );
+
+        /* Create a button in the other button */
+       /* button_bis = ei_widget_create("button", button, NULL, NULL);
+        ei_button_configure	(button_bis, &button_bis_size, &button_bis_color,
+                                    &button_bis_border_width, &button_bis_corner_radius, &button_bis_relief, &button_bis_title, NULL, &button_bis_text_color, NULL,
+                                    NULL, NULL, NULL, NULL, NULL);
+        ei_place(button_bis, &button_bis_anchor, &button_bis_x, &button_bis_y, NULL, NULL, &button_bis_rel_x, &button_bis_rel_y, NULL, NULL );*/
+
 
         /* Hook the keypress callback to the event. */
         ei_bind(ei_ev_keydown,		NULL, "all", process_key, NULL);
