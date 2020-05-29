@@ -28,7 +28,7 @@ void frame_drawfunc(ei_widget_t        *widget,
         hw_surface_lock(surface);
         // draw the polygon
         if (frame->relief != ei_relief_none) {
-                draw_polygons_relief(widget, points, surface);
+                draw_polygons_relief(widget, points, surface); // Calcul et affiche les deux polygones pour créer un effet de relief
         } else {
                 points = rectangle(coord_x,coord_y,-frame->border_width);
                 ei_draw_polygon(surface, points, border_color, clipper);

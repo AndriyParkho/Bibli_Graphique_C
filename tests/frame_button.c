@@ -15,7 +15,6 @@
  */
 ei_bool_t button_press(ei_widget_t* widget, ei_event_t* event, void* user_param)
 {
-        /*
         printf("Click !\n");
 
         ei_color_t      frame_new_color         = {0xff, 0x00, 0x00, 0xff};
@@ -31,7 +30,6 @@ ei_bool_t button_press(ei_widget_t* widget, ei_event_t* event, void* user_param)
         ei_button_configure(widget, NULL, &button_new_color,
                             NULL, NULL, NULL, &button_new_title, NULL, &button_text_color, NULL,
                             NULL, NULL, NULL, NULL, NULL);
-*/
         ei_widget_destroy(widget->parent->parent->children_tail);
         return EI_TRUE;
 }
@@ -45,7 +43,6 @@ ei_bool_t deplace_widget(ei_widget_t* widget, ei_event_t* event, void* user_para
 ei_bool_t relache_widget(ei_widget_t* widget, ei_event_t* event, void* user_param) {
         ei_unbind(ei_ev_mouse_move, widget, NULL, deplace_widget, user_param);
         ei_unbind(ei_ev_mouse_buttonup, widget, NULL, relache_widget, user_param);
-        printf("Stop\n");
         return EI_TRUE;
 }
 
@@ -66,16 +63,6 @@ ei_bool_t process_key(ei_widget_t* widget, ei_event_t* event, void* user_param)
 {
         if (event->param.key.key_code == SDLK_ESCAPE) {
                 ei_app_quit_request();
-                return EI_TRUE;
-        }
-
-        return EI_FALSE;
-}
-
-ei_bool_t coucou(ei_widget_t* widget, ei_event_t* event, void* user_param)
-{
-        if (event->param.key.key_code == SDLK_ESCAPE) {
-                printf("Coucou\n");
                 return EI_TRUE;
         }
 
@@ -179,8 +166,6 @@ int main(int argc, char** argv)
         ei_bind(ei_ev_keydown,		NULL, "all", process_key, NULL);
         ei_bind(ei_ev_mouse_buttondown, frame2, NULL, commence_deplace_widget, NULL);
 
-        printf("%d\n",deplace_widget==deplace_widget);
-        printf("%d\n",deplace_widget==commence_deplace_widget);
         /* Run the application's main loop. */
         ei_app_run();
 
