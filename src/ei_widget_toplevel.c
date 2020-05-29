@@ -6,6 +6,7 @@
  */
 
 #include "ei_widget_toplevel.h"
+#include "ei_event.h"
 
 /**
  * \brief	A function that draws toplevel.
@@ -89,6 +90,11 @@ void ei_toplevel_releasefunc(ei_toplevel_t* toplevel) {
         free(toplevel);
 }
 
+ei_bool_t fermerToplevel(ei_widget_t* widget, ei_event_t* event, void* user_param) {
+        ei_widget_destroy(widget->parent->parent);
+        return EI_TRUE;
+}
+
 /**
  * \brief	A function that sets the default values for a class.
  *
@@ -120,7 +126,7 @@ void ei_toplevel_setdefaultsfunc(ei_toplevel_t* toplevel) {
 
         toplevel->closable = EI_TRUE;
         // On créer le bouton de fermeture
-        ei_button_t * close_button = ei_widget_create("button", title_bar, NULL, NULL);
+        ei_button_t * close_button = ei_widget_create("button", (ei_widget_t*)title_bar, NULL, NULL);
         // On initialise les paramètres du bouton de fermeture
         ei_color_t      close_color             = {0xff, 0x00, 0x00, 0xff};
         char*           text_close              = "X";
@@ -128,9 +134,9 @@ void ei_toplevel_setdefaultsfunc(ei_toplevel_t* toplevel) {
         ei_anchor_t     text_close_anc          = ei_anc_northwest;
         int             close_border_width      = 0;
         int             close_button_radius     = 10;
-        ei_relief_t     close_button_relief     = ei_relief_none;
+        ei_relief_t     close_button_relief     = ei_relief_raised;
         ei_button_configure(close_button, NULL, &close_color, &close_border_width, &close_button_radius, &close_button_relief,
-                                &text_close, NULL, &close_text_color, &text_close_anc, NULL, NULL, NULL, NULL, NULL);
+                                &text_close, NULL, &close_text_color, &text_close_anc, NULL, NULL, NULL, fermerToplevel, NULL);
         // On change la taille ici car dépend du rayon
         close_button->frame.widget.requested_size = ei_size(close_button->corner_radius * 2, close_button->corner_radius * 2);
         toplevel->close_button = close_button;

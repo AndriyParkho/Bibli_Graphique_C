@@ -55,8 +55,6 @@ void ei_app_run(void) {
                                                         if (strcmp(ev_widget->wclass->name,"button")==0) {
                                                                 button = (ei_button_t*)ev_widget;
                                                                 if (button->frame.relief == ei_relief_raised) {
-                                                                        //a_cour->action.callback(ev_widget, &event,
-//                                                                                                a_cour->action.user_param);
                                                                         button->frame.relief = ei_relief_sunken;
                                                                 }
                                                                 else {

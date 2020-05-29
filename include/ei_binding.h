@@ -51,4 +51,10 @@ void insere_action(ei_linked_action_t** l_action,
                    ei_callback_t		callback,
                    void*			user_param);
 
+ei_bool_t meme_action(ei_linked_action_t* action,
+                      ei_widget_t*		  widget,
+                      ei_tag_t		      tag,
+                      ei_callback_t		  callback,
+                      void*			      user_param);
+
 #endif //PROJETC_IG_EI_BINDING_H

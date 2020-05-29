@@ -36,6 +36,26 @@ ei_bool_t button_press(ei_widget_t* widget, ei_event_t* event, void* user_param)
         return EI_TRUE;
 }
 
+ei_bool_t deplace_widget(ei_widget_t* widget, ei_event_t* event, void* user_param) {
+        widget->screen_location.top_left.x = event->param.mouse.where.x;
+        widget->screen_location.top_left.y = event->param.mouse.where.y;
+        return EI_TRUE;
+}
+
+ei_bool_t relache_widget(ei_widget_t* widget, ei_event_t* event, void* user_param) {
+        ei_unbind(ei_ev_mouse_move, widget, NULL, deplace_widget, user_param);
+        ei_unbind(ei_ev_mouse_buttonup, widget, NULL, relache_widget, user_param);
+        printf("Stop\n");
+        return EI_TRUE;
+}
+
+ei_bool_t commence_deplace_widget(ei_widget_t* widget, ei_event_t* event, void* user_param) {
+        ei_bind(ei_ev_mouse_move, widget, NULL, deplace_widget, user_param);
+        ei_bind(ei_ev_mouse_buttonup, widget, NULL, relache_widget, user_param);
+        return EI_TRUE;
+}
+
+
 /*
  * process_key --
  *
@@ -157,7 +177,10 @@ int main(int argc, char** argv)
 
         /* Hook the keypress callback to the event. */
         ei_bind(ei_ev_keydown,		NULL, "all", process_key, NULL);
+        ei_bind(ei_ev_mouse_buttondown, frame2, NULL, commence_deplace_widget, NULL);
 
+        printf("%d\n",deplace_widget==deplace_widget);
+        printf("%d\n",deplace_widget==commence_deplace_widget);
         /* Run the application's main loop. */
         ei_app_run();
 
