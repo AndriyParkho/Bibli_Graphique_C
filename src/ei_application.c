@@ -36,7 +36,7 @@ void ei_app_run(void) {
         ei_event_t event;
         ei_linked_event_t* e_cour;
         ei_linked_action_t* a_cour;
-        ei_button_t* button = NULL;
+        ei_button_t* button = NULL; //Nous dit si un bouton est en attente ou non
 
         event.type = ei_ev_none;
         while (!quit) {
