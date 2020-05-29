@@ -251,7 +251,7 @@ void			ei_button_configure		(ei_widget_t*		widget,
         if (corner_radius) button->corner_radius = *corner_radius;
         if (callback) button->callback = *callback;
         if (user_param) button->user_param = *user_param;
-        if (button->callback) {
+        if (callback) {
                 ei_bind(ei_ev_mouse_buttondown, button, NULL, button->callback, button->user_param);
         }
 }
