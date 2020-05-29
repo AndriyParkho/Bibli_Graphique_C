@@ -23,8 +23,8 @@ void button_drawfunc(ei_widget_t        *widget,
         ei_frame_t* frame = (ei_frame_t*)widget;
         ei_button_t* button = (ei_button_t*)widget;
         ei_linked_point_t* points;
-        ei_color_t dark_color = color_variation(frame, -30);
-        ei_color_t light_color = color_variation(frame, 30);
+        ei_color_t dark_color = color_variation(frame, -20);
+        ei_color_t light_color = color_variation(frame, 20);
         ei_color_t black = {0x00, 0x00, 0x00, 0xff};
 
         ei_rect_t new_rect;
