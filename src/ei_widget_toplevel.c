@@ -57,9 +57,17 @@ void ei_toplevel_setdefaultsfunc(ei_toplevel_t* toplevel) {
         toplevel->frame.widget.requested_size = default_size;
         toplevel->frame.border_width = 4;
 
-        frame_setdefaultsfunc(&toplevel->title_bar);
-        strcpy(toplevel->title_bar.text, "TopLevel");
+        button_setdefaultsfunc(toplevel->title_bar);
+        strcpy(toplevel->title_bar->frame.text, "TopLevel");
+
         toplevel->closable = EI_TRUE;
+        frame_setdefaultsfunc(&(toplevel->close_button->frame.widget));
+        toplevel->close_button->frame.relief = ei_relief_none;
+        toplevel->close_button->frame.border_width = 0;
+        toplevel->close_button->corner_radius = 10;
+        toplevel->close_button->frame.widget.requested_size = ei_size_t(toplevel->close_button->corner_radius * 2, toplevel->close_button->corner_radius * 2);
+        toplevel->close_button->frame.text = "X";
+        toplevel->close_button->frame.text_color = ei_color_t(0x00, 0x00, 0x00, 0xff);
 
         toplevel->window_resizable = ei_axis_both;
 
