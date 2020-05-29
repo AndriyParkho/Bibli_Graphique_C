@@ -1,7 +1,9 @@
-//
-// Created by Enora on 26/05/2020.
-//
-
+/**
+ * @file ei_draw_annexe.h
+ * @brief Fonctions servant à gérer la liste des eventtype associés à leurs traitants
+ *
+ * \author Created by Equipe 5 on 26.05.2020.
+ */
 #ifndef PROJETC_IG_EI_BINDING_H
 #define PROJETC_IG_EI_BINDING_H
 
