@@ -28,8 +28,8 @@ void frame_drawfunc(ei_widget_t        *widget,
         // draw the polygon
         if (frame->relief != ei_relief_none) {
                 draw_polygons_relief(widget, points, surface);
-                free(points);
-                points = rectangle(coord_x, coord_y, frame->border_width);
+                /*free(points);
+                points = rectangle(coord_x, coord_y, frame->border_width);*/
         }
         ei_draw_polygon(surface, points, frame->color, &(widget->screen_location));
         hw_surface_lock(pick_surface);
