@@ -57,28 +57,37 @@ void ei_toplevel_setdefaultsfunc(ei_toplevel_t* toplevel) {
         toplevel->frame.widget.requested_size = default_size;
         toplevel->frame.border_width = 4;
 
-        // On initialise la title bar
-        ei_button_t * title_bar = toplevel->title_bar;
-        button_setdefaultsfunc(toplevel->title_bar);
-        strcpy(title_bar->frame.text, "TopLevel");
+        // On créer la title bar
+        ei_button_t * title_bar = ei_widget_create("button", NULL, NULL, NULL);
+        // On initialise les paramètres du bouton de fermeture
+        ei_size_t       title_bar_size          = {default_size.width, 30};
+        ei_color_t      title_bar_color         = {0x69, 0x69, 0x76, 0xff};
+        char*           title_bar_text          = "TopLevel";
+        ei_color_t      title_color             = {0x00, 0x00, 0x00, 0xff};
+        ei_anchor_t     title_anc               = ei_anc_northwest;
+        int             title_bar_border        = 0;
+        int             title_bar_radius        = 15;
+        ei_relief_t     title_bar_relief        = ei_relief_none;
+        ei_button_configure(title_bar, &title_bar_size, &title_bar_color, &title_bar_border, &title_bar_radius, &title_bar_relief
+                                &title_bar_text, NULL, &title_color, &title_anc, NULL, NULL, NULL, NULL, NULL);
+
+
 
         toplevel->closable = EI_TRUE;
-        // On initialise le bouton de fermeture
-        ei_button_t * close_button = toplevel->close_button;
-        button_setdefaultsfunc(&(close_button->frame.widget));
-        // On change les paramètres liés au type frame
-        close_button->frame.relief = ei_relief_none;
-        close_button->frame.border_width = 0;
+        // On créer le bouton de fermeture
+        ei_button_t * close_button = ei_widget_create("button", title_bar, NULL, NULL);
+        // On initialise les paramètres du bouton de fermeture
+        ei_color_t      close_color             = {0xff, 0x00, 0x00, 0xff};
+        char*           text_close              = "X";
+        ei_color_t      close_text_color        = {0x00, 0x00, 0x00, 0xff};
+        ei_anchor_t     text_close_anc          = ei_anc_northwest;
+        int             close_border_width      = 0;
+        int             close_button_radius     = 10;
+        ei_relief_t     close_button_relief     = ei_relief_none;
+        ei_button_configure(close_button, NULL, &close_color, &close_border_width, &close_button_radius, &close_button_relief,
+                                &text_close, NULL, &close_text_color, &text_close_anc, NULL, NULL, NULL, NULL, NULL);
+        // On change la taille ici car dépend du rayon
         close_button->frame.widget.requested_size = ei_size(toplevel->close_button->corner_radius * 2, toplevel->close_button->corner_radius * 2);
-        close_button->frame.text = "X";
-        ei_color_t close_text_color = {0x00, 0x00, 0x00, 0xff};
-        close_button->frame.text_color = close_text_color;
-        close_button->frame.text_anchor = ei_anc_northwest;
-        ei_color_t close_color = {0xff, 0x00, 0x00, 0xff};
-        close_button->frame.color = close_color;
-        // On change les paramètres liés au type bouton
-        close_button->corner_radius = 10;
-        close_button->callback = ei_widget_destroy; // A CHANGER
 
         toplevel->window_resizable = ei_axis_both;
 

@@ -102,8 +102,8 @@ ei_widget_t*		ei_widget_create		(ei_widgetclass_name_t	class_name,
 
         /* Geometry Management */
         new_widget->geom_params = NULL;
-        new_widget->requested_size = parent->requested_size;            // Je sais pas
-        new_widget->screen_location = *(parent->content_rect);          // si ces champs sont
+        if (parent) new_widget->requested_size = parent->requested_size;            // Je sais pas
+        if (parent) new_widget->screen_location = *(parent->content_rect);          // si ces champs sont
         new_widget->content_rect = &(new_widget->screen_location);      //  bien initialisés
         return new_widget;
 }
@@ -246,9 +246,9 @@ void			ei_button_configure		(ei_widget_t*		widget,
                                                                 ei_callback_t*		callback,
                                                                 void**			user_param){
         ei_button_t* button = (ei_button_t*)widget;
+        if (corner_radius) button->corner_radius = *corner_radius;
         ei_frame_configure((ei_widget_t *)&button->frame,requested_size,color,border_width,relief,text,text_font,text_color,
                            text_anchor, img, img_rect, img_anchor);
-        if (corner_radius) button->corner_radius = *corner_radius;
         if (callback) button->callback = *callback;
         if (user_param) button->user_param = *user_param;
         if (callback) {
