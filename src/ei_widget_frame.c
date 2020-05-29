@@ -39,7 +39,7 @@ void frame_drawfunc(ei_widget_t        *widget,
         }
         ei_draw_polygon(surface, points, frame->color, clipper);
         hw_surface_lock(pick_surface);
-        ei_draw_polygon(pick_surface, points, *widget->pick_color, &(widget->screen_location));
+        ei_draw_polygon(pick_surface, points, *widget->pick_color, clipper);
         hw_surface_unlock(pick_surface);
 
         if (frame->text) {
