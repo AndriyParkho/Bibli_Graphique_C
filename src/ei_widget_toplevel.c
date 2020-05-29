@@ -68,7 +68,7 @@ void ei_toplevel_setdefaultsfunc(ei_toplevel_t* toplevel) {
         int             title_bar_border        = 0;
         int             title_bar_radius        = 15;
         ei_relief_t     title_bar_relief        = ei_relief_none;
-        ei_button_configure(title_bar, &title_bar_size, &title_bar_color, &title_bar_border, &title_bar_radius, &title_bar_relief
+        ei_button_configure(title_bar, &title_bar_size, &title_bar_color, &title_bar_border, &title_bar_radius, &title_bar_relief,
                                 &title_bar_text, NULL, &title_color, &title_anc, NULL, NULL, NULL, NULL, NULL);
 
 
