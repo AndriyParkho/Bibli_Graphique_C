@@ -115,7 +115,21 @@ ei_widget_t*		ei_widget_create		(ei_widgetclass_name_t	class_name,
  * @param	widget		The widget that is to be destroyed.
  */
 void			ei_widget_destroy		( ei_widget_t*		widget){
-
+        if (widget->parent->children_head==widget) {
+                widget->parent->children_head = widget->next_sibling;
+                if (widget->parent->children_tail == widget) widget->parent->children_tail = NULL;
+        }
+        else {
+                ei_widget_t* wcour = widget->parent->children_head->next_sibling;
+                ei_widget_t* wpred = widget->parent->children_head;
+                while (wcour->pick_id != widget->pick_id) {
+                        wpred = wcour;
+                        wcour = wcour->next_sibling;
+                }
+                wpred->next_sibling = wcour->next_sibling;
+                if (wcour == widget->parent->children_tail) widget->parent->children_tail = wpred;
+        }
+        widget->wclass->releasefunc(widget);
 }
 
 

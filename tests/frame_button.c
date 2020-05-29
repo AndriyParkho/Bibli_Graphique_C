@@ -15,6 +15,7 @@
  */
 ei_bool_t button_press(ei_widget_t* widget, ei_event_t* event, void* user_param)
 {
+        /*
         printf("Click !\n");
 
         ei_color_t      frame_new_color         = {0xff, 0x00, 0x00, 0xff};
@@ -30,7 +31,8 @@ ei_bool_t button_press(ei_widget_t* widget, ei_event_t* event, void* user_param)
         ei_button_configure(widget, NULL, &button_new_color,
                             NULL, NULL, NULL, &button_new_title, NULL, &button_text_color, NULL,
                             NULL, NULL, NULL, NULL, NULL);
-
+*/
+        ei_widget_destroy(widget->parent);
         return EI_TRUE;
 }
 
@@ -78,6 +80,11 @@ int main(int argc, char** argv)
         ei_relief_t     frame_relief            = ei_relief_none;
         int             frame_border_width      = 5;
 
+        ei_widget_t* frame2;
+        ei_size_t frame_size2 = {50,50};
+        int frame2_x = 0;
+        int frame2_y = 0;
+
         ei_widget_t*	button;
         ei_size_t	button_size		= {200,100};
         ei_anchor_t     button_anchor           = ei_anc_southeast;
@@ -119,6 +126,9 @@ int main(int argc, char** argv)
                            NULL, NULL, NULL);
         ei_place(frame, NULL, &frame_x, &frame_y, NULL, NULL, NULL, NULL, NULL, NULL );
 
+        frame2 = ei_widget_create("frame",ei_app_root_widget(),NULL, NULL);
+        ei_frame_configure(frame2, &frame_size2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+        ei_place(frame2, NULL, &frame2_x, &frame2_y, NULL, NULL, NULL, NULL, NULL, NULL);
 
         /* Create, configure and place the button on screen. */
         button = ei_widget_create("button", frame, NULL, NULL);
