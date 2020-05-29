@@ -65,11 +65,12 @@ ei_linked_point_t * rectangle(int coord_x[], int coord_y[], int border_width){
  * @return      Une couleur de type ei_color_t
  */
 ei_color_t color_variation(ei_frame_t* frame, int variation){
+        /* calcul de la nouvelle valeur des 3 composants de la couleur */
         int red = frame->color.red + variation;
         int green = frame->color.green + variation;
         int blue = frame->color.blue + variation;
-        if(red > 254) red = 254;
-        else if(red < 0) red = 0;
+        if(red > 254) red = 254; // si la valeur depasse 254 on la définit à 254 (pour éviter d'avoir une valeur proche de 0)
+        else if(red < 0) red = 0; // si la valeur descend sous 0 on la définit à O (pour éviter d'avoir une valeur proche de 254)
         else red += variation;
         if(green > 254) green = 254;
         else if(green < 0) green = 0;
