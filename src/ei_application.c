@@ -18,7 +18,6 @@ void ei_app_create(ei_size_t main_window_size, ei_bool_t fullscreen) {
         hw_init();
         root_widget = hw_create_window(main_window_size, fullscreen);
         set_root_offscreen(hw_surface_create(root_widget, main_window_size, EI_TRUE));
-        printf("%d - %d - %d - %d\n", hw_surface_get_size(root_widget).width, hw_surface_get_size(root_widget).height, hw_surface_get_size(get_root_offscreen()).width, hw_surface_get_size(get_root_offscreen()).height);
         ei_register_placer_manager();
         ei_frame_register_class();
         ei_button_register_class();
