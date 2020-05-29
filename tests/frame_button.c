@@ -83,7 +83,7 @@ int main(int argc, char** argv)
         ei_anchor_t     button_anchor           = ei_anc_southeast;
         float           button_rel_x            = 1.0;
         float           button_rel_y            = 1.0;
-        int		button_x		= -10;
+        int		button_x		= 30;
         int		button_y		= -10;
         ei_color_t	button_color		= {0xff, 0x00, 0x00, 0xff};
         char*		button_title		= "Rouge";

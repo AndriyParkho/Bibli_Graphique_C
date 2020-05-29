@@ -33,23 +33,23 @@ void button_drawfunc(ei_widget_t        *widget,
         if (button->frame.relief == ei_relief_sunken) {
                 //Partie haute
                 points = rounded_frame(button->frame.widget.screen_location, button->corner_radius, 2);
-                ei_draw_polygon(surface, points, light_color, &(widget->screen_location));
+                ei_draw_polygon(surface, points, light_color, clipper);
                 free_points(points);
 
                 //Partie basse
                 points = rounded_frame(button->frame.widget.screen_location, button->corner_radius, 1);
-                ei_draw_polygon(surface, points, dark_color, &(widget->screen_location));
+                ei_draw_polygon(surface, points, dark_color, clipper);
                 free_points(points);
         }
         else if (button->frame.relief == ei_relief_raised) {
                 //Partie haute
                 points = rounded_frame(button->frame.widget.screen_location, button->corner_radius, 2);
-                ei_draw_polygon(surface, points, dark_color, &(widget->screen_location));
+                ei_draw_polygon(surface, points, dark_color, clipper);
                 free_points(points);
 
                 //Partie basse
                 points = rounded_frame(button->frame.widget.screen_location, button->corner_radius, 1);
-                ei_draw_polygon(surface, points, light_color, &(widget->screen_location));
+                ei_draw_polygon(surface, points, light_color, clipper);
                 free_points(points);
         }
 
@@ -63,9 +63,9 @@ void button_drawfunc(ei_widget_t        *widget,
         }
         else new_rect = widget->screen_location;
         points = rounded_frame(new_rect, button->corner_radius,0);
-        ei_draw_polygon(surface, points, button->frame.color, &new_rect);
+        ei_draw_polygon(surface, points, button->frame.color, clipper);
         hw_surface_lock(pick_surface);
-        ei_draw_polygon(pick_surface, points, *widget->pick_color, &new_rect);
+        ei_draw_polygon(pick_surface, points, *widget->pick_color, clipper);
         hw_surface_unlock(pick_surface);
         free_points(points);
 
